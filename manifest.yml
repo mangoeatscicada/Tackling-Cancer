@@ -1,0 +1,11 @@
+applications:
+- path: .
+  memory: 128M
+  instances: 1
+  domain: mybluemix.net
+  name: Tackling Cancer
+  host: Tackling-Cancer
+  disk_quota: 1024M
+  services:
+  - Tackling Cancer
+  buildpack: python_buildpack
