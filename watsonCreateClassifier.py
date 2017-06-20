@@ -12,4 +12,6 @@ with open(join(dirname(__file__), "images/extract-automatic/cancer.zip"), 'rb') 
  print(json.dumps(visual_recognition.create_classifier('Cancer', \
     cancer_positive_examples=trainingCancer, \
     blood_positive_examples=trainingBlood, \
-    other_positive_examples=trainingOther), indent=2))
+    other_positive_examples=trainingOther, \
+    cancer_negative_examples=trainingBlood, \
+    blood_negative_examples=trainingCancer), indent=2))
