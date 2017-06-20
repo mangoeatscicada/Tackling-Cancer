@@ -17,7 +17,7 @@ def main(argv):
     visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, api_key='3722ed0d4950e9c3c3c187a471043b264b2de23c')
 
     with open(join(dirname(__file__), argv[0]), 'rb') as image_file:
-        return (json.dumps(visual_recognition.classify(images_file=image_file, threshold=0, classifier_ids=['Cancer_1149092260']), indent=2))
+        return (json.dumps(visual_recognition.classify(images_file=image_file, threshold=0, classifier_ids=['Cancer_1509313240']), indent=2))
 
 if __name__ == "__main__":
     main(sys.argv[1:])
