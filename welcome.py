@@ -39,7 +39,7 @@ def upload_image():
 
         f.save(secure_filename(f.filename))
         with open(join(dirname(__file__), f.filename), 'rb') as image_file:
-            result = json.dumps(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_114909226088']), indent = 2)
+            result = json.dumps(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_1149092260']), indent = 2)
         remove(f.filename)
         return result
         return 'there was a problem sending the file'
