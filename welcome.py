@@ -14,10 +14,11 @@
 
 import json
 from os.path import join, dirname
-from os import environ, getenv
+from os import environ, getenv, listdir, remove
 from watson_developer_cloud import VisualRecognitionV3  
 from flask import Flask, render_template, request
 from werkzeug import secure_filename
+import watsonClassify
 
 app = Flask(__name__)
 
@@ -35,12 +36,14 @@ def upload_file():
 def upload_image():
     if request.method == 'POST':
         f = request.files['file']
-        print f
+
         f.save(secure_filename(f.filename))
         with open(join(dirname(__file__), f.filename), 'rb') as image_file:
-            result = json.dumps(visual_recognition.classify(images_file = image_file, classifier_ids=['Cancer_756185088']), indent = 2)
-            return result
+            result = json.dumps(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_756185088']), indent = 2)
+        remove(f.filename)
+        return result
         return 'there was a problem sending the file'
+        #watsonClassify.main(secure_filename(f.filename))
 
 @app.route('/myapp')
 def WelcomeToMyapp():
