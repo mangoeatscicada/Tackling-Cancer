@@ -22,7 +22,7 @@ def classifyImage(path, authentication):
 def main(argv):
     imageList = []
 
-    zipFile = zipfile.ZipFile(argv[0])
+    zipFile = zipfile.ZipFile(argv)
 
     zipFile.extractall("tmp")
 
@@ -33,11 +33,11 @@ def main(argv):
     # authentication
     visual_recognition = VisualRecognitionV3( \
         VisualRecognitionV3.latest_version, \
-        api_key='3722ed0d4950e9c3c3c187a471043b264b2de23c')
+        api_key='c8be440798e52325714997d9f7f3f0407e38d57d')
 
     # read data to classify
     for tmpDir in  os.listdir(images):
-        if tmpDir in argv[0]:
+        if tmpDir in argv:
             for image_file in os.listdir(images+tmpDir):
                 p = classifyImage(images+tmpDir+"/"+image_file, visual_recognition)
                 imageList.append(p)
@@ -51,4 +51,4 @@ def main(argv):
     return imageList
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main(sys.argv[1])

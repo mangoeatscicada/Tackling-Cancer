@@ -19,6 +19,7 @@ from watson_developer_cloud import VisualRecognitionV3
 from flask import Flask, render_template, request, send_from_directory, redirect, url_for
 from werkzeug import secure_filename
 #import watsonClassify
+import watsonClassifyZip
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'zip'])
@@ -26,7 +27,7 @@ ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'zip'])
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, api_key="3722ed0d4950e9c3c3c187a471043b264b2de23c")
+visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, api_key="c8be440798e52325714997d9f7f3f0407e38d57d")
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -49,9 +50,16 @@ def upload_image():
         with open(join(dirname(__file__), f.filename), 'rb') as image_file:
             result = json.dumps(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_1509313240']), indent = 2)
         remove(f.filename)
-        return result
+        newRes = json.loads(result)
+        return str(newRes)
+        #return redirect(url_for('test_results', result = result))
         return 'there was a problem sending the file'
         #watsonClassify.main(secure_filename(f.filename))
+
+@app.route('/test')
+def test_results(result):
+    return 'Redirect Complete' + result
+    
 
 @app.route('/zip_upload', methods = ['GET', 'POST'])
 def upload_zip():
@@ -69,7 +77,11 @@ def upload_zip():
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    return 'Hello World! Thanks for giving me ' + filename
+    #return 'Hello World! Thanks for giving me ' + filename
+    print 'Check 1'
+    result = watsonClassifyZip.main('uploads/' + filename)
+    print 'Check 2'
+    return str(result)
 
 port = getenv('PORT', '5000')
 if __name__ == "__main__":

@@ -13,7 +13,7 @@ def main(argv):
     # authentication
     visual_recognition = VisualRecognitionV3( \
         VisualRecognitionV3.latest_version, \
-        api_key='3722ed0d4950e9c3c3c187a471043b264b2de23c')
+        api_key='c8be440798e52325714997d9f7f3f0407e38d57d')
 
     # update cancer class
     if classifier == "cancer":
