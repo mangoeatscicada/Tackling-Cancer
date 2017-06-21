@@ -1,6 +1,6 @@
 applications:
 - path: .
-  memory: 896M
+  memory: 2G
   instances: 1
   domain: mybluemix.net
   name: Tackling Cancer
