@@ -32,7 +32,6 @@ jupyter-console==4.0.2
 jupyter-core==4.0.6
 lazy-object-proxy==1.3.1
 MarkupSafe==0.23
-matplotlib==1.4.3
 mccabe==0.6.1
 mistune==0.7.1
 mock==1.3.0
@@ -63,8 +62,6 @@ pyzmq==14.7.0
 qtconsole==4.0.1
 ratelim==0.1.6
 requests==2.18.1
-scikit-image==0.11.3
-scikit-learn==0.17.1
 scipy==0.16.0
 simplegeneric==0.8.1
 singledispatch==3.4.0.3
