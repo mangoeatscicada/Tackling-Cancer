@@ -41,6 +41,10 @@ def Welcome():
 def upload_file():
     return app.send_static_file('upload.html')
 
+@app.route('/results')
+def result_page():
+    return render_template('results.html', result = 'Hello World!')
+
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_image():
     if request.method == 'POST':
@@ -48,18 +52,20 @@ def upload_image():
 
         f.save(secure_filename(f.filename))
         with open(join(dirname(__file__), f.filename), 'rb') as image_file:
-            #result = json.dumps(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_939779875']), indent = 2)
-            result = jsonify(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_939779875']), indent = 2)
+            result = json.dumps(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_939779875']), indent = 2)
+            #result = jsonify(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_939779875']), indent = 2)
         remove(f.filename)
         #newRes = json.loads(result)
-        return result
+        #return result
         #return redirect(url_for('test_results', result = result))
+        #print result
+        return render_template('results.html', result = result)
         return 'there was a problem sending the file'
         #watsonClassify.main(secure_filename(f.filename))
 
 @app.route('/test')
 def test_results(result):
-    return 'Redirect Complete' + result
+    return result
     
 
 @app.route('/zip_upload', methods = ['GET', 'POST'])
@@ -83,11 +89,14 @@ def uploaded_file(filename):
     result = watsonClassifyZip.main('uploads/' + filename)
     print 'Check 2'
     #return jsonify(result)
-    nstring = ''
-    for item in result:
+    nstring = '{"results": ['
+    for item in result[:len(result)-1]:
         nstring += item
+        nstring += ','
+    nstring += result[len(result)-1]
+    nstring += ']}'
     return nstring
 
 port = getenv('PORT', '5000')
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=int(port))
+	app.run(host='0.0.0.0', port=int(port), debug=True)
