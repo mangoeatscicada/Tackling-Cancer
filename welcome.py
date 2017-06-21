@@ -16,7 +16,7 @@ import json
 from os.path import join, dirname
 from os import environ, getenv, listdir, remove
 from watson_developer_cloud import VisualRecognitionV3  
-from flask import Flask, render_template, request, send_from_directory, redirect, url_for
+from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify
 from werkzeug import secure_filename
 #import watsonClassify
 import watsonClassifyZip
@@ -48,10 +48,11 @@ def upload_image():
 
         f.save(secure_filename(f.filename))
         with open(join(dirname(__file__), f.filename), 'rb') as image_file:
-            result = json.dumps(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_1509313240']), indent = 2)
+            #result = json.dumps(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_939779875']), indent = 2)
+            result = jsonify(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_939779875']), indent = 2)
         remove(f.filename)
-        newRes = json.loads(result)
-        return str(newRes)
+        #newRes = json.loads(result)
+        return result
         #return redirect(url_for('test_results', result = result))
         return 'there was a problem sending the file'
         #watsonClassify.main(secure_filename(f.filename))
@@ -81,7 +82,11 @@ def uploaded_file(filename):
     print 'Check 1'
     result = watsonClassifyZip.main('uploads/' + filename)
     print 'Check 2'
-    return str(result)
+    #return jsonify(result)
+    nstring = ''
+    for item in result:
+        nstring += item
+    return nstring
 
 port = getenv('PORT', '5000')
 if __name__ == "__main__":

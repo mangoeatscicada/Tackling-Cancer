@@ -16,7 +16,7 @@ def classifyImage(path, authentication):
             result = json.dumps(authentication.classify( \
                 images_file=image_file, \
                 threshold=0, \
-                classifier_ids=['Cancer_1509313240']), indent=2)
+                classifier_ids=['Cancer_939779875']), indent=2)
             return result
 
 def main(argv):
@@ -28,7 +28,7 @@ def main(argv):
 
     zipFile.close()
 
-    images = "./tmp/"
+    images = "tmp/"
 
     # authentication
     visual_recognition = VisualRecognitionV3( \

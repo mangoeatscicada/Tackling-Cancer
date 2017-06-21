@@ -9,7 +9,7 @@ visual_recognition = VisualRecognitionV3( \
     api_key='c8be440798e52325714997d9f7f3f0407e38d57d')
 
 # delete existing classifier
-#visual_recognition.delete_classifier('Cancer_1509313240')
+#visual_recognition.delete_classifier('Cancer_939779875')
 
 # train classifier
 with open(join(dirname(__file__), "images/extract/cancer.zip"), 'rb') as trainingCancer, \

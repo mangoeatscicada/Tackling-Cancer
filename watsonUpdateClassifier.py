@@ -19,7 +19,7 @@ def main(argv):
     if classifier == "cancer":
         with open(join(dirname(__file__), filename), 'rb') as trainer:
             return (json.dumps(visual_recognition.update_classifier( \
-                'Cancer_1509313240', \
+                'Cancer_939779875', \
                 cancer_positive_examples=trainer, \
                 blood_negative_examples=trainer), indent=2))
 
@@ -27,7 +27,7 @@ def main(argv):
     if classifier == "blood":
         with open(join(dirname(__file__), filename), 'rb') as trainer:
             return (json.dumps(visual_recognition.update_classifier( \
-                'Cancer_1509313240', \
+                'Cancer_939779875', \
                 cancer_negative_examples=trainer, \
                 blood_positive_examples=trainer), indent=2))
 
