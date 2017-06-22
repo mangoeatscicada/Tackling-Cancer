@@ -29,6 +29,8 @@ def classifyZip(zip_path):
     
     imageList = ""
 
+    os.makedirs("tmp")
+
     zipFile = zipfile.ZipFile(zip_path)
     zipFile.extractall("tmp")
     zipFile.close()
