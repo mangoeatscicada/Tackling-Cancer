@@ -3,14 +3,16 @@
 */ 
 
 body,html {
-    background-color: #006699; width: 100%;
+    background-color: #264d73; width: 100%;
     height: 100%;
     margin: 0 auto; 
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 h1 {
-    color: #ff33cc;
+    color: #f0f0f5;
+    text-shadow: 3px 2px black;
+    font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
 }
 
 .main {

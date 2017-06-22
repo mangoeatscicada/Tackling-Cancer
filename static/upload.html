@@ -24,15 +24,18 @@
   <body>
     
     <div class="row" id="main">
-      <div class="col-sm-6 col-sm-offset-3 text-center">
-        <h1> The Upload Page that has turned into the testing page </h1>
-        <p> Don't worry about the small font please! </p>
+      <div class="col-sm-8 col-sm-offset-2 text-center">
+        <div class="panel panel-primary">
+          <div class="panel-heading"><h1> Watson v. Cancer </h1></div>
+          <div class="panel-body">01010000 01101100 01110101 01110011 00100000 01010101 01101100 01110100 01110010 01100001 00100001</div>
+        </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-sm-6 col-sm-offset-3 text-center">
-        <div class="panel panel-default">
+      <div class="col-sm-4 col-sm-offset-4 text-center">
+        <div class="panel panel-info">
+          <div class="panel-heading">Single Cell Tester</div>
           <div class="panel-body">
             <form action="/uploader" method="POST" enctype="multipart/form-data">
               <input type="file" name="file" class="file"/>
@@ -44,8 +47,9 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-4 col-sm-offset-3 text-center">
-        <div class="panel panel-default">
+      <div class="col-sm-4 col-sm-offset-4 text-center">
+        <div class="panel panel-info">
+          <div class="panel-heading">Zip File Tester</div>
           <div class="panel-body">
             <form action="/zip_upload" method="POST" enctype="multipart/form-data">
               <input type="file" name="file" class="file"/>
@@ -57,8 +61,9 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-4 col-sm-offset-3 text-center">
-        <div class="panel panel-default">
+      <div class="col-sm-4 col-sm-offset-4 text-center">
+        <div class="panel panel-info">
+          <div class="panel-heading">Full Tester</div>
           <div class="panel-body">
             <form action="/main_upload" method="POST" enctype="multipart/form-data">
               <input type="file" name="file" class="file"/>
