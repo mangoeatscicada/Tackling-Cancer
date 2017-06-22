@@ -50,8 +50,8 @@ def upload_image():
 
         f.save(secure_filename(f.filename))
         with open(join(dirname(__file__), f.filename), 'rb') as image_file:
-            result = json.dumps(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_1509313240']), indent = 2)
-            #result = jsonify(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_1509313240']), indent = 2)
+            result = json.dumps(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_1009023861']), indent = 2)
+            #result = jsonify(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_1009023861']), indent = 2)
         remove(f.filename)
         #newRes = json.loads(result)
         #return result

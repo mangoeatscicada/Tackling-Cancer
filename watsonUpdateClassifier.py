@@ -14,7 +14,7 @@ def main(argv):
         VisualRecognitionV3.latest_version, \
         api_key='1f99876aede140f190790ed9c86499e6fe9d525d')
 
-    classifier_id = 'Cancer_1509313240'
+    classifier_id = 'Cancer_1009023861'
 
     # update cancer class
     if classifier == "cancer":

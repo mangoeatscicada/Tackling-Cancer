@@ -9,7 +9,7 @@ visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, \
     api_key = '1f99876aede140f190790ed9c86499e6fe9d525d')
 
 # classify ID
-classifier_id = 'Cancer_1509313240'
+classifier_id = 'Cancer_1009023861'
 
 def classifyImage(image_path):
 
