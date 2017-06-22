@@ -74,7 +74,7 @@ def upload_zip():
         f = request.files['file']
         if f.filename == '':
             flash('No selected file')
-            return redirect(request.url)
+            return redirect(url_for(upload_file))
         if f and allowed_file(f.filename) :
             print 'Made it to here'
             filename = secure_filename(f.filename)
@@ -96,6 +96,18 @@ def uploaded_file(filename):
     nstring += result[len(result)-1]
     nstring += ']}'
     return nstring
+
+@app.route('/main_upload', methods = ['GET', 'POST'])
+def main_upload():
+    if request.method == 'POST':
+        f = request.files['file']
+        if f.filename == '':
+            flash('No selected file')
+            return redirect(url_for(upload_file))
+        if f and allowed_file(f.filename):
+            filename = secure_filename(f.filename)
+            f.save(join(app.config['UPLOAD_FOLDER'], filename))
+
 
 port = getenv('PORT', '5000')
 if __name__ == "__main__":
