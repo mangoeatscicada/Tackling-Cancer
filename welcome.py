@@ -13,8 +13,8 @@
 # limitations under the License.
 
 import json
-from os.path import join, dirname
-from os import environ, getenv, listdir, remove
+from os.path import join, dirname, exists
+from os import environ, getenv, listdir, remove, makedirs
 from watson_developer_cloud import VisualRecognitionV3  
 from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify
 from werkzeug import secure_filename
@@ -106,8 +106,13 @@ def main_upload():
             return redirect(url_for(upload_file))
         if f and allowed_file(f.filename):
             filename = secure_filename(f.filename)
+            #if not exists('/holding'):
+            #    makedirs('/holding')
+            #app.config["UPLOAD_FOLDER"] = '/holding'
             f.save(join(app.config['UPLOAD_FOLDER'], filename))
-
+            import cellextractor
+            cellextractor.main([join(app.config['UPLOAD_FOLDER'], filename)])
+            return redirect(url_for('uploaded_file', filename = 'temp.zip'))
 
 port = getenv('PORT', '5000')
 if __name__ == "__main__":
