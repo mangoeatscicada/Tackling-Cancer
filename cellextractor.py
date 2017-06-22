@@ -45,7 +45,7 @@ def main(argv):
     
     # Find contours
     ret, dst = cv2.threshold(src_gray, optimal_threshold, 255, 0)
-    contours, hierarchy = cv2.findContours(dst, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    _, contours, hierarchy = cv2.findContours(dst, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     
     cells_found = 0;
     for i in range(0,len(contours)):
@@ -60,7 +60,7 @@ def main(argv):
     
                 # Draw contours (to create a mask)
                 drawing = np.zeros(src.shape, src.dtype)            
-                cv2.drawContours(drawing, contours, i, (255,255,255), cv2.cv.CV_FILLED, 8, hierarchy, 0)
+                cv2.drawContours(drawing, contours, i, (255,255,255), -1, 8, hierarchy, 0)
                 
                 # mask out the contoured cells
                 cells = src & drawing
@@ -147,7 +147,7 @@ def getOptimalThreshold_maximiseCellCountNoOutliers(src_gray):
         
         # find contours
         ret, dst = cv2.threshold(src_gray, threshold, 255, 0)
-        contours, hierarchy = cv2.findContours(dst, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        _, contours, hierarchy = cv2.findContours(dst, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         
         # count contours
         cells_found = 0;
