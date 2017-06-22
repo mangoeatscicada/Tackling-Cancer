@@ -1,7 +1,6 @@
 import numpy as np
 import json, sys, cv2
 from os.path import join, dirname
-from os import environ
 from watson_developer_cloud import VisualRecognitionV3
 
 def main(argv):
