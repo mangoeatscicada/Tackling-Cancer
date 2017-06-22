@@ -12,14 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
+import json, watson
 from os.path import join, dirname, exists
 from os import environ, getenv, listdir, remove, makedirs
 from watson_developer_cloud import VisualRecognitionV3  
 from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify
 from werkzeug import secure_filename
-#import watsonClassify
-import watsonClassifyZip
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'zip'])
@@ -86,7 +84,7 @@ def upload_zip():
 def uploaded_file(filename):
     #return 'Hello World! Thanks for giving me ' + filename
     print 'Check 1'
-    result = watsonClassifyZip.main('uploads/' + filename)
+    result = watson.classify(['uploads/' + filename])
     print 'Check 2'
     #return jsonify(result)
     #nstring = '{"results": ['
@@ -96,7 +94,8 @@ def uploaded_file(filename):
     #nstring += result[len(result)-1]
     #nstring += ']}'
     #return nstring
-    return str(result)
+    print result
+    return result
 
 @app.route('/main_upload', methods = ['GET', 'POST'])
 def main_upload():
