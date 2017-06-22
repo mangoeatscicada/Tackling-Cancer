@@ -27,7 +27,7 @@ ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'zip'])
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, api_key="c8be440798e52325714997d9f7f3f0407e38d57d")
+visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, api_key="3722ed0d4950e9c3c3c187a471043b264b2de23c")
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -52,8 +52,8 @@ def upload_image():
 
         f.save(secure_filename(f.filename))
         with open(join(dirname(__file__), f.filename), 'rb') as image_file:
-            result = json.dumps(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_939779875']), indent = 2)
-            #result = jsonify(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_939779875']), indent = 2)
+            result = json.dumps(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_1509313240']), indent = 2)
+            #result = jsonify(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_1509313240']), indent = 2)
         remove(f.filename)
         #newRes = json.loads(result)
         #return result
