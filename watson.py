@@ -27,7 +27,7 @@ def classifyImage(image_path):
 
 def classifyZip(zip_path):
     
-    imageList = ''
+    imageList = ""
 
     zipFile = zipfile.ZipFile(zip_path)
     zipFile.extractall("tmp")
@@ -57,10 +57,10 @@ def classify(argv):
 
     # check it's an image file
     if filename.endswith(".jpg"):
-        classifyImage(filename)
+        return classifyImage(filename)
 
     elif filename.endswith(".zip"):
-        classifyZip(filename)
+        return classifyZip(filename)
 
     else:
         sys.exit(filename + " could not be read as an image or zip file")
