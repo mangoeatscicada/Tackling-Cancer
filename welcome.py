@@ -89,13 +89,14 @@ def uploaded_file(filename):
     result = watsonClassifyZip.main('uploads/' + filename)
     print 'Check 2'
     #return jsonify(result)
-    nstring = '{"results": ['
-    for item in result[:len(result)-1]:
-        nstring += item
-        nstring += ','
-    nstring += result[len(result)-1]
-    nstring += ']}'
-    return nstring
+    #nstring = '{"results": ['
+    #for item in result[:len(result)-1]:
+    #    nstring += item
+    #    nstring += ','
+    #nstring += result[len(result)-1]
+    #nstring += ']}'
+    #return nstring
+    return str(result)
 
 @app.route('/main_upload', methods = ['GET', 'POST'])
 def main_upload():
