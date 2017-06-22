@@ -35,7 +35,7 @@ def allowed_file(filename):
 
 @app.route('/')
 def Welcome():
-    return app.send_static_file('index.html')
+    return app.send_static_file('upload.html')
 
 @app.route('/upload')
 def upload_file():
