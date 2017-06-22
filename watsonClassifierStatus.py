@@ -1,6 +1,5 @@
 import json
 from os.path import join, dirname
-from os import environ
 from watson_developer_cloud import VisualRecognitionV3
 
 # authentication
