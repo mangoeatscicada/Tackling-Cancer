@@ -16,18 +16,22 @@
       <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       
-    <!-- Importing Personal Stylesheet -->
-      <link rel="stylesheet" href="static/stylesheets/style1.css">
+      <!-- Importing Personal Stylesheet -->
+        <link rel="stylesheet" href="static/stylesheets/style1.css">
     
   </head>
 
   <style>
-    .body {
-        background-color: lightseagreen
+    body {
+        background-color: #264d73;
     }
-  </style>
+  </style> 
 
-  <body>
+  <body onload="myFuction()">
+
+    <div id="loader"></div>
+
+    <div style="display:none;" id="myDiv" class="animate-bottom">
       <div class="col-sm-8 col-sm-offset-2">
         <div class="panel panel-primary">
             <div class="panel-heading text-center">Results</div>
@@ -36,6 +40,20 @@
             {% endfor %}
         </div>
       </div>
+    </div>
+    <script>
+      var myVar;
+
+      function myFuction() {
+        myVar = setTimeout(showPage, 3000);
+      }
+
+      function showPage() {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("myDiv").style.display = "block";
+      }
+    </script>
+
   </body>
 
 </html>
