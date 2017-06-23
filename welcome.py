@@ -33,22 +33,19 @@ def allowed_file(filename):
 
 def jsonstrto(jsnstr):
     result = ''
-    num = 1
     j = json.loads(jsnstr)
     images = j['images']
-    classifier_id = 'Cancer_1009023861'
     for image in range(len(images)):
-        result += "Cell " + str(num) + "\nImage: " + str(images[image]['image']) + '\n'
-        num += 1
+        result += "Cell: " + str(images[image]['image']) + '\n'
         classes = images[image]['classifiers'][0]['classes']
         for c in range(len(classes)):
             if classes[c]['class'] == 'blood':
                 result += 'Blood: ' + str(classes[c]['score']) + '\n'
             if classes[c]['class'] == 'cancer':
                 result += 'Cancer: ' + str(classes[c]['score']) + '\n'
-            if classes[c]['class'] == 'Other':
+            if classes[c]['class'] == 'other':
                 result += 'Other: ' + str(classes[c]['score']) + '\n'
-    return result + "Classifier ID: " + classifier_id
+    return result + '\n'
 
 @app.route('/')
 def Welcome():
@@ -116,7 +113,20 @@ def uploaded_file(filename):
     #nstring += ']}'
     #return nstring
     print result
-    return render_template('results.html', result = jsonstrto(result).split('\n'))
+
+    jsonstrlist = ''
+
+    result = result.split('$') 
+    
+    print result
+
+    for item in range(len(result) - 1):
+        jsonstrlist += jsonstrto(result[item])
+
+    jsonstrlist += 'Classifier_ID: Cancer_1009023861'
+
+
+    return render_template('results.html', result = jsonstrlist.split('\n'))
 
 @app.route('/main_upload', methods = ['GET', 'POST'])
 def main_upload():

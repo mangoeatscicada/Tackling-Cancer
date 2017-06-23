@@ -43,7 +43,7 @@ def classifyZip(zip_path):
             for image_file in os.listdir(images+tmpDir):
                 if image_file.endswith(".jpg"):
                     p = classifyImage(join(images, tmpDir, image_file))
-                    imageList += p
+                    imageList += p + ' $ '
     
     # delete tmp dir
     shutil.rmtree("./tmp/", ignore_errors=True)
