@@ -136,6 +136,14 @@ def io_error(e):
 def name_error(e):
     return render_template('io_error.html')
 
+@app.errorhandler(ValueError)
+def value_error(e):
+    return render_template('io_error.html')
+
+@app.route('/testing')
+def testing():
+    return app.send_static_file('indexcopy.html')
+
 port = getenv('PORT', '5000')
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=int(port), debug=True)
