@@ -215,7 +215,7 @@ def getOptimalThreshold_maximiseCellCount(src_gray):
     return optimal_threshold
 
 def zipdir(path, ziph):
-    #ziph is zipfile handle 
+    # ziph is zipfile handle 
     for root, dirs, files in os.walk(path):
         print root
         print dirs

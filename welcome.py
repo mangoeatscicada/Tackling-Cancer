@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json, watson
+import json, watson, cellextractor, shutil
 from os.path import join, dirname, exists
 from os import environ, getenv, listdir, remove, makedirs
 from watson_developer_cloud import VisualRecognitionV3  
 from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify
 from werkzeug import secure_filename
 
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = 'temp'
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'zip'])
 
 app = Flask(__name__)
@@ -29,9 +29,10 @@ def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
 
-def jsonstrto(jsnstr):
+# parse json dump string into cleaner string
+def jsonstrto(jsonstr):
     result = ''
-    j = json.loads(jsnstr)
+    j = json.loads(jsonstr)
     images = j['images']
     for image in range(len(images)):
         result += "Cell: " + str(images[image]['image']) + '\n'
@@ -45,49 +46,58 @@ def jsonstrto(jsnstr):
                 result += 'Other: ' + str(classes[c]['score']) + '\n'
     return result + '\n'
 
+# home
 @app.route('/')
 def Welcome():
     return app.send_static_file('index.html')
 
-#@app.route('/upload')
-#def upload_file():
-#    return app.send_static_file('index.html')
-
-@app.route('/results')
-def result_page():
-    return render_template('results.html', result = 'Hello World!')
-
-@app.route('/uploader', methods = ['GET', 'POST'])
-def upload_image():
+@app.route('/results', methods = ['GET', 'POST'])
+def upload():
     if request.method == 'POST':
+        
         f = request.files['file']
 
-        f.save(secure_filename(f.filename))
-        
-        result = watson.classifyImage(f.filename)
+        if allowed_file(f.filename):
+            filename = secure_filename(f.filename)
+            makedirs("temp")
+            filepath = join(app.config['UPLOAD_FOLDER'], filename)
+            f.save(filepath)
+            
+            # uploaded file is an image
+            if filename.endswith(".jpg"):
+                
+                # classify image and clean result
+                result = watson.classify([filepath])
+                result = jsonstrto(result).split('\n')
 
-        result = jsonstrto(result).split('\n')
+            # uploaded file is a zip
+            if filename.endswith(".zip"):
+                result = watson.classify([filepath])
 
-        remove(f.filename)
-        #newRes = json.loads(result)
-        #return result
-        #return redirect(url_for('test_results', result = result))
+                jsonstrlist = ''
 
-        return render_template('results.html', result = result)
-        return 'there was a problem sending the file'
+                result = result.split('$') 
+
+                for item in range(len(result) - 1):
+                    jsonstrlist += jsonstrto(result[item])
+
+                jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+
+                result = jsonstrlist.split('\n')
+
+            # delete temp dir
+            shutil.rmtree("./temp/", ignore_errors=True)
+
+            # return result rendered onto html page
+            return render_template('results.html', result = result)
 
 @app.route('/zip_upload', methods = ['GET', 'POST'])
 def upload_zip():
     if request.method == 'POST':
         f = request.files['file']
-        if f.filename == '':
-            flash('No selected file')
-            return redirect(url_for(upload_file))
         if f and allowed_file(f.filename) :
-            print 'Made it to here'
             filename = secure_filename(f.filename)
             f.save(join(app.config['UPLOAD_FOLDER'], filename))
-            print 'And here'
             return redirect(url_for('uploaded_file', filename = filename))
 
 @app.route('/uploads/<filename>')
@@ -115,7 +125,6 @@ def main_upload():
         if f and allowed_file(f.filename):
             filename = secure_filename(f.filename)
             f.save(join(app.config['UPLOAD_FOLDER'], filename))
-            import cellextractor
             cellextractor.main([join(app.config['UPLOAD_FOLDER'], filename)])
             return redirect(url_for('uploaded_file', filename = 'temp.zip'))
 
