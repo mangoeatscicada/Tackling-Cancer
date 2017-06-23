@@ -31,6 +31,25 @@ def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
 
+def jsonstrto(jsnstr):
+    result = ''
+    num = 1
+    j = json.loads(jsnstr)
+    images = j['images']
+    classifier_id = 'Cancer_1009023861'
+    for image in range(len(images)):
+        result += "Cell " + str(num) + "\nImage: " + str(images[image]['image']) + '\n'
+        num += 1
+        classes = images[image]['classifiers'][0]['classes']
+        for c in range(len(classes)):
+            if classes[c]['class'] == 'blood':
+                result += 'Blood: ' + str(classes[c]['score']) + '\n'
+            if classes[c]['class'] == 'cancer':
+                result += 'Cancer: ' + str(classes[c]['score']) + '\n'
+            if classes[c]['class'] == 'Other':
+                result += 'Other: ' + str(classes[c]['score']) + '\n'
+    return result + "Classifier ID: " + classifier_id
+
 @app.route('/')
 def Welcome():
     return app.send_static_file('upload.html')
@@ -49,14 +68,16 @@ def upload_image():
         f = request.files['file']
 
         f.save(secure_filename(f.filename))
-        with open(join(dirname(__file__), f.filename), 'rb') as image_file:
-            result = json.dumps(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_1009023861']), indent = 2)
-            #result = jsonify(visual_recognition.classify(images_file = image_file, threshold=0, classifier_ids=['Cancer_1009023861']), indent = 2)
+        
+        result = watson.classifyImage(f.filename)
+
+        result = jsonstrto(result).split('\n')
+
         remove(f.filename)
         #newRes = json.loads(result)
         #return result
         #return redirect(url_for('test_results', result = result))
-        #print result
+        #print 
         return render_template('results.html', result = result)
         return 'there was a problem sending the file'
         #watsonClassify.main(secure_filename(f.filename))
@@ -95,7 +116,7 @@ def uploaded_file(filename):
     #nstring += ']}'
     #return nstring
     print result
-    return result
+    return render_template('results.html', result = jsonstrto(result).split('\n'))
 
 @app.route('/main_upload', methods = ['GET', 'POST'])
 def main_upload():

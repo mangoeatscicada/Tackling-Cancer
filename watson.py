@@ -61,6 +61,7 @@ def classify(argv):
     if filename.endswith(".jpg"):
         return classifyImage(filename)
 
+    # check it's a zip file
     elif filename.endswith(".zip"):
         return classifyZip(filename)
 

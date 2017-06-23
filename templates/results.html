@@ -28,10 +28,12 @@
   </style>
 
   <body>
-      <div class="col-sm-8 col-sm-offset-2 text-center">
+      <div class="col-sm-8 col-sm-offset-2">
         <div class="panel panel-primary">
             <div class="panel-heading text-center">Results</div>
-            <div class="panel-body">{{ result|tojson }}</div>
+            {% for line in result %}
+              <p>{{ line }}</p>
+            {% endfor %}
         </div>
       </div>
   </body>
