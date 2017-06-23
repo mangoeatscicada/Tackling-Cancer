@@ -118,6 +118,14 @@ def main_upload():
 def internal_server_error(e):
     return render_template('500.html'), 500
 
+@app.errorhandler(IOError)
+def io_error(e):
+    return render_template('io_error.html')
+
+@app.errorhandler(NameError)
+def name_error(e):
+    return render_template('io_error.html')
+
 port = getenv('PORT', '5000')
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=int(port), debug=True)
