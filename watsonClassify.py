@@ -16,14 +16,14 @@ def main(argv):
     # authentication
     visual_recognition = VisualRecognitionV3( \
         VisualRecognitionV3.latest_version, \
-        api_key='1f99876aede140f190790ed9c86499e6fe9d525d')
+        api_key='3722ed0d4950e9c3c3c187a471043b264b2de23c')
 
     # classify image file
     with open(join(dirname(__file__), filename), 'rb') as image_file:
         result = json.dumps(visual_recognition.classify( \
             images_file=image_file, \
             threshold=0, \
-            classifier_ids=['Cancer_1009023861']), indent=2)
+            classifier_ids=['Cancer_1509313240']), indent=2)
         print result
         return result
 
