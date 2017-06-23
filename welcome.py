@@ -49,6 +49,10 @@ def jsonstrto(jsonstr):
 # home
 @app.route('/')
 def Welcome():
+    # delete any temp dir if it exists
+    shutil.rmtree("./temp/", ignore_errors=True)
+    shutil.rmtree("./tmp/", ignore_errors=True)
+
     return app.send_static_file('index.html')
 
 @app.route('/results', methods = ['GET', 'POST'])
@@ -91,42 +95,34 @@ def upload():
             # return result rendered onto html page
             return render_template('results.html', result = result)
 
-@app.route('/zip_upload', methods = ['GET', 'POST'])
-def upload_zip():
-    if request.method == 'POST':
-        f = request.files['file']
-        if f and allowed_file(f.filename) :
-            filename = secure_filename(f.filename)
-            f.save(join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file', filename = filename))
-
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    result = watson.classify(['uploads/' + filename])
-
-    jsonstrlist = ''
-
-    result = result.split('$') 
-
-    for item in range(len(result) - 1):
-        jsonstrlist += jsonstrto(result[item])
-
-    jsonstrlist += 'Classifier_ID: Cancer_1509313240'
-
-    return render_template('results.html', result = jsonstrlist.split('\n'))
-
-@app.route('/main_upload', methods = ['GET', 'POST'])
+@app.route('/result', methods = ['GET', 'POST'])
 def main_upload():
     if request.method == 'POST':
         f = request.files['file']
-        if f.filename == '':
-            flash('No selected file')
-            return redirect(url_for(upload_file))
-        if f and allowed_file(f.filename):
+
+        if allowed_file(f.filename):
             filename = secure_filename(f.filename)
-            f.save(join(app.config['UPLOAD_FOLDER'], filename))
-            cellextractor.main([join(app.config['UPLOAD_FOLDER'], filename)])
-            return redirect(url_for('uploaded_file', filename = 'temp.zip'))
+            makedirs("temp")
+            filepath = join(app.config['UPLOAD_FOLDER'], filename)
+            f.save(filepath)
+            cellextractor.main([filepath])
+
+            result = watson.classify(["temp.zip"])
+
+            jsonstrlist = ''
+
+            result = result.split('$') 
+
+            for item in range(len(result) - 1):
+                jsonstrlist += jsonstrto(result[item])
+
+            jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+
+            # delete temp dir
+            shutil.rmtree("./temp/", ignore_errors=True)
+            remove("temp.zip")
+
+            return render_template('results.html', result = jsonstrlist.split('\n'))
 
 @app.errorhandler(500)
 def internal_server_error(e):

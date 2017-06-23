@@ -72,10 +72,9 @@ def main(argv):
                 # write the image to a file
                 cells_found += 1
                 cell_filename = 'temp/' + re.sub('\.[^.]*$', "_cell_" + str(cells_found) + ".jpg", os.path.basename(filename))
-                #cell_filename = re.sub('\.[^.]*$', "_cell_" + str(cells_found) + ".jpg", newpath)
                 cv2.imwrite(cell_filename, crop, [cv2.IMWRITE_JPEG_QUALITY, 100])
 
-    zipf = zipfile.ZipFile('uploads/temp.zip', 'w')
+    zipf = zipfile.ZipFile('temp.zip', 'w')
     zipdir(newpath, zipf)
     zipf.close()
     
