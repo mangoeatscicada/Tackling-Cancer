@@ -33,11 +33,11 @@ def allowed_file(filename):
 
 @app.route('/')
 def Welcome():
-    return app.send_static_file('upload.html')
+    return app.send_static_file('index.html')
 
 @app.route('/upload')
 def upload_file():
-    return app.send_static_file('upload.html')
+    return app.send_static_file('index.html')
 
 @app.route('/results')
 def result_page():

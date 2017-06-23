@@ -6,24 +6,86 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="static/stylesheets/style.css">
+    <!-- Importing Bootstrap --> 
+      <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+      <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+      <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      
+    <!-- Importing Personal Stylesheet -->
+      <link rel="stylesheet" href="static/stylesheets/style1.css">
+    
   </head>
 
   <body>
-    <table>
-      <tr>
-        <td style= "width:30%;">
-          <img class = "newappIcon" src="static/images/newapp-icon.png">
-        <td>
-            <h1>Hi there!</h1>
-          <p>Thanks for creating a
-            <span class = "blue">Python <a href = "http://flask.pocoo.org/">Flask</a> Starter Application</span>.
-    </table>
+    <script type="text/javascript">// <![CDATA[
+      function loading(){
+        $("#loading").show();
+        $("#content").hide();
+      }
+    // ]]></script>
+    
+    <div id="loading"></div>
 
-    <form action="/uploader" method="POST" enctype="multipart/form-data">
-      <input type="file" name="file" />
-      <input type="submit" />
-    </form>
+    <div id="content">
+      <div class="row top-buffer" id="main">
+        <div class="col-sm-8 col-sm-offset-2 text-center">
+          <div class="panel panel-primary">
+            <div class="panel-heading"><img src="static/images/watson-logo.png" alt="IBM's Watson" style="height: 10%;"><h1> Watson v. Cancer </h1></div>
+            <div class="panel-body">01010000 01101100 01110101 01110011 00100000 01010101 01101100 01110100 01110010 01100001 00100001</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-4 text-center">
+          <div class="panel panel-info">
+            <div class="panel-heading">Single Cell Tester</div>
+            <div class="panel-body">
+              <form action="/uploader" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" class="file"/>
+                <input type="submit" onclick="loading()"/>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-4 text-center">
+          <div class="panel panel-info">
+            <div class="panel-heading">Zip File Tester</div>
+            <div class="panel-body">
+              <form action="/zip_upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" class="file"/>
+                <input type="submit"/>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-4 text-center">
+          <div class="panel panel-info">
+            <div class="panel-heading">Full Tester</div>
+            <div class="panel-body">
+              <form action="/main_upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" class="file"/>
+                <input type="submit" onclick="loading()"/>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </body>
+
+
 
 </html>
