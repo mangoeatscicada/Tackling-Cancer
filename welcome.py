@@ -25,8 +25,6 @@ ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'zip'])
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, api_key="1f99876aede140f190790ed9c86499e6fe9d525d")
-
 def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
@@ -51,9 +49,9 @@ def jsonstrto(jsnstr):
 def Welcome():
     return app.send_static_file('index.html')
 
-@app.route('/upload')
-def upload_file():
-    return app.send_static_file('index.html')
+#@app.route('/upload')
+#def upload_file():
+#    return app.send_static_file('index.html')
 
 @app.route('/results')
 def result_page():
@@ -74,15 +72,9 @@ def upload_image():
         #newRes = json.loads(result)
         #return result
         #return redirect(url_for('test_results', result = result))
-        #print 
+
         return render_template('results.html', result = result)
         return 'there was a problem sending the file'
-        #watsonClassify.main(secure_filename(f.filename))
-
-@app.route('/test')
-def test_results(result):
-    return result
-    
 
 @app.route('/zip_upload', methods = ['GET', 'POST'])
 def upload_zip():
@@ -100,31 +92,16 @@ def upload_zip():
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    #return 'Hello World! Thanks for giving me ' + filename
-    print 'Check 1'
     result = watson.classify(['uploads/' + filename])
-    print 'Check 2'
-    #return jsonify(result)
-    #nstring = '{"results": ['
-    #for item in result[:len(result)-1]:
-    #    nstring += item
-    #    nstring += ','
-    #nstring += result[len(result)-1]
-    #nstring += ']}'
-    #return nstring
-    print result
 
     jsonstrlist = ''
 
     result = result.split('$') 
-    
-    print result
 
     for item in range(len(result) - 1):
         jsonstrlist += jsonstrto(result[item])
 
-    jsonstrlist += 'Classifier_ID: Cancer_1009023861'
-
+    jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
     return render_template('results.html', result = jsonstrlist.split('\n'))
 
@@ -137,9 +114,6 @@ def main_upload():
             return redirect(url_for(upload_file))
         if f and allowed_file(f.filename):
             filename = secure_filename(f.filename)
-            #if not exists('/holding'):
-            #    makedirs('/holding')
-            #app.config["UPLOAD_FOLDER"] = '/holding'
             f.save(join(app.config['UPLOAD_FOLDER'], filename))
             import cellextractor
             cellextractor.main([join(app.config['UPLOAD_FOLDER'], filename)])
