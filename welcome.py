@@ -114,6 +114,10 @@ def main_upload():
             cellextractor.main([join(app.config['UPLOAD_FOLDER'], filename)])
             return redirect(url_for('uploaded_file', filename = 'temp.zip'))
 
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('500.html'), 500
+
 port = getenv('PORT', '5000')
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=int(port), debug=True)
