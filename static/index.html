@@ -21,16 +21,6 @@
     
   </head>
 
-  <body>
-    <script type="text/javascript">// <![CDATA[
-      function loading(){
-        $("#loading").show();
-        $("#content").hide();
-      }
-    // ]]></script>
-    
-    <div id="loading"></div>
-
     <div id="content">
       <div class="row top-buffer" id="main">
         <div class="col-sm-8 col-sm-offset-2 text-center">
@@ -48,7 +38,7 @@
             <div class="panel-body">
               <form action="/results" method="POST" enctype="multipart/form-data">
                 <input type="file" name="file" class="file"/>
-                <input type="submit" onclick="loading()"/>
+                <input type="submit"/>
               </form>
             </div>
           </div>
@@ -62,7 +52,7 @@
             <div class="panel-body">
               <form action="/main_upload" method="POST" enctype="multipart/form-data">
                 <input type="file" name="file" class="file"/>
-                <input type="submit" onclick="loading()"/>
+                <input type="submit"/>
               </form>
             </div>
           </div>

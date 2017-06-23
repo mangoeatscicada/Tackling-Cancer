@@ -41,14 +41,6 @@ h1 {
     margin-top: 1%;
 }
 
-div#loading {
-    width: 35px; 
-    height: 35px;
-    display: none; 
-    background: url(/static/images/loader.gif) no-repeat;
-    cursor: wait;
-}
-
 #loader {
   position: absolute;
   left: 50%;
