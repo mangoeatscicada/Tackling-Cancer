@@ -37,6 +37,7 @@
             <div class="panel-heading">Image or Zip File Classifier</div>
             <div class="panel-body">
               <form action="/results" method="POST" enctype="multipart/form-data">
+                <!-- @hevin COPY from HERE -->
                 <div class="input-group image-preview"> <!-- Pic Upload Preview taken from https://bootsnipp.com/snippets/featured/input-file-popover-preview-image -->
                     <input type="text" class="form-control image-preview-filename" disabled="disabled"> 
                     <span class="input-group-btn">
@@ -53,6 +54,7 @@
                         <button type="submit" class="btn btn-default image-preview-submit" style="display:none;"> Submit </button>
                     </span>
                 </div>
+                <!-- Down to HERE -->
               </form>
             </div>
           </div>
@@ -65,8 +67,10 @@
             <div class="panel-heading">Full Tester</div>
             <div class="panel-body">
               <form action="/result" method="POST" enctype="multipart/form-data">
+                <!-- Over to HERE -->
                 <input type="file" name="file" class="file"/>
                 <input type="submit"/>
+                <!-- Down to HERE -->
               </form>
             </div>
           </div>
@@ -76,8 +80,10 @@
 
   </body>
 
+    <!-- Copy this script below -->
+    <!-- The .words correspond to class="words" -->
     <script>
-        $(document).on('click', '#close-preview', function(){ 
+        $(document).on('click', '#close-preview', function(){ //The #close-preview HERE corresponds to [see below]
         $('.image-preview').popover('hide');
         // Hover befor close the preview
         $('.image-preview').hover(
@@ -95,7 +101,7 @@
         var closebtn = $('<button/>', {
             type:"button",
             text: 'x',
-            id: 'close-preview',
+            id: 'close-preview', // [see above] HERE
             style: 'font-size: initial;',
         });
         closebtn.attr("class","close pull-right");
@@ -138,5 +144,6 @@
         });  
     });
     </script>
+    <!-- End of the script -->
 
 </html>
