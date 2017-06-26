@@ -1,1 +1,1 @@
-web: python welcome.py
+web: python tackling-cancer/tackling-cancer.py
