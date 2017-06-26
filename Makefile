@@ -6,3 +6,6 @@ test:
 
 create: 
 	python tackling-cancer/watsonCreateClassifier.py
+
+run:
+	python tackling-cancer/tackling-cancer.py
