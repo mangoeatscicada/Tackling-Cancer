@@ -20,7 +20,7 @@ def classifyImage(image_path):
     with open(join(dirname(__file__), image_path), 'rb') as image_file:
         result = json.dumps(visual_recognition.classify( \
             images_file=image_file, \
-            threshold=0, \
+            #threshold=0, \
             classifier_ids=[classifier_id]), indent=2)
         print result
         return result
