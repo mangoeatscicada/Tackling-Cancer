@@ -87,12 +87,13 @@ def upload():
                 
                 # classify image and clean result
                 result = watson.classify([filepath])
+                resStats = result
                 result = jsonstrto(result).split('\n')
 
                 # handling the stats
-                if jsonType(result) == 'blood':
+                if jsonType(resStats) == 'blood':
                     cellStats = (100.0,0.0,0.0)
-                elif jsonType(result) == 'cancer':
+                elif jsonType(resStats) == 'cancer':
                     cellStats = (0.0, 100.0, 0.0)
                 else: cellStats = (0.0, 0.0, 100.0)
                 print cellStats
