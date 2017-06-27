@@ -46,6 +46,21 @@ def jsonstrto(jsonstr):
                 result += 'Other: ' + str(classes[c]['score']) + '\n'
     return result + '\n'
 
+# parse json object, return type 
+def jsonType(jsonstr):
+    j = json.loads(jsonstr)
+    images = j['images']
+    for image in range(len(images)):
+        classes = images[image]['classifiers'][0]['classes']
+        topscore = 0
+        topclass = ''
+        for c in range(len(classes)):
+            if float(classes[c]['score']) > topscore:
+                topscore = float(classes[c]['score'])
+                topclass = classes[c]['class']
+        return topclass
+            
+
 # home
 @app.route('/')
 def Welcome():
@@ -74,6 +89,14 @@ def upload():
                 result = watson.classify([filepath])
                 result = jsonstrto(result).split('\n')
 
+                # handling the stats
+                if jsonType(result) == 'blood':
+                    cellStats = (100.0,0.0,0.0)
+                elif jsonType(result) == 'cancer':
+                    cellStats = (0.0, 100.0, 0.0)
+                else: cellStats = (0.0, 0.0, 100.0)
+                print cellStats
+
             # uploaded file is a zip
             if filename.endswith(".zip"):
                 result = watson.classify([filepath])
@@ -82,8 +105,27 @@ def upload():
 
                 result = result.split('$') 
 
+                numBlood = 0
+                numCancer = 0
+                numOther = 0
+
                 for item in range(len(result) - 1):
                     jsonstrlist += jsonstrto(result[item])
+
+                    # handling the stats
+                    res = result[item]
+                    if jsonType(res) == 'blood':
+                        numBlood += 1
+                    if jsonType(res) == 'cancer':
+                        numCancer += 1
+                    if jsonType(res) == 'other':
+                        numOther += 1
+                totalCells = numBlood + numCancer + numOther
+                percentB = numBlood/float(totalCells) * 100
+                percentC = numCancer/float(totalCells) * 100
+                percentO = numOther/float(totalCells) * 100
+                cellStats = (percentB, percentC, percentO)
+                print cellStats
 
                 jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
@@ -113,8 +155,27 @@ def main_upload():
 
             result = result.split('$') 
 
+            numBlood = 0
+            numCancer = 0
+            numOther = 0
+
             for item in range(len(result) - 1):
                 jsonstrlist += jsonstrto(result[item])
+
+                # handling the stats
+                res = result[item]
+                if jsonType(res) == 'blood':
+                    numBlood += 1
+                if jsonType(res) == 'cancer': 
+                    numCancer += 1
+                if jsonType(res) == 'other':
+                    numOther += 1
+            totalCells = numBlood + numCancer + numOther
+            percentB = numBlood/float(totalCells) * 100
+            percentC = numCancer/float(totalCells) * 100
+            percentO = numOther/float(totalCells) * 100
+            cellStats = (percentB, percentC, percentO)
+            print cellStats
 
             jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
