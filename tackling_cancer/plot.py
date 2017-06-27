@@ -1,6 +1,6 @@
 import matplotlib
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt, mpld3
 
 def plotfunc (sometuple):
     plt.rcParams["font.family"] = "Comic Sans MS"
@@ -20,4 +20,11 @@ def plotfunc (sometuple):
     plt.title('Cancer Chart')
     plt.savefig('../static/images/piechart3.jpg')
 
-plotfunc((1,2,3))
+def plotfunc0(sometuple):
+    fig = mpld3.figure()
+    fig.patch.set_facecolor('white')
+    fig.canvas.set_window_title('Cancer Chart')
+    blood = sometuple[0]
+    cancer = sometuple[1]
+    other = sometuple[2]
+    slices = [blood,cancer,other]
