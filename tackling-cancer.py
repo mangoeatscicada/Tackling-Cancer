@@ -231,7 +231,7 @@ def value_error(e):
 
 @app.route('/testing')
 def testing():
-    return app.send_static_file('indexcopy.html')
+    return app.send_static_file('tester.html')
 
 port = getenv('PORT', '5000')
 if __name__ == "__main__":
