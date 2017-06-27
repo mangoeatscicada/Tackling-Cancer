@@ -12,9 +12,9 @@ def main(argv):
     # authentication
     visual_recognition = VisualRecognitionV3( \
         VisualRecognitionV3.latest_version, \
-        api_key='1f99876aede140f190790ed9c86499e6fe9d525d')
+        api_key='c8be440798e52325714997d9f7f3f0407e38d57d')
 
-    classifier_id = 'Cancer_1009023861'
+    classifier_id = 'Cancer_939779875'
 
     # update cancer class
     if classifier == "cancer":

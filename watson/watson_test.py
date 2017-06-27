@@ -17,7 +17,7 @@ def classifyImage(image_path):
     image = Image.open(image_path)
     
     # classify image file
-    with open(join(dirname(__file__), image_path), 'rb') as image_file:
+    with open(image_path, 'rb') as image_file:
         result = json.dumps(visual_recognition.classify( \
             images_file=image_file, \
             threshold=0, \
@@ -27,7 +27,7 @@ def classifyImage(image_path):
 
 def classifyZip(zip_path):
     
-    imageList = ""
+    imageList = []
 
     os.makedirs("tmp")
 
@@ -43,7 +43,7 @@ def classifyZip(zip_path):
             for image_file in os.listdir(images+tmpDir):
                 if image_file.endswith(".jpg"):
                     p = classifyImage(join(images, tmpDir, image_file))
-                    imageList += p + ' $ '
+                    imageList += p
     
     # delete tmp dir
     shutil.rmtree("./tmp/", ignore_errors=True)
