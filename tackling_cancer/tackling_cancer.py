@@ -13,7 +13,8 @@
 # limitations under the License.
 
 import json, shutil, matplotlib
-from watson import watson_test, cellextractor_test
+from watson_test import watson_test as watson
+from watson_test import cellextractor_test as cellextractor
 from os.path import join, dirname, exists
 from os import environ, getenv, listdir, remove, makedirs
 from watson_developer_cloud import VisualRecognitionV3  
@@ -107,7 +108,7 @@ def upload():
             if filename.endswith(".jpg"):
                 
                 # classify image and clean result
-                result = watson_test.classify([filepath])
+                result = watson.classify([filepath])
                 resStats = result
                 result = jsonstrto(result).split('\n')
 
@@ -122,7 +123,7 @@ def upload():
 
             # uploaded file is a zip
             if filename.endswith(".zip"):
-                result = watson_test.classify([filepath])
+                result = watson.classify([filepath])
 
                 jsonstrlist = ''
 
@@ -175,7 +176,7 @@ def main_upload():
             f.save(filepath)
             cellextractor.main([filepath])
 
-            result = watson_test.classify(["temp.zip"])
+            result = watson.classify(["temp.zip"])
 
             jsonstrlist = ''
 

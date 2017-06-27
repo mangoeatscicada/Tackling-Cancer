@@ -9,6 +9,8 @@ run:
 
 clean:
 	find . -name '*.pyc' -delete
+	find . -name '*tmp' -delete
+	find . -name '*temp' -delete
 
 run_test:
 	python -m tackling_cancer.tackling_cancer
