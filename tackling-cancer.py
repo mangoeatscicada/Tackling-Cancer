@@ -18,6 +18,8 @@ from os import environ, getenv, listdir, remove, makedirs
 from watson_developer_cloud import VisualRecognitionV3  
 from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify
 from werkzeug import secure_filename
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import time
 

@@ -1,7 +1,8 @@
-watson_developer_cloud==0.26.0
-opencv_python>=3.2.0.7
-Werkzeug>=0.12.2
-numpy>=1.13.0
-Flask>=0.12.2
-Pillow>=4.1.1
-scikit_learn>=0.18.2
+watson_developer_cloud
+Flask
+opencv_python
+numpy
+matplotlib
+Werkzeug
+Pillow
+scikit_learn

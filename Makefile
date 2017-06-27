@@ -6,3 +6,6 @@ test:
 
 run:
 	python tackling-cancer.py
+
+clean:
+	find . -name '*.pyc' -delete
