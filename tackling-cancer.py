@@ -16,12 +16,13 @@ import json, watson, cellextractor, shutil
 from os.path import join, dirname, exists
 from os import environ, getenv, listdir, remove, makedirs
 from watson_developer_cloud import VisualRecognitionV3  
-from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify
+from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify, send_file
 from werkzeug import secure_filename
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import time
+import StringIO
 
 UPLOAD_FOLDER = 'temp'
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'zip'])
@@ -163,7 +164,7 @@ def upload():
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
-            time.sleep(3)
+            
             # return result rendered onto html page
             return render_template('results.html', result = result)
 
@@ -214,6 +215,8 @@ def main_upload():
             remove("temp.zip")
             
             return render_template('results.html', result = jsonstrlist.split('\n'))
+
+
 
 @app.errorhandler(500)
 def internal_server_error(e):
