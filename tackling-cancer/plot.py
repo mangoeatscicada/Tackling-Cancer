@@ -18,4 +18,3 @@ def plotfunc (sometuple):
     plt.title('Cancer Chart')
     plt.savefig('../static/images/piechart.jpg')
 
-plotfunc((1,2,3))
