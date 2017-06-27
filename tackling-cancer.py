@@ -61,7 +61,7 @@ def jsonType(jsonstr):
                 topclass = classes[c]['class']
         return topclass
 
-def plotfunc (sometuple):
+def plotfunc(sometuple):
     plt.rcParams["font.family"] = "Comic Sans MS"
     fig = plt.figure()
     fig.patch.set_facecolor('white')
@@ -77,7 +77,7 @@ def plotfunc (sometuple):
 
     plt.pie(slices, labels=activities, colors = cols, startangle=90, shadow = True, explode=(0,0.15,0), autopct='%1.1f%%')
     plt.title('Cancer Chart')
-    plt.savefig('/static/images/piechart.jpg')
+    plt.savefig('static/images/piechart.jpg')
             
 
 # home
@@ -116,6 +116,7 @@ def upload():
                     cellStats = (0.0, 100.0, 0.0)
                 else: cellStats = (0.0, 0.0, 100.0)
                 print cellStats
+                plotfunc(cellStats)
 
             # uploaded file is a zip
             if filename.endswith(".zip"):
@@ -145,14 +146,14 @@ def upload():
                 percentC = numCancer/float(totalCells) * 100
                 percentO = numOther/float(totalCells) * 100
                 cellStats = (percentB, percentC, percentO)
-<<<<<<< HEAD
+                plotfunc(cellStats)
             
                 jsonstrlist += 'Classifier_ID: Cancer_1509313240'
-=======
+
                 print cellStats
 
                 jsonstrlist += 'Classifier_ID: Cancer_1009023861'
->>>>>>> 2549dd393ee90ec6de823a52b466b545f4435562
+
 
                 result = jsonstrlist.split('\n')
 

@@ -16,5 +16,6 @@ def plotfunc (sometuple):
 
     plt.pie(slices, labels=activities, colors = cols, startangle=90, shadow = True, explode=(0,0.15,0), autopct='%1.1f%%')
     plt.title('Cancer Chart')
-    plt.savefig('../static/images/piechart.jpg')
+    plt.savefig('../static/images/piechart3.jpg')
 
+plotfunc((1,2,3))
