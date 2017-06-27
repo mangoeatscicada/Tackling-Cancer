@@ -145,8 +145,14 @@ def upload():
                 percentC = numCancer/float(totalCells) * 100
                 percentO = numOther/float(totalCells) * 100
                 cellStats = (percentB, percentC, percentO)
+<<<<<<< HEAD
             
                 jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+=======
+                print cellStats
+
+                jsonstrlist += 'Classifier_ID: Cancer_1009023861'
+>>>>>>> 2549dd393ee90ec6de823a52b466b545f4435562
 
                 result = jsonstrlist.split('\n')
 
@@ -196,7 +202,7 @@ def main_upload():
             cellStats = (percentB, percentC, percentO)
             plotfunc(cellStats)
 
-            jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+            jsonstrlist += 'Classifier_ID: Cancer_1009023861'
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
