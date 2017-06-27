@@ -12,17 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json, watson, cellextractor, shutil
+import json, shutil, matplotlib
+from watson import watson_test, cellextractor_test
 from os.path import join, dirname, exists
 from os import environ, getenv, listdir, remove, makedirs
 from watson_developer_cloud import VisualRecognitionV3  
-from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify, send_file
+from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify
 from werkzeug import secure_filename
-import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import time
-import StringIO
 
 UPLOAD_FOLDER = 'temp'
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'zip'])
@@ -64,7 +62,7 @@ def jsonType(jsonstr):
                 topscore = float(classes[c]['score'])
                 topclass = classes[c]['class']
         return topclass
-flag = 0
+
 def plotfunc(sometuple):
     plt.rcParams["font.family"] = "Comic Sans MS"
     fig = plt.figure()
@@ -82,7 +80,6 @@ def plotfunc(sometuple):
     plt.pie(slices, labels=activities, colors = cols, startangle=90, shadow = True, explode=(0,0.15,0), autopct='%1.1f%%')
     plt.title('Cancer Chart')
     plt.savefig('static/images/piechart.jpg')
-    
             
 
 # home
@@ -110,7 +107,7 @@ def upload():
             if filename.endswith(".jpg"):
                 
                 # classify image and clean result
-                result = watson.classify([filepath])
+                result = watson_test.classify([filepath])
                 resStats = result
                 result = jsonstrto(result).split('\n')
 
@@ -125,17 +122,15 @@ def upload():
 
             # uploaded file is a zip
             if filename.endswith(".zip"):
-                result = watson.classify([filepath])
+                result = watson_test.classify([filepath])
 
                 jsonstrlist = ''
-
-                result = result.split('$') 
 
                 numBlood = 0
                 numCancer = 0
                 numOther = 0
 
-                for item in range(len(result) - 1):
+                for item in range(len(result)):
                     jsonstrlist += jsonstrto(result[item])
 
                     # handling the stats
@@ -164,7 +159,7 @@ def upload():
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
-            
+
             # return result rendered onto html page
             return render_template('results.html', result = result)
 
@@ -180,7 +175,7 @@ def main_upload():
             f.save(filepath)
             cellextractor.main([filepath])
 
-            result = watson.classify(["temp.zip"])
+            result = watson_test.classify(["temp.zip"])
 
             jsonstrlist = ''
 
@@ -213,10 +208,8 @@ def main_upload():
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
             remove("temp.zip")
-            
+
             return render_template('results.html', result = jsonstrlist.split('\n'))
-
-
 
 @app.errorhandler(500)
 def internal_server_error(e):

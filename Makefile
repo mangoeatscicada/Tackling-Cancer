@@ -9,3 +9,6 @@ run:
 
 clean:
 	find . -name '*.pyc' -delete
+
+run_test:
+	python -m tackling_cancer.tackling_cancer
