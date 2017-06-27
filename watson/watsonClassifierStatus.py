@@ -5,7 +5,7 @@ from watson_developer_cloud import VisualRecognitionV3
 # authentication
 visual_recognition = VisualRecognitionV3( \
     VisualRecognitionV3.latest_version, \
-    api_key='1f99876aede140f190790ed9c86499e6fe9d525d')
+    api_key='c8be440798e52325714997d9f7f3f0407e38d57d')
 
 # print classifier details
-print(json.dumps(visual_recognition.get_classifier('Cancer_1009023861'), indent=2))
+print(json.dumps(visual_recognition.get_classifier('Cancer_939779875'), indent=2))

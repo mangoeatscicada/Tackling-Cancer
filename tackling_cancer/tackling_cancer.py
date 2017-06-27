@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json, watson, cellextractor, shutil
+import json, shutil, matplotlib
+from watson import watson_test, cellextractor_test
 from os.path import join, dirname, exists
 from os import environ, getenv, listdir, remove, makedirs
 from watson_developer_cloud import VisualRecognitionV3  
 from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify
 from werkzeug import secure_filename
-import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -107,7 +107,7 @@ def upload():
             if filename.endswith(".jpg"):
                 
                 # classify image and clean result
-                result = watson.classify([filepath])
+                result = watson_test.classify([filepath])
                 resStats = result
                 result = jsonstrto(result).split('\n')
 
@@ -122,17 +122,15 @@ def upload():
 
             # uploaded file is a zip
             if filename.endswith(".zip"):
-                result = watson.classify([filepath])
+                result = watson_test.classify([filepath])
 
                 jsonstrlist = ''
-
-                result = result.split('$') 
 
                 numBlood = 0
                 numCancer = 0
                 numOther = 0
 
-                for item in range(len(result) - 1):
+                for item in range(len(result)):
                     jsonstrlist += jsonstrto(result[item])
 
                     # handling the stats
@@ -177,7 +175,7 @@ def main_upload():
             f.save(filepath)
             cellextractor.main([filepath])
 
-            result = watson.classify(["temp.zip"])
+            result = watson_test.classify(["temp.zip"])
 
             jsonstrlist = ''
 
