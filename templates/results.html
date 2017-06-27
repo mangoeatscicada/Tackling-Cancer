@@ -27,11 +27,9 @@
     }
   </style> 
 
-  <body onload="myFuction()">
+  <body>
 
-    <div id="loader"></div>
-
-    <div style="display:none;" id="myDiv" class="animate-bottom">
+    <div style="text-align:center;" class="animate-bottom">
       <div class="col-sm-8 col-sm-offset-2">
         <div class="panel panel-primary">
             <div class="panel-heading text-center">Results</div>
@@ -42,18 +40,6 @@
         </div>
       </div>
     </div>
-    <script>
-      var myVar;
-
-      function myFuction() {
-        myVar = setTimeout(showPage, 3000);
-      }
-
-      function showPage() {
-        document.getElementById("loader").style.display = "none";
-        document.getElementById("myDiv").style.display = "block";
-      }
-    </script>
 
   </body>
 
