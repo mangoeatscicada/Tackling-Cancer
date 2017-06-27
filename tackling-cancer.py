@@ -19,6 +19,7 @@ from watson_developer_cloud import VisualRecognitionV3
 from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify
 from werkzeug import secure_filename
 import matplotlib.pyplot as plt
+import time
 
 UPLOAD_FOLDER = 'temp'
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'zip'])
@@ -60,7 +61,7 @@ def jsonType(jsonstr):
                 topscore = float(classes[c]['score'])
                 topclass = classes[c]['class']
         return topclass
-
+flag = 0
 def plotfunc(sometuple):
     plt.rcParams["font.family"] = "Comic Sans MS"
     fig = plt.figure()
@@ -78,6 +79,7 @@ def plotfunc(sometuple):
     plt.pie(slices, labels=activities, colors = cols, startangle=90, shadow = True, explode=(0,0.15,0), autopct='%1.1f%%')
     plt.title('Cancer Chart')
     plt.savefig('static/images/piechart.jpg')
+    
             
 
 # home
@@ -159,7 +161,7 @@ def upload():
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
-
+            time.sleep(3)
             # return result rendered onto html page
             return render_template('results.html', result = result)
 
@@ -208,7 +210,7 @@ def main_upload():
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
             remove("temp.zip")
-
+            
             return render_template('results.html', result = jsonstrlist.split('\n'))
 
 @app.errorhandler(500)
