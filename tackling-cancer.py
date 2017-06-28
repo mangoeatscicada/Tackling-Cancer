@@ -20,7 +20,7 @@ from flask import Flask, render_template, request, send_from_directory, redirect
 from werkzeug import secure_filename
 import matplotlib
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt, mpld3
 import time
 import StringIO
 
@@ -83,7 +83,20 @@ def plotfunc(sometuple):
     plt.title('Cancer Chart')
     plt.savefig('static/images/piechart.jpg')
     
-            
+def plotfunc0(sometuple):
+    fig = plt.figure(figsize = (5,5))
+    fig.patch.set_facecolor('white')
+    fig.canvas.set_window_title('Cancer Chart')
+    blood = sometuple[0]
+    cancer = sometuple[1]
+    other = sometuple[2]
+    slices = [blood,cancer,other]
+    activities = ['Blood', 'Cancer', 'Other']
+    cols = ['r', 'm', '#D3D3D3']
+    plt.pie(slices, labels=activities, colors = cols, startangle=90, autopct='%1.1f%%')
+    plt.axis('off')
+    plt.title('Cancer Chart')
+    return mpld3.fig_to_html(fig)           
 
 # home
 @app.route('/')
@@ -121,7 +134,7 @@ def upload():
                     cellStats = (0.0, 100.0, 0.0)
                 else: cellStats = (0.0, 0.0, 100.0)
                 print cellStats
-                plotfunc(cellStats)
+                pie = plotfunc0(cellStats)
 
             # uploaded file is a zip
             if filename.endswith(".zip"):
@@ -151,7 +164,7 @@ def upload():
                 percentC = numCancer/float(totalCells) * 100
                 percentO = numOther/float(totalCells) * 100
                 cellStats = (percentB, percentC, percentO)
-                plotfunc(cellStats)
+                pie = plotfunc0(cellStats)
             
                 jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
@@ -166,7 +179,7 @@ def upload():
             shutil.rmtree("./temp/", ignore_errors=True)
             
             # return result rendered onto html page
-            return render_template('results.html', result = result)
+            return render_template('results.html', result = result, pie = pie)
 
 @app.route('/result', methods = ['GET', 'POST'])
 def main_upload():
@@ -206,7 +219,7 @@ def main_upload():
             percentC = numCancer/float(totalCells) * 100
             percentO = numOther/float(totalCells) * 100
             cellStats = (percentB, percentC, percentO)
-            plotfunc(cellStats)
+            pie = plotfunc0(cellStats)
 
             jsonstrlist += 'Classifier_ID: Cancer_939779875'
 
@@ -214,7 +227,7 @@ def main_upload():
             shutil.rmtree("./temp/", ignore_errors=True)
             remove("temp.zip")
             
-            return render_template('results.html', result = jsonstrlist.split('\n'))
+            return render_template('results.html', result = jsonstrlist.split('\n'), pie = pie)
 
 
 

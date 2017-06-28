@@ -5,10 +5,8 @@
     <title>Results</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-
+  
     <!-- Importing Bootstrap --> 
       <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -30,18 +28,29 @@
   </style> 
 
   <body>
+    
 
     <div style="text-align:center;" class="animate-bottom">
       <div class="col-sm-8 col-sm-offset-2">
         <div class="panel panel-primary">
-            <div class="panel-heading text-center">Results</div>
-            {% for line in result %}
-              <p>{{ line }}</p>
-            {% endfor %}
-            <img src="../static/images/piechart.jpg" alt="Pie Chart" height="400" width="400">
+            <div class="panel-heading text-center">Resultsss</div>
+                
+                  <div id="left_col">
+                    {{pie|safe}}
+                    
+                  </div>
+                  <div id="right_col">
+                    {% for line in result %}
+                      
+                      {{ line }}
+                    {% endfor %}
+                      
+                  </div>
+          
         </div>
       </div>
     </div>
+
     
   </body>
 
