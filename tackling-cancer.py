@@ -262,6 +262,10 @@ def value_error(e):
 def testing():
     return app.send_static_file('tester.html')
 
+@app.route('/loading')
+def loading():
+    return app.send_static_file('loading.html')
+
 port = getenv('PORT', '5000')
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=int(port), debug=True)
