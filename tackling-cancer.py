@@ -86,7 +86,7 @@ def plotfunc(sometuple):
     
 def plotfunc0(sometuple):
     fig = plt.figure(figsize = (5,5))
-    fig.patch.set_facecolor('#264d73')
+    fig.patch.set_facecolor('m')
     fig.canvas.set_window_title('Cancer Chart')
     blood = sometuple[0]
     cancer = sometuple[1]

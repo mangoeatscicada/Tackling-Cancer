@@ -6,6 +6,9 @@ test:
 	python -m tests.test
 
 run:
+	python tackling-cancer.py
+
+run2:
 	python -m flask run
 
 clean:
