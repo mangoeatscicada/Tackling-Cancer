@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Results</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <!-- Importing Bootstrap --> 
+      <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+      <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+      <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      
+      <!-- Importing Personal Stylesheet -->
+        <link rel="stylesheet" href="static/stylesheets/style1.css">
+  </head>
+
+  <style>
+    body {
+        background-color: #264d73;
+    }
+  </style> 
+
+  <body>
+    
+
+    <!--<div style="text-align:center;" class="animate-bottom">
+      
+      <div class="col-sm-8 col-sm-offset-2">
+        
+        <div class="panel panel-primary">
+      
+            <div class="panel-heading text-center">Resultsss</div>
+        <div id="wrap">
+                  <div id="right_col">
+                    {% for line in result %}
+                      {{ line }}
+                    {% endfor %}
+                  </div>
+                  <div id="left_col">
+                    {{image|safe}}
+                    {{pie|safe}}
+                  </div>
+                  </div>
+      </div>
+      </div>
+    </div>
+    </div>-->
+    <h1>Results</h1>
+    <h2>                  </h2>
+    <div id="wrap">
+        <div id="left_col">
+          {{pie|safe}}
+        </div>
+        <div id="right_col">
+          {% for line in result %}
+            <p>{{line}}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    
+  </body>
+
+</html>
