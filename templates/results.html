@@ -30,26 +30,41 @@
   <body>
     
 
-    <div style="text-align:center;" class="animate-bottom">
+    <!--<div style="text-align:center;" class="animate-bottom">
+      
       <div class="col-sm-8 col-sm-offset-2">
+        
         <div class="panel panel-primary">
+      
             <div class="panel-heading text-center">Resultsss</div>
-                
-                  <div id="left_col">
-                    {{pie|safe}}
-                    
-                  </div>
+        <div id="wrap">
                   <div id="right_col">
                     {% for line in result %}
-                      
                       {{ line }}
                     {% endfor %}
-                      
                   </div>
-          
-        </div>
+                  <div id="left_col">
+                    {{image|safe}}
+                    {{pie|safe}}
+                  </div>
+                  </div>
+      </div>
       </div>
     </div>
+    </div>-->
+    <h1>Results</h1>
+    <h2>                  </h2>
+    <div id="wrap">
+        <div id="left_col">
+          {{pie|safe}}
+        </div>
+        <div id="right_col">
+          {% for line in result %}
+            <p>{{line}}</p>
+            {% endfor %}
+        </div>
+    </div>
+
 
     
   </body>

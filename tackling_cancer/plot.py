@@ -32,7 +32,7 @@ def plotfunc0(sometuple):
     cols = ['r', 'm', '#D3D3D3']
     plt.pie(slices, labels=activities, colors = cols, startangle=90, autopct='%1.1f%%')
     plt.axis('off')
-    plt.title('Cancer Chart')
+    plt.title('Cancer Chart', color='r')
     mpld3.show()
     
     

@@ -23,6 +23,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt, mpld3
 import time
 import StringIO
+from PIL import Image
 
 UPLOAD_FOLDER = 'temp'
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'zip'])
@@ -85,7 +86,6 @@ def plotfunc(sometuple):
     
 def plotfunc0(sometuple):
     fig = plt.figure(figsize = (5,5))
-    fig.patch.set_facecolor('white')
     fig.canvas.set_window_title('Cancer Chart')
     blood = sometuple[0]
     cancer = sometuple[1]
@@ -95,7 +95,8 @@ def plotfunc0(sometuple):
     cols = ['r', 'm', '#D3D3D3']
     plt.pie(slices, labels=activities, colors = cols, startangle=90, autopct='%1.1f%%')
     plt.axis('off')
-    plt.title('Cancer Chart')
+    plt.legend(activities)
+    plt.title('Cancer Chart', color='w')
     return mpld3.fig_to_html(fig)           
 
 # home
@@ -118,6 +119,13 @@ def upload():
             makedirs("temp")
             filepath = join(app.config['UPLOAD_FOLDER'], filename)
             f.save(filepath)
+            # filepath1 = "./static/images/"+ filename
+            # f.save(filepath1)
+
+            image = Image.open(filepath)
+
+
+
             
             # uploaded file is an image
             if filename.endswith(".jpg"):
@@ -177,9 +185,11 @@ def upload():
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
+            #data_uri = open('11.png', 'rb').read().encode('base64').replace('\n', '')
+            #img_tag = '<img src="data:image/png;base64,{0}">'.format(data_uri)
             
             # return result rendered onto html page
-            return render_template('results.html', result = result, pie = pie)
+            return render_template('results.html', result = result, pie = pie, image=filepath)
 
 @app.route('/result', methods = ['GET', 'POST'])
 def main_upload():
@@ -227,7 +237,7 @@ def main_upload():
             shutil.rmtree("./temp/", ignore_errors=True)
             remove("temp.zip")
             
-            return render_template('results.html', result = jsonstrlist.split('\n'), pie = pie)
+            return render_template('results.html', result = jsonstrlist.split('\n'), pie = pie, image = image)
 
 
 

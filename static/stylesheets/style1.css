@@ -12,7 +12,9 @@ body,html {
 h1 {
     color: #f0f0f5;
     text-shadow: 3px 2px black;
+    text-align:center;
     font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+    padding-bottom: 2cm;
 }
 
 .main {
@@ -59,17 +61,22 @@ h1 {
 }
 
 #wrap {
-    width:600px;
+    width:1000px;
     margin:0 auto;
 }
-
 #left_col {
     float:left;
     text-align:left;
-    width: 50%;
+    width:400px;
+
 }
 #right_col {
-    margin-left: 50%;
+    float:right;
+    text-align:left;
+    width:500px;
+    color: #f0f0f5;
+    font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+
 }
 
 @-webkit-keyframes spin {
