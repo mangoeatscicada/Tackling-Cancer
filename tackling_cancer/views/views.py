@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import tackling_cancer.models.watson_test as watson
+import tackling_cancer.models.cellextractor_test as cellextractor
 import json, shutil, matplotlib
-from watson_test import watson_test as watson
-from watson_test import cellextractor_test as cellextractor
 from os.path import join, dirname, exists
 from os import environ, getenv, listdir, remove, makedirs
 from watson_developer_cloud import VisualRecognitionV3  
@@ -80,7 +80,7 @@ def plotfunc(sometuple):
 
     plt.pie(slices, labels=activities, colors = cols, startangle=90, shadow = True, explode=(0,0.15,0), autopct='%1.1f%%')
     plt.title('Cancer Chart')
-    plt.savefig('static/images/piechart.jpg')
+    plt.savefig('../static/images/piechart.jpg')
             
 
 # home
@@ -153,7 +153,7 @@ def upload():
 
                 print cellStats
 
-                jsonstrlist += 'Classifier_ID: Cancer_939779875'
+                jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
 
                 result = jsonstrlist.split('\n')
@@ -204,7 +204,7 @@ def main_upload():
             cellStats = (percentB, percentC, percentO)
             plotfunc(cellStats)
 
-            jsonstrlist += 'Classifier_ID: Cancer_939779875'
+            jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)

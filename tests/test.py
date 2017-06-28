@@ -1,6 +1,6 @@
 import unittest
-from watson_test import watson_test as watson
-from tackling_cancer import tackling_cancer
+import tackling_cancer.models.watson_test as watson
+import tackling_cancer.views.views as tackling_cancer
 
 class TestWatson(unittest.TestCase):
 

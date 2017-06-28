@@ -12,5 +12,5 @@ clean:
 	find . -name '*tmp' -delete
 	find . -name '*temp' -delete
 
-run_test:
-	python -m tackling_cancer.tackling_cancer
+view:
+	python -m tackling_cancer.views.views
