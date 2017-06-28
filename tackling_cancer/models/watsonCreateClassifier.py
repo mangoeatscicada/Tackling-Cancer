@@ -5,10 +5,10 @@ from watson_developer_cloud import VisualRecognitionV3
 # authentication
 visual_recognition = VisualRecognitionV3( \
     VisualRecognitionV3.latest_version, \
-    api_key='c8be440798e52325714997d9f7f3f0407e38d57d')
+    api_key='3722ed0d4950e9c3c3c187a471043b264b2de23c')
 
 # delete existing classifier
-#visual_recognition.delete_classifier('Cancer_939779875')
+#visual_recognition.delete_classifier('Cancer_1509313240')
 
 # train classifier
 with open(join(dirname(__file__), "images/extract/cancer.zip"), 'rb') as trainingCancer, \

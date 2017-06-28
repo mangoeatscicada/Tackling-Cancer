@@ -154,7 +154,7 @@ def upload():
 
                 print cellStats
 
-                jsonstrlist += 'Classifier_ID: Cancer_939779875'
+                jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
 
                 result = jsonstrlist.split('\n')
@@ -205,7 +205,7 @@ def main_upload():
             cellStats = (percentB, percentC, percentO)
             plotfunc(cellStats)
 
-            jsonstrlist += 'Classifier_ID: Cancer_939779875'
+            jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
