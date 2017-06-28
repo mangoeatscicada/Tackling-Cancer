@@ -86,7 +86,7 @@ def plotfunc(sometuple):
     
 def plotfunc0(sometuple):
     fig = plt.figure(figsize = (5,5))
-    fig.patch.set_facecolor('m')
+    fig.patch.set_facecolor(color='#ccf2ff')
     fig.canvas.set_window_title('Cancer Chart')
     blood = sometuple[0]
     cancer = sometuple[1]
@@ -97,7 +97,7 @@ def plotfunc0(sometuple):
     plt.pie(slices, labels=activities, colors = cols, startangle=90, autopct='%1.1f%%')
     plt.axis('off')
     plt.legend(activities)
-    plt.title('Cancer Chart', color='w')
+    plt.title('Cancer Chart', color='k')
     return mpld3.fig_to_html(fig)           
 
 # home
