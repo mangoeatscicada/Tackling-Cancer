@@ -18,10 +18,13 @@ import json, shutil, matplotlib
 from os.path import join, dirname, exists
 from os import environ, getenv, listdir, remove, makedirs
 from watson_developer_cloud import VisualRecognitionV3  
-from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify
+from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify, send_file
 from werkzeug import secure_filename
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt, mpld3
+import time
+import StringIO
+from PIL import Image
 from tackling_cancer import app
 
 UPLOAD_FOLDER = 'temp'
@@ -81,7 +84,22 @@ def plotfunc(sometuple):
     plt.pie(slices, labels=activities, colors = cols, startangle=90, shadow = True, explode=(0,0.15,0), autopct='%1.1f%%')
     plt.title('Cancer Chart')
     plt.savefig('tackling_cancer/static/images/piechart.jpg')
-            
+
+def plotfunc0(sometuple):
+    fig = plt.figure(figsize = (5,5))
+    fig.patch.set_facecolor('m')
+    fig.canvas.set_window_title('Cancer Chart')
+    blood = sometuple[0]
+    cancer = sometuple[1]
+    other = sometuple[2]
+    slices = [blood,cancer,other]
+    activities = ['Blood', 'Cancer', 'Other']
+    cols = ['r', 'm', '#D3D3D3']
+    plt.pie(slices, labels=activities, colors = cols, startangle=90, autopct='%1.1f%%')
+    plt.axis('off')
+    plt.legend(activities)
+    plt.title('Cancer Chart', color='w')
+    return mpld3.fig_to_html(fig)        
 
 # home
 @app.route('/')
@@ -119,7 +137,7 @@ def upload():
                     cellStats = (0.0, 100.0, 0.0)
                 else: cellStats = (0.0, 0.0, 100.0)
                 print cellStats
-                plotfunc(cellStats)
+                pie = plotfunc0(cellStats)
 
             # uploaded file is a zip
             if filename.endswith(".zip"):
@@ -127,11 +145,13 @@ def upload():
 
                 jsonstrlist = ''
 
+                result = result.split('$') 
+
                 numBlood = 0
                 numCancer = 0
                 numOther = 0
 
-                for item in range(len(result)):
+                for item in range(len(result) - 1):
                     jsonstrlist += jsonstrto(result[item])
 
                     # handling the stats
@@ -147,13 +167,13 @@ def upload():
                 percentC = numCancer/float(totalCells) * 100
                 percentO = numOther/float(totalCells) * 100
                 cellStats = (percentB, percentC, percentO)
-                plotfunc(cellStats)
+                pie = plotfunc0(cellStats)
             
-                jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+                jsonstrlist += 'Classifier_ID: Cancer_1009023861'
 
                 print cellStats
 
-                jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+                jsonstrlist += 'Classifier_ID: Cancer_1009023861'
 
 
                 result = jsonstrlist.split('\n')
@@ -162,7 +182,7 @@ def upload():
             shutil.rmtree("./temp/", ignore_errors=True)
 
             # return result rendered onto html page
-            return render_template('results/results.html', result = result)
+            return render_template('results/results.html', result = result, pie = pie, image=filepath)
 
 @app.route('/result', methods = ['GET', 'POST'])
 def main_upload():
@@ -202,35 +222,39 @@ def main_upload():
             percentC = numCancer/float(totalCells) * 100
             percentO = numOther/float(totalCells) * 100
             cellStats = (percentB, percentC, percentO)
-            plotfunc(cellStats)
+            pie = plotfunc0(cellStats)
 
-            jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+            jsonstrlist += 'Classifier_ID: Cancer_1009023861'
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
             remove("temp.zip")
 
-            return render_template('results/results.html', result = jsonstrlist.split('\n'))
+            return render_template('results/results.html', result = jsonstrlist.split('\n'), pie = pie)
 
-#@app.errorhandler(500)
-#def internal_server_error(e):
-#    return render_template('error/500.html'), 500
-#
-#@app.errorhandler(IOError)
-#def io_error(e):
-#    return render_template('error/io_error.html')
-#
-#@app.errorhandler(NameError)
-#def name_error(e):
-#    return render_template('error/io_error.html')
-#
-#@app.errorhandler(ValueError)
-#def value_error(e):
-#    return render_template('error/io_error.html')
-#
-#@app.route('/testing')
-#def testing():
-#    return app.send_static_file('indexcopy.html')
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('error/500.html'), 500
+
+@app.errorhandler(IOError)
+def io_error(e):
+    return render_template('error/io_error.html')
+
+@app.errorhandler(NameError)
+def name_error(e):
+    return render_template('error/io_error.html')
+
+@app.errorhandler(ValueError)
+def value_error(e):
+    return render_template('error/io_error.html')
+
+@app.route('/testing')
+def testing():
+    return app.send_static_file('tester.html')
+
+@app.route('/loading')
+def loading():
+    return app.send_static_file('loading.html')
 
 port = getenv('PORT', '5000')
 if __name__ == "__main__":

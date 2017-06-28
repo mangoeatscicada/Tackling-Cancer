@@ -2,7 +2,7 @@
 <html>
 
   <head>
-    <title>Python Flask Starter Application</title>
+    <title>Tackling Cancer</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,11 +21,17 @@
     
   </head>
 
+  <body>
+
+    <div id="loading" style="display:none;">
+        <img src="static/images/loading-indicator.gif">
+    </div>
+
     <div id="content">
       <div class="row top-buffer" id="main">
         <div class="col-sm-8 col-sm-offset-2 text-center">
           <div class="panel panel-primary">
-            <div class="panel-heading"><img src="static/images/watson-logo.png" alt="IBM's Watson" style="height: 10%;"><h1> Watson v. Cancer </h1></div>
+            <div class="panel-heading"><img src="static/images/watson-logo.png" alt="IBM's Watson" width="150em"><h1> Watson v. Cancer </h1></div>
             <div class="panel-body">01010000 01101100 01110101 01110011 00100000 01010101 01101100 01110100 01110010 01100001 00100001</div>
           </div>
         </div>
@@ -37,8 +43,23 @@
             <div class="panel-heading">Image or Zip File Classifier</div>
             <div class="panel-body">
               <form action="/results" method="POST" enctype="multipart/form-data">
-                <input type="file" name="file" class="file"/>
-                <input type="submit"/>
+                <!-- @hevin COPY from HERE -->
+                <div class="input-group image-preview"> <!-- Pic Upload Preview taken from https://bootsnipp.com/snippets/featured/input-file-popover-preview-image -->
+                    <input type="text" class="form-control image-preview-filename" disabled="disabled"> 
+                    <span class="input-group-btn">
+                        <!-- image-preview-clear button -->
+                        <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                            <span class="glyphicon glyphicon-remove"></span> Clear
+                        </button>
+                        <!-- image-preview-input -->
+                        <div class="btn btn-default image-preview-input">
+                            <span class="glyphicon glyphicon-folder-open"></span>
+                            <span class="image-preview-input-title">Browse</span>
+                            <input type="file" name="file" class="file"/> 
+                        </div>
+                        <button type="submit" class="btn btn-default image-preview-submit" style="display:none;" id="submit"> Submit </button>
+                    </span>
+                </div>
               </form>
             </div>
           </div>
@@ -50,9 +71,24 @@
           <div class="panel panel-info">
             <div class="panel-heading">Full Tester</div>
             <div class="panel-body">
-              <form action="/main_upload" method="POST" enctype="multipart/form-data">
-                <input type="file" name="file" class="file"/>
-                <input type="submit"/>
+              <form action="/result" method="POST" enctype="multipart/form-data">
+                <!-- full tester case-->
+                <div class="input-group image-preview-full"> <!-- Pic Upload Preview taken from https://bootsnipp.com/snippets/featured/input-file-popover-preview-image -->
+                    <input type="text" class="form-control image-preview-filename-full" disabled="disabled"> 
+                    <span class="input-group-btn">
+                        <!-- image-preview-clear button -->
+                        <button type="button" class="btn btn-default image-preview-clear-full" style="display:none;">
+                            <span class="glyphicon glyphicon-remove"></span> Clear
+                        </button>
+                        <!-- image-preview-input -->
+                        <div class="btn btn-default image-preview-input-full">
+                            <span class="glyphicon glyphicon-folder-open"></span>
+                            <span class="image-preview-input-title-full">Browse</span>
+                            <input type="file" name="file" class="file"/> 
+                        </div>
+                        <button type="submit" class="btn btn-default image-preview-submit-full" style="display:none;" id="submit"> Submit </button>
+                    </span>
+                </div>
               </form>
             </div>
           </div>
@@ -62,6 +98,137 @@
 
   </body>
 
+    <script>
+        $(document).on('click', '#submit', function(){
+            $('#loading').show();
+            $('#content').hide();
+        });
+    </script>
+    
+    <!-- The .words correspond to class="words" -->
+    <script>
+        $(document).on('click', '#close-preview', function(){ //The #close-preview HERE corresponds to [see below]
+        $('.image-preview').popover('hide');
+        // Hover befor close the preview
+        $('.image-preview').hover(
+            function () {
+            $('.image-preview').popover('show');
+            }, 
+            function () {
+            $('.image-preview').popover('hide');
+            }
+        );    
+    });
 
+    $(function() {
+        // Create the close button
+        var closebtn = $('<button/>', {
+            type:"button",
+            text: 'x',
+            id: 'close-preview', // [see above] HERE
+            style: 'font-size: initial;',
+        });
+        closebtn.attr("class","close pull-right");
+        // Set the popover default content
+        $('.image-preview').popover({
+            trigger:'manual',
+            html:true,
+            title: "<strong>Preview</strong>"+$(closebtn)[0].outerHTML,
+            content: "There's no image",
+            placement:'bottom'
+        });
+        // Clear event
+        $('.image-preview-clear').click(function(){
+            $('.image-preview').attr("data-content","").popover('hide');
+            $('.image-preview-filename').val("");
+            $('.image-preview-clear').hide();
+            $('.image-preview-submit').hide();
+            $('.image-preview-input input:file').val("");
+            $(".image-preview-input-title").text("Browse"); 
+        }); 
+        // Create the preview image
+        $(".image-preview-input input:file").change(function (){     
+            var img = $('<img/>', {
+                id: 'dynamic',
+                width:250,
+                height:200
+            });      
+            var file = this.files[0];
+            var reader = new FileReader();
+            // Set preview image into the popover data-content
+            reader.onload = function (e) {
+                $(".image-preview-input-title").text("Change");
+                $(".image-preview-clear").show();
+                $(".image-preview-submit").show();
+                $(".image-preview-filename").val(file.name);            
+                img.attr('src', e.target.result);
+                $(".image-preview").attr("data-content",$(img)[0].outerHTML).popover("show");
+            }        
+            reader.readAsDataURL(file);
+        });  
+    });
+    </script>
+    <script>
+        $(document).on('click', '#close-preview', function(){ //The #close-preview HERE corresponds to [see below]
+        $('.image-preview-full').popover('hide');
+        // Hover befor close the preview
+        $('.image-preview-full').hover(
+            function () {
+            $('.image-preview-full').popover('show');
+            }, 
+            function () {
+            $('.image-preview-full').popover('hide');
+            }
+        );    
+    });
+
+    $(function() {
+        // Create the close button
+        var closebtn = $('<button/>', {
+            type:"button",
+            text: 'x',
+            id: 'close-preview', // [see above] HERE
+            style: 'font-size: initial;',
+        });
+        closebtn.attr("class","close pull-right");
+        // Set the popover default content
+        $('.image-preview-full').popover({
+            trigger:'manual',
+            html:true,
+            title: "<strong>Preview</strong>"+$(closebtn)[0].outerHTML,
+            content: "There's no image",
+            placement:'bottom'
+        });
+        // Clear event
+        $('.image-preview-clear-full').click(function(){
+            $('.image-preview-full').attr("data-content","").popover('hide');
+            $('.image-preview-filename-full').val("");
+            $('.image-preview-clear-full').hide();
+            $('.image-preview-submit-full').hide();
+            $('.image-preview-input-full input:file').val("");
+            $(".image-preview-input-title-full").text("Browse"); 
+        }); 
+        // Create the preview image
+        $(".image-preview-input-full input:file").change(function (){     
+            var img = $('<img/>', {
+                id: 'dynamic',
+                width:250,
+                height:200
+            });      
+            var file = this.files[0];
+            var reader = new FileReader();
+            // Set preview image into the popover data-content
+            reader.onload = function (e) {
+                $(".image-preview-input-title-full").text("Change");
+                $(".image-preview-clear-full").show();
+                $(".image-preview-submit-full").show();
+                $(".image-preview-filename-full").val(file.name);            
+                img.attr('src', e.target.result);
+                $(".image-preview-full").attr("data-content",$(img)[0].outerHTML).popover("show");
+            }        
+            reader.readAsDataURL(file);
+        });  
+    });
+    </script>
 
 </html>

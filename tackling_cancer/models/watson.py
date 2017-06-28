@@ -6,10 +6,10 @@ from PIL import Image
 
 # authentication
 visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, \
-    api_key = '3722ed0d4950e9c3c3c187a471043b264b2de23c')
+    api_key = '1f99876aede140f190790ed9c86499e6fe9d525d')
 
 # classify ID
-classifier_id = 'Cancer_1509313240'
+classifier_id = 'Cancer_1009023861'
 
 def classifyImage(image_path):
 
@@ -27,7 +27,7 @@ def classifyImage(image_path):
 
 def classifyZip(zip_path):
     
-    imageList = []
+    imageList = ''
 
     os.makedirs("tmp")
 
@@ -43,7 +43,7 @@ def classifyZip(zip_path):
             for image_file in os.listdir(images+tmpDir):
                 if image_file.endswith(".jpg"):
                     p = classifyImage(join(images, tmpDir, image_file))
-                    imageList += p
+                    imageList += p + '$'
     
     # delete tmp dir
     shutil.rmtree("./tmp/", ignore_errors=True)
