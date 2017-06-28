@@ -14,7 +14,8 @@ h1 {
     /*text-shadow: 3px 2px black;*/
     text-align:center;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    padding-bottom: 2cm;
+    padding-bottom: 1cm;
+    padding-top: 10px;
 }
 
 .main {

@@ -56,9 +56,11 @@
 
     <div id="wrap">
         <div id="left_col">
+          <img src="static/images/biopsy1.jpg" alt="Sample" style="width:300px;height:300px;float:right;padding-top:20px">
           {{pie|safe}}
         </div>
         <div id="right_col">
+          <h2>Cell Information</h2>
           {% for line in result %}
             <p>{{line}}</p>
             {% endfor %}
