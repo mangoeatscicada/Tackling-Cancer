@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import tackling_cancer.models.watson_test as watson
-import tackling_cancer.models.cellextractor_test as cellextractor
+import tackling_cancer.models.watson as watson
+import tackling_cancer.models.cellextractor as cellextractor
 import json, shutil, matplotlib
 from os.path import join, dirname, exists
 from os import environ, getenv, listdir, remove, makedirs
@@ -22,11 +22,11 @@ from flask import Flask, render_template, request, send_from_directory, redirect
 from werkzeug import secure_filename
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from tackling_cancer import app
 
 UPLOAD_FOLDER = 'temp'
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'zip'])
 
-app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
@@ -80,7 +80,7 @@ def plotfunc(sometuple):
 
     plt.pie(slices, labels=activities, colors = cols, startangle=90, shadow = True, explode=(0,0.15,0), autopct='%1.1f%%')
     plt.title('Cancer Chart')
-    plt.savefig('../static/images/piechart.jpg')
+    plt.savefig('piechart.jpg')
             
 
 # home
@@ -162,7 +162,7 @@ def upload():
             shutil.rmtree("./temp/", ignore_errors=True)
 
             # return result rendered onto html page
-            return render_template('results.html', result = result)
+            return render_template('results/results.html', result = result)
 
 @app.route('/result', methods = ['GET', 'POST'])
 def main_upload():
@@ -210,27 +210,27 @@ def main_upload():
             shutil.rmtree("./temp/", ignore_errors=True)
             remove("temp.zip")
 
-            return render_template('results.html', result = jsonstrlist.split('\n'))
+            return render_template('results/results.html', result = jsonstrlist.split('\n'))
 
-@app.errorhandler(500)
-def internal_server_error(e):
-    return render_template('500.html'), 500
-
-@app.errorhandler(IOError)
-def io_error(e):
-    return render_template('io_error.html')
-
-@app.errorhandler(NameError)
-def name_error(e):
-    return render_template('io_error.html')
-
-@app.errorhandler(ValueError)
-def value_error(e):
-    return render_template('io_error.html')
-
-@app.route('/testing')
-def testing():
-    return app.send_static_file('indexcopy.html')
+#@app.errorhandler(500)
+#def internal_server_error(e):
+#    return render_template('error/500.html'), 500
+#
+#@app.errorhandler(IOError)
+#def io_error(e):
+#    return render_template('error/io_error.html')
+#
+#@app.errorhandler(NameError)
+#def name_error(e):
+#    return render_template('error/io_error.html')
+#
+#@app.errorhandler(ValueError)
+#def value_error(e):
+#    return render_template('error/io_error.html')
+#
+#@app.route('/testing')
+#def testing():
+#    return app.send_static_file('indexcopy.html')
 
 port = getenv('PORT', '5000')
 if __name__ == "__main__":
