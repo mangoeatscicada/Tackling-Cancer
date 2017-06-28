@@ -123,7 +123,7 @@ def upload():
             # filepath1 = "./static/images/"+ filename
             # f.save(filepath1)
 
-            image = Image.open(filepath)
+            #image = Image.open(filepath)
 
 
 
@@ -238,26 +238,26 @@ def main_upload():
             shutil.rmtree("./temp/", ignore_errors=True)
             remove("temp.zip")
             
-            return render_template('results.html', result = jsonstrlist.split('\n'), pie = pie, image = image)
+            return render_template('results.html', result = jsonstrlist.split('\n'), pie = pie)
 
 
 
-@app.errorhandler(500)
-def internal_server_error(e):
-    return render_template('500.html'), 500
-
-@app.errorhandler(IOError)
-def io_error(e):
-    return render_template('io_error.html')
-
-@app.errorhandler(NameError)
-def name_error(e):
-    return render_template('io_error.html')
-
-@app.errorhandler(ValueError)
-def value_error(e):
-    return render_template('io_error.html')
-
+#@app.errorhandler(500)
+#def internal_server_error(e):
+#    return render_template('500.html'), 500
+#
+#@app.errorhandler(IOError)
+#def io_error(e):
+#    return render_template('io_error.html')
+#
+#@app.errorhandler(NameError)
+#def name_error(e):
+#    return render_template('io_error.html')
+#
+#@app.errorhandler(ValueError)
+#def value_error(e):
+#    return render_template('io_error.html')
+#
 @app.route('/testing')
 def testing():
     return app.send_static_file('tester.html')
