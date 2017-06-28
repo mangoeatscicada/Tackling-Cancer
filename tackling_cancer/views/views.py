@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import tackling_cancer.models.watson_test as watson
+import tackling_cancer.models.cellextractor_test as cellextractor
 import json, shutil, matplotlib
-from watson import watson_test, cellextractor_test
 from os.path import join, dirname, exists
 from os import environ, getenv, listdir, remove, makedirs
 from watson_developer_cloud import VisualRecognitionV3  
@@ -79,7 +80,7 @@ def plotfunc(sometuple):
 
     plt.pie(slices, labels=activities, colors = cols, startangle=90, shadow = True, explode=(0,0.15,0), autopct='%1.1f%%')
     plt.title('Cancer Chart')
-    plt.savefig('static/images/piechart.jpg')
+    plt.savefig('../static/images/piechart.jpg')
             
 
 # home
@@ -107,7 +108,7 @@ def upload():
             if filename.endswith(".jpg"):
                 
                 # classify image and clean result
-                result = watson_test.classify([filepath])
+                result = watson.classify([filepath])
                 resStats = result
                 result = jsonstrto(result).split('\n')
 
@@ -122,7 +123,7 @@ def upload():
 
             # uploaded file is a zip
             if filename.endswith(".zip"):
-                result = watson_test.classify([filepath])
+                result = watson.classify([filepath])
 
                 jsonstrlist = ''
 
@@ -152,7 +153,7 @@ def upload():
 
                 print cellStats
 
-                jsonstrlist += 'Classifier_ID: Cancer_939779875'
+                jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
 
                 result = jsonstrlist.split('\n')
@@ -175,7 +176,7 @@ def main_upload():
             f.save(filepath)
             cellextractor.main([filepath])
 
-            result = watson_test.classify(["temp.zip"])
+            result = watson.classify(["temp.zip"])
 
             jsonstrlist = ''
 
@@ -203,7 +204,7 @@ def main_upload():
             cellStats = (percentB, percentC, percentO)
             plotfunc(cellStats)
 
-            jsonstrlist += 'Classifier_ID: Cancer_939779875'
+            jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)

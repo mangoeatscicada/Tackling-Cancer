@@ -170,7 +170,7 @@ def upload():
 
                 print cellStats
 
-                jsonstrlist += 'Classifier_ID: Cancer_939779875'
+                jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
 
                 result = jsonstrlist.split('\n')
@@ -221,7 +221,7 @@ def main_upload():
             cellStats = (percentB, percentC, percentO)
             pie = plotfunc0(cellStats)
 
-            jsonstrlist += 'Classifier_ID: Cancer_939779875'
+            jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
@@ -249,7 +249,7 @@ def value_error(e):
 
 @app.route('/testing')
 def testing():
-    return app.send_static_file('indexcopy.html')
+    return app.send_static_file('tester.html')
 
 port = getenv('PORT', '5000')
 if __name__ == "__main__":
