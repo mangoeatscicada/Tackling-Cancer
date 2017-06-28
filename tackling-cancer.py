@@ -16,11 +16,14 @@ import json, watson, cellextractor, shutil
 from os.path import join, dirname, exists
 from os import environ, getenv, listdir, remove, makedirs
 from watson_developer_cloud import VisualRecognitionV3  
-from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify
+from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify, send_file
 from werkzeug import secure_filename
 import matplotlib
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt, mpld3
+import time
+import StringIO
+from PIL import Image
 
 UPLOAD_FOLDER = 'temp'
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'zip'])
@@ -62,7 +65,7 @@ def jsonType(jsonstr):
                 topscore = float(classes[c]['score'])
                 topclass = classes[c]['class']
         return topclass
-
+flag = 0
 def plotfunc(sometuple):
     plt.rcParams["font.family"] = "Comic Sans MS"
     fig = plt.figure()
@@ -80,7 +83,21 @@ def plotfunc(sometuple):
     plt.pie(slices, labels=activities, colors = cols, startangle=90, shadow = True, explode=(0,0.15,0), autopct='%1.1f%%')
     plt.title('Cancer Chart')
     plt.savefig('static/images/piechart.jpg')
-            
+    
+def plotfunc0(sometuple):
+    fig = plt.figure(figsize = (5,5))
+    fig.canvas.set_window_title('Cancer Chart')
+    blood = sometuple[0]
+    cancer = sometuple[1]
+    other = sometuple[2]
+    slices = [blood,cancer,other]
+    activities = ['Blood', 'Cancer', 'Other']
+    cols = ['r', 'm', '#D3D3D3']
+    plt.pie(slices, labels=activities, colors = cols, startangle=90, autopct='%1.1f%%')
+    plt.axis('off')
+    plt.legend(activities)
+    plt.title('Cancer Chart', color='w')
+    return mpld3.fig_to_html(fig)           
 
 # home
 @app.route('/')
@@ -102,6 +119,13 @@ def upload():
             makedirs("temp")
             filepath = join(app.config['UPLOAD_FOLDER'], filename)
             f.save(filepath)
+            # filepath1 = "./static/images/"+ filename
+            # f.save(filepath1)
+
+            image = Image.open(filepath)
+
+
+
             
             # uploaded file is an image
             if filename.endswith(".jpg"):
@@ -118,7 +142,7 @@ def upload():
                     cellStats = (0.0, 100.0, 0.0)
                 else: cellStats = (0.0, 0.0, 100.0)
                 print cellStats
-                plotfunc(cellStats)
+                pie = plotfunc0(cellStats)
 
             # uploaded file is a zip
             if filename.endswith(".zip"):
@@ -148,22 +172,24 @@ def upload():
                 percentC = numCancer/float(totalCells) * 100
                 percentO = numOther/float(totalCells) * 100
                 cellStats = (percentB, percentC, percentO)
-                plotfunc(cellStats)
+                pie = plotfunc0(cellStats)
             
                 jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
                 print cellStats
 
-                jsonstrlist += 'Classifier_ID: Cancer_939779875'
+                jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
 
                 result = jsonstrlist.split('\n')
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
-
+            #data_uri = open('11.png', 'rb').read().encode('base64').replace('\n', '')
+            #img_tag = '<img src="data:image/png;base64,{0}">'.format(data_uri)
+            
             # return result rendered onto html page
-            return render_template('results.html', result = result)
+            return render_template('results.html', result = result, pie = pie, image=filepath)
 
 @app.route('/result', methods = ['GET', 'POST'])
 def main_upload():
@@ -203,15 +229,17 @@ def main_upload():
             percentC = numCancer/float(totalCells) * 100
             percentO = numOther/float(totalCells) * 100
             cellStats = (percentB, percentC, percentO)
-            plotfunc(cellStats)
+            pie = plotfunc0(cellStats)
 
-            jsonstrlist += 'Classifier_ID: Cancer_939779875'
+            jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
             remove("temp.zip")
+            
+            return render_template('results.html', result = jsonstrlist.split('\n'), pie = pie, image = image)
 
-            return render_template('results.html', result = jsonstrlist.split('\n'))
+
 
 @app.errorhandler(500)
 def internal_server_error(e):
@@ -231,7 +259,7 @@ def value_error(e):
 
 @app.route('/testing')
 def testing():
-    return app.send_static_file('indexcopy.html')
+    return app.send_static_file('tester.html')
 
 @app.route('/loading')
 def loading():
