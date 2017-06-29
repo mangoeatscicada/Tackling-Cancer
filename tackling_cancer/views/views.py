@@ -67,22 +67,22 @@ def jsonType(jsonstr):
                 topclass = classes[c]['class']
         return topclass
 
-def plotfunc0(sometuple):
-    fig = plt.figure(figsize = (5,5))
-    fig.patch.set_facecolor(color='#ccf2ff')
-    fig.canvas.set_window_title('Cancer Chart')
-    blood = sometuple[0]
-    cancer = sometuple[1]
-    other = sometuple[2]
-    slices = [blood,cancer,other]
-    activities = ['Blood', 'Cancer', 'Other']
-    cols = ['r', 'm', '#D3D3D3']
-    plt.pie(slices, colors = cols, startangle=90, autopct='%1.1f%%')
-    plt.axis('off')
-    plt.legend(activities)
-    plt.title('Cancer Chart', color='k', fontsize = 20)
-    fig.patch.set_facecolor(color='#ccf2ff')    
-    return mpld3.fig_to_html(fig)        
+# def plotfunc0(sometuple):
+#     fig = plt.figure(figsize = (5,5))
+#     fig.patch.set_facecolor(color='#ccf2ff')
+#     fig.canvas.set_window_title('Cancer Chart')
+#     blood = sometuple[0]
+#     cancer = sometuple[1]
+#     other = sometuple[2]
+#     slices = [blood,cancer,other]
+#     activities = ['Blood', 'Cancer', 'Other']
+#     cols = ['r', 'm', '#D3D3D3']
+#     plt.pie(slices, colors = cols, startangle=90, autopct='%1.1f%%')
+#     plt.axis('off')
+#     plt.legend(activities)
+#     plt.title('Cancer Chart', color='k', fontsize = 20)
+#     fig.patch.set_facecolor(color='#ccf2ff')    
+#     return mpld3.fig_to_html(fig)        
 
 # home
 @app.route('/')
@@ -120,7 +120,7 @@ def upload():
                     cellStats = (0.0, 100.0, 0.0)
                 else: cellStats = (0.0, 0.0, 100.0)
                 print cellStats
-                pie = plotfunc0(cellStats)
+                #pie = plotfunc0(cellStats)
                 typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
 
             # uploaded file is a zip
@@ -151,7 +151,7 @@ def upload():
                 percentC = numCancer/float(totalCells) * 100
                 percentO = numOther/float(totalCells) * 100
                 cellStats = (percentB, percentC, percentO)
-                pie = plotfunc0(cellStats)
+                #pie = plotfunc0(cellStats)
                 typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
             
                 jsonstrlist += 'Classifier_ID: Cancer_1009023861'
@@ -167,7 +167,7 @@ def upload():
             shutil.rmtree("./temp/", ignore_errors=True)
 
             # return result rendered onto html page
-            return render_template('results/results.html', result = result, pie = pie, image=filepath, typeStats = typeStats)
+            return render_template('results/results.html', result = result, image=filepath, typeStats = typeStats)
 
 @app.route('/result', methods = ['GET', 'POST'])
 def main_upload():
@@ -207,7 +207,7 @@ def main_upload():
             percentC = numCancer/float(totalCells) * 100
             percentO = numOther/float(totalCells) * 100
             cellStats = (percentB, percentC, percentO)
-            pie = plotfunc0(cellStats)
+            #pie = plotfunc0(cellStats)
             typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
             
             jsonstrlist += 'Classifier_ID: Cancer_1009023861'
@@ -216,7 +216,7 @@ def main_upload():
             shutil.rmtree("./temp/", ignore_errors=True)
             remove("temp.zip")
 
-            return render_template('results/results.html', result = jsonstrlist.split('\n'), pie = pie, typeStats = typeStats)
+            return render_template('results/results.html', result = jsonstrlist.split('\n'), typeStats = typeStats)
 
 @app.errorhandler(500)
 def internal_server_error(e):
