@@ -19,6 +19,7 @@
       
       <!-- Importing Personal Stylesheet -->
         <link rel="stylesheet" href="static/stylesheets/style1.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
   </head>
 
   <style>
@@ -53,7 +54,11 @@
     </div>
     </div>-->
     <h1>Results</h1>
-
+    
+    <div>
+      <canvas id="chartjs-4" class="chartjs" style="display: block; height: 400px; width: 400px;" width: "100px" height="100px"></canvas>
+    </div>
+    
     <div id="wrap">
         <div id="left_col">
           <img src="static/images/biopsy1.jpg" alt="Sample" style="width:300px;height:300px;float:right;padding-top:20px">
@@ -67,8 +72,25 @@
         </div>
     </div>
 
-
-    
   </body>
+
+  <script>
+      new Chart(document.getElementById("chartjs-4"),{
+        "type":"doughnut",
+        "data":{
+          "labels":["Test","Cancer","Other"],
+          "datasets":[{
+            "label":"My First Dataset",
+            "data": {{ typeStats }},
+            "backgroundColor":[
+              "rgb(255, 99, 132)",
+              "rgb(255, 205, 86)",
+              "rgb(54, 162, 235)",],
+            "borderColor":[
+              "rgb(0,0,0)",
+              "rgb(0,0,0)",
+              "rgb(0,0,0)"]
+              }]}});
+  </script>
 
 </html>

@@ -138,6 +138,7 @@ def upload():
                 else: cellStats = (0.0, 0.0, 100.0)
                 print cellStats
                 pie = plotfunc0(cellStats)
+                typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
 
             # uploaded file is a zip
             if filename.endswith(".zip"):
@@ -168,6 +169,7 @@ def upload():
                 percentO = numOther/float(totalCells) * 100
                 cellStats = (percentB, percentC, percentO)
                 pie = plotfunc0(cellStats)
+                typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
             
                 jsonstrlist += 'Classifier_ID: Cancer_1009023861'
 
@@ -182,7 +184,7 @@ def upload():
             shutil.rmtree("./temp/", ignore_errors=True)
 
             # return result rendered onto html page
-            return render_template('results/results.html', result = result, pie = pie, image=filepath)
+            return render_template('results/results.html', result = result, pie = pie, image=filepath, typeStats = typeStats)
 
 @app.route('/result', methods = ['GET', 'POST'])
 def main_upload():
@@ -223,14 +225,15 @@ def main_upload():
             percentO = numOther/float(totalCells) * 100
             cellStats = (percentB, percentC, percentO)
             pie = plotfunc0(cellStats)
-
+            typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
+            
             jsonstrlist += 'Classifier_ID: Cancer_1009023861'
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
             remove("temp.zip")
 
-            return render_template('results/results.html', result = jsonstrlist.split('\n'), pie = pie)
+            return render_template('results/results.html', result = jsonstrlist.split('\n'), pie = pie, typeStats = typeStats)
 
 @app.errorhandler(500)
 def internal_server_error(e):
