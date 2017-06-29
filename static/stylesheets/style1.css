@@ -88,8 +88,8 @@ h2 {
     color: black;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-size: 12px;
-
 }
+
 
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
