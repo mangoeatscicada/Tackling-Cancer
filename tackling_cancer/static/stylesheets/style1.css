@@ -103,7 +103,7 @@ h2 {
 .thumb {
 	float:left; /* must be floated for same cross browser position of larger image */
 	position:relative;
-	margin:3px;
+	margin:15px;
 }
 .thumb img { 
 	border:1px solid #000;
@@ -119,7 +119,7 @@ h2 {
 }
 .thumb:hover span { 
 	visibility:visible;
-	top:37px; left:37px; 
+	top:-25px; left:37px; 
 }
 
 @-webkit-keyframes spin {
