@@ -51,7 +51,9 @@ def jsonstrto(jsonstr):
                 result += 'Cancer: ' + str(classes[c]['score']) + '\n'
             if classes[c]['class'] == 'other':
                 result += 'Other: ' + str(classes[c]['score']) + '\n'
-    return result + '\n'
+
+    result = result.split('\n')
+    return result
 
 # parse json object, return type 
 def jsonType(jsonstr):
@@ -127,24 +129,24 @@ def upload():
             if filename.endswith(".zip"):
                 result = watson.classify([filepath])
 
-                jsonstrlist = ''
+                jsonstrlist = []
 
-                result = result.split('$') 
+                # result = result.split('$') 
 
                 numBlood = 0
                 numCancer = 0
                 numOther = 0
 
-                for item in range(len(result) - 1):
-                    jsonstrlist += jsonstrto(result[item])
+                for item in result:
+                    jsonstrlist.append(jsonstrto(item))
 
                     # handling the stats
-                    res = result[item]
-                    if jsonType(res) == 'blood':
+                    # res = result[item]
+                    if jsonType(item) == 'blood':
                         numBlood += 1
-                    if jsonType(res) == 'cancer':
+                    if jsonType(item) == 'cancer':
                         numCancer += 1
-                    if jsonType(res) == 'other':
+                    if jsonType(item) == 'other':
                         numOther += 1
                 totalCells = numBlood + numCancer + numOther
                 percentB = numBlood/float(totalCells) * 100
@@ -154,14 +156,14 @@ def upload():
                 #pie = plotfunc0(cellStats)
                 typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
             
-                jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+                #jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
                 print cellStats
 
-                jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+                #jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
 
-                result = jsonstrlist.split('\n')
+                result = jsonstrlist
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
@@ -184,23 +186,21 @@ def main_upload():
             result = watson.classify(["temp.zip"])
 
             jsonstrlist = ''
-
-            result = result.split('$') 
-
+            # result = result.split('$') 
             numBlood = 0
             numCancer = 0
             numOther = 0
 
-            for item in range(len(result) - 1):
+            for item in result:
                 jsonstrlist += jsonstrto(result[item])
 
                 # handling the stats
-                res = result[item]
-                if jsonType(res) == 'blood':
+                # res = result[item]
+                if jsonType(item) == 'blood':
                     numBlood += 1
-                if jsonType(res) == 'cancer': 
+                if jsonType(item) == 'cancer': 
                     numCancer += 1
-                if jsonType(res) == 'other':
+                if jsonType(item) == 'other':
                     numOther += 1
             totalCells = numBlood + numCancer + numOther
             percentB = numBlood/float(totalCells) * 100
@@ -210,7 +210,7 @@ def main_upload():
             #pie = plotfunc0(cellStats)
             typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
             
-            jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+            #jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
