@@ -154,11 +154,11 @@ def upload():
                 #pie = plotfunc0(cellStats)
                 typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
             
-                jsonstrlist += 'Classifier_ID: Cancer_1009023861'
+                jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
                 print cellStats
 
-                jsonstrlist += 'Classifier_ID: Cancer_1009023861'
+                jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
 
                 result = jsonstrlist.split('\n')
@@ -210,7 +210,7 @@ def main_upload():
             #pie = plotfunc0(cellStats)
             typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
             
-            jsonstrlist += 'Classifier_ID: Cancer_1009023861'
+            jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)

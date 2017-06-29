@@ -2,7 +2,7 @@
 <html>
 
   <head>
-    <title>Test</title>
+    <title>Tackling Cancer</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,19 +29,24 @@
     <div id="fullpage">
         <section class="vertical-scrolling">
             <div><img src="static/images/watson-logo.png" alt="IBM's Watson" width="150em"><h2>Tackling Cancer</h2></div>
-            <h3>A Watson Machine Learning Demo</h3>
+            <h3>A Watson Visual Recognition Demo</h3>
             <div class="scroll-icon">
             <p>Jump into the fun</p>
             <a href="#secondSection" class="icon-up-open-big"></a>
             </div>
         </section>
         <section class="vertical-scrolling">
-            <h3>Select a Biopsy Below</h3>
+            <h3>Select a sample biopsy image below for a demonstration</h3>
             <div>
                 <input type="image" id="image_1" src="static/images/biopsy1.jpg" alt="Biopsy Image #1" width="200em">
-                <input type="file" id="file_1" style="display: none;">
                 <input type="image" id="image_2" src="static/images/biopsy2.jpg" alt="Biopsy Image #2" width="200em">
                 <input type="image" id="image_3" src="static/images/biopsy3.jpg" alt="Biopsy Image #3" width="200em">
+                <input type="image" id="image_4" src="static/images/biopsy3.jpg" alt="Biopsy Image #3" width="200em">
+                <input type="image" id="image_5" src="static/images/biopsy3.jpg" alt="Biopsy Image #3" width="200em">
+            </div>
+            <div class="scroll-icon">
+            <p>Or upload your own</p>
+            <a href="#thirdSection" class="icon-up-open-big"></a>
             </div>
         </section>
         <section class="vertical-scrolling">
@@ -50,7 +55,7 @@
                 <div class="row">
                     <div class="col-sm-4 col-sm-offset-4 text-center">
                     <div class="panel panel-info">
-                        <div class="panel-heading">Image or Zip File Classifier</div>
+                        <div class="panel-heading">Individual cell image or collection of cells zip file</div>
                         <div class="panel-body">
                         <form action="/results" method="POST" enctype="multipart/form-data">
                             <!-- @hevin COPY from HERE -->
@@ -79,7 +84,7 @@
                 <div class="row">
                     <div class="col-sm-4 col-sm-offset-4 text-center">
                     <div class="panel panel-info">
-                        <div class="panel-heading">Full Tester</div>
+                        <div class="panel-heading">Biopsy classifier</div>
                         <div class="panel-body">
                         <form action="/result" method="POST" enctype="multipart/form-data">
                             <!-- full tester case-->
@@ -133,7 +138,7 @@
     navigation: false,
     slidesNavigation: true,
     controlArrows: false,
-    anchors: ['firstSection', 'secondSection', 'thirdSection'],
+    anchors: ['', 'demos', 'upload'],
     menu: '#menu',
     }); 
 
