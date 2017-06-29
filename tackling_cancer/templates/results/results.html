@@ -24,29 +24,6 @@
 
   <body>
     
-
-    <!--<div style="text-align:center;" class="animate-bottom">
-      
-      <div class="col-sm-8 col-sm-offset-2">
-        
-        <div class="panel panel-primary">
-      
-            <div class="panel-heading text-center">Resultsss</div>
-        <div id="wrap">
-                  <div id="right_col">
-                    {% for line in result %}
-                      {{ line }}
-                    {% endfor %}
-                  </div>
-                  <div id="left_col">
-                    {{image|safe}}
-                    {{pie|safe}}
-                  </div>
-                  </div>
-      </div>
-      </div>
-    </div>
-    </div>-->
     <div class="container-fluid">
     
       <div class="row animate-bottom">
@@ -59,7 +36,7 @@
           <div class="col-sm-8">
             <!--<h2>Cell Information</h2>-->
                 
-                  {% for line in result %}
+                  {% for line in result[0] %}
                     <p>{{line}}</p>
                   {% endfor %}
 
@@ -82,9 +59,9 @@
               "rgb(255, 205, 86)",
               "rgb(54, 162, 235)",],
             "borderColor":[
-              "rgb(0,0,0)",
-              "rgb(0,0,0)",
-              "rgb(0,0,0)"]
+              "#ccf2ff",
+              "#ccf2ff",
+              "#ccf2ff"]
               }]}});
   </script>
 

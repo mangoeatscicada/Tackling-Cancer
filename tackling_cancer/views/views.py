@@ -113,7 +113,7 @@ def upload():
                 # classify image and clean result
                 result = watson.classify([filepath])
                 resStats = result
-                result = jsonstrto(result).split('\n')
+                result = [jsonstrto(result)]
 
                 # handling the stats
                 if jsonType(resStats) == 'blood':
