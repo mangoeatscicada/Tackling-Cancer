@@ -10,12 +10,22 @@ body,html {
 }
 
 h1 {
-    color: #00000;
+    color: black;
     /*text-shadow: 3px 2px black;*/
     text-align:center;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     padding-bottom: 1cm;
     padding-top: 10px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+h2 {
+    color: black;
+    text-align:left;
+    font-size: 20px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    padding-bottom: 10px;
 }
 
 .main {
@@ -75,10 +85,11 @@ h1 {
     float:right;
     text-align:left;
     width:500px;
-    color: #00000;
+    color: black;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-
+    font-size: 12px;
 }
+
 
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }

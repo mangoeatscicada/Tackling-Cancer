@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='Tackling Cancer',
+    name='tackling_cancer',
     packages=['tackling_cancer'],
     include_package_data=True,
     install_requires=[
