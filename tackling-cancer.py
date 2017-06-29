@@ -76,10 +76,11 @@ def plotfunc0(sometuple):
     slices = [blood,cancer,other]
     activities = ['Blood', 'Cancer', 'Other']
     cols = ['r', 'm', '#D3D3D3']
-    plt.pie(slices, labels=activities, colors = cols, startangle=90, autopct='%1.1f%%')
+    plt.pie(slices, colors = cols, startangle=90, autopct='%1.1f%%')
     plt.axis('off')
     plt.legend(activities)
-    plt.title('Cancer Chart', color='k')
+    plt.title('Cancer Chart', color='k', fontsize = 20)
+    fig.patch.set_facecolor(color='#ccf2ff')    
     return mpld3.fig_to_html(fig)           
 
 # home
