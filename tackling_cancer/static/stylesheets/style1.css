@@ -10,12 +10,22 @@ body,html {
 }
 
 h1 {
-    color: #00000;
+    color: black;
     /*text-shadow: 3px 2px black;*/
     text-align:center;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     padding-bottom: 1cm;
     padding-top: 10px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+h2 {
+    color: black;
+    text-align:left;
+    font-size: 20px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    padding-bottom: 10px;
 }
 
 .main {
@@ -75,9 +85,41 @@ h1 {
     float:right;
     text-align:left;
     width:500px;
-    color: #00000;
+    color: black;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 12px;
+}
 
+#tooltip {
+    display:none;
+    border:1px solid #F00;
+    width:150px;
+}
+
+#thumbwrap {
+	margin:75px auto;
+	width:75px; height:252px;
+}
+.thumb {
+	float:left; /* must be floated for same cross browser position of larger image */
+	position:relative;
+	margin:3px;
+}
+.thumb img { 
+	border:1px solid #000;
+	vertical-align:bottom;
+}
+.thumb:hover {
+	border:0; /* IE6 needs this to show large image */
+	z-index:1;
+}
+.thumb span { 
+	position:absolute;
+	visibility:hidden;
+}
+.thumb:hover span { 
+	visibility:visible;
+	top:37px; left:37px; 
 }
 
 @-webkit-keyframes spin {

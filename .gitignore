@@ -1,5 +1,4 @@
 .DS_Store
 *.pyc
 build/
-*__init__.py
 *.egg-info
