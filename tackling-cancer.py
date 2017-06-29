@@ -86,7 +86,7 @@ def plotfunc(sometuple):
     
 def plotfunc0(sometuple):
     fig = plt.figure(figsize = (5,5))
-    fig.patch.set_facecolor('m')
+    fig.patch.set_facecolor(color='#ccf2ff')
     fig.canvas.set_window_title('Cancer Chart')
     blood = sometuple[0]
     cancer = sometuple[1]
@@ -97,7 +97,7 @@ def plotfunc0(sometuple):
     plt.pie(slices, labels=activities, colors = cols, startangle=90, autopct='%1.1f%%')
     plt.axis('off')
     plt.legend(activities)
-    plt.title('Cancer Chart', color='w')
+    plt.title('Cancer Chart', color='k')
     return mpld3.fig_to_html(fig)           
 
 # home
@@ -123,7 +123,7 @@ def upload():
             # filepath1 = "./static/images/"+ filename
             # f.save(filepath1)
 
-            image = Image.open(filepath)
+            #image = Image.open(filepath)
 
 
 
@@ -175,11 +175,11 @@ def upload():
                 cellStats = (percentB, percentC, percentO)
                 pie = plotfunc0(cellStats)
             
-                jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+                jsonstrlist += 'Classifier_ID: Cancer_1009023861'
 
                 print cellStats
 
-                jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+                jsonstrlist += 'Classifier_ID: Cancer_1009023861'
 
 
                 result = jsonstrlist.split('\n')
@@ -232,32 +232,32 @@ def main_upload():
             cellStats = (percentB, percentC, percentO)
             pie = plotfunc0(cellStats)
 
-            jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+            jsonstrlist += 'Classifier_ID: Cancer_1009023861'
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
             remove("temp.zip")
             
-            return render_template('results.html', result = jsonstrlist.split('\n'), pie = pie, image = image)
+            return render_template('results.html', result = jsonstrlist.split('\n'), pie = pie)
 
 
 
-@app.errorhandler(500)
-def internal_server_error(e):
-    return render_template('500.html'), 500
-
-@app.errorhandler(IOError)
-def io_error(e):
-    return render_template('io_error.html')
-
-@app.errorhandler(NameError)
-def name_error(e):
-    return render_template('io_error.html')
-
-@app.errorhandler(ValueError)
-def value_error(e):
-    return render_template('io_error.html')
-
+#@app.errorhandler(500)
+#def internal_server_error(e):
+#    return render_template('500.html'), 500
+#
+#@app.errorhandler(IOError)
+#def io_error(e):
+#    return render_template('io_error.html')
+#
+#@app.errorhandler(NameError)
+#def name_error(e):
+#    return render_template('io_error.html')
+#
+#@app.errorhandler(ValueError)
+#def value_error(e):
+#    return render_template('io_error.html')
+#
 @app.route('/testing')
 def testing():
     return app.send_static_file('tester.html')

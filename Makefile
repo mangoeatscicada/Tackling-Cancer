@@ -1,6 +1,8 @@
 init:
 	pip install -r requirements.txt
-	pip install -e .
+	export FLASK_APP=tackling_cancer
+	export FLASK_DEBUG=true
+	pip install -e . --user
 
 test:
 	python -m tests.test

@@ -1,1 +1,1 @@
-web: python tackling-cancer/tackling-cancer.py
+web: python tackling-cancer.py
