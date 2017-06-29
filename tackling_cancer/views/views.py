@@ -236,7 +236,7 @@ def value_error(e):
 
 @app.route('/testing')
 def testing():
-    return app.send_static_file('tester.html')
+    return app.send_static_file('resTester.html')
 
 @app.route('/loading')
 def loading():
