@@ -19,7 +19,6 @@
       
       <!-- Importing Personal Stylesheet -->
         <link rel="stylesheet" href="static/stylesheets/style1.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
   </head>
 
   <style>
@@ -54,11 +53,7 @@
     </div>
     </div>-->
     <h1>Results</h1>
-    
-    <div>
-      <canvas id="chartjs-4" class="chartjs" style="display: block; height: 400px; width: 400px;" width: "100px" height="100px"></canvas>
-    </div>
-    
+
     <div id="wrap">
         <div id="left_col">
           <img src="static/images/biopsy1.jpg" alt="Sample" style="width:300px;height:300px;float:right;padding-top:20px;position:relative;left:9px">
@@ -67,7 +62,7 @@
         <div id="right_col">
           <!--<h2>Cell Information</h2>-->
             <div id="thumbwrap">
-              <a class="thumb" href="#"><img src="static/images/biopsy1.jpg" style="width:50px;height:50px;float:right;position:relative;right:150px" alt="">
+              <a class="thumb" href="#"><img src="static/images/biopsy1.jpg" style="width:50px;height:50px;float:right;position:relative;right:194px" alt="">
               <span>
                 {% for line in result %}
                   <p>{{line}}</p>
@@ -89,36 +84,19 @@
         </div>
     </div>
 
+
+    
   </body>
 
-  <script>
-      new Chart(document.getElementById("chartjs-4"),{
-        "type":"doughnut",
-        "data":{
-          "labels":["Test","Cancer","Other"],
-          "datasets":[{
-            "label":"My First Dataset",
-            "data": {{ typeStats }},
-            "backgroundColor":[
-              "rgb(255, 99, 132)",
-              "rgb(255, 205, 86)",
-              "rgb(54, 162, 235)",],
-            "borderColor":[
-              "rgb(0,0,0)",
-              "rgb(0,0,0)",
-              "rgb(0,0,0)"]
-              }]}});
-  </script>
-
-  <script>
-  $("#testText").hover(
-    function(e){
-      $("#tooltip").show();
-    },
-    function(e){
-      $("#tooltip").hide();
-    }
-  );
-  </script>
-
 </html>
+
+<script>
+$("#testText").hover(
+  function(e){
+    $("#tooltip").show();
+  },
+  function(e){
+    $("#tooltip").hide();
+  }
+);
+</script>

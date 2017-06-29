@@ -90,6 +90,37 @@ h2 {
     font-size: 12px;
 }
 
+#tooltip {
+    display:none;
+    border:1px solid #F00;
+    width:150px;
+}
+
+#thumbwrap {
+	margin:75px auto;
+	width:75px; height:252px;
+}
+.thumb {
+	float:left; /* must be floated for same cross browser position of larger image */
+	position:relative;
+	margin:15px;
+}
+.thumb img { 
+	border:1px solid #000;
+	vertical-align:bottom;
+}
+.thumb:hover {
+	border:0; /* IE6 needs this to show large image */
+	z-index:1;
+}
+.thumb span { 
+	position:absolute;
+	visibility:hidden;
+}
+.thumb:hover span { 
+	visibility:visible;
+	top:-25px; left:37px; 
+}
 
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
