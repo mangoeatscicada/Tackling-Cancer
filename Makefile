@@ -5,7 +5,7 @@ test:
 	python -m tests.test
 
 run:
-	export FLASK_APP=tackling_cancer; export FLASK_DEBUG=true; python -m flask run
+	export FLASK_APP="Tackling Cancer"; export FLASK_DEBUG=true; python -m flask run
 
 clean:
 	find . -name '*.pyc' -delete
