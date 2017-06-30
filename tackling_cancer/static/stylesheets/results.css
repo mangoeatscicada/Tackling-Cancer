@@ -1,0 +1,40 @@
+body, html, .container {
+    background-color: #ccf2ff;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    height: 100%;
+}
+
+h1 {
+    color: black;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 4em;
+}
+
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+.leftside {
+    background-color: black;
+    height: 100%;
+}
+
+.rightside {
+    background-color: blue;
+    height: 100%;
+}
