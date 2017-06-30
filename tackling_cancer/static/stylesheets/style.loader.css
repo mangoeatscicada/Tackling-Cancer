@@ -10,6 +10,7 @@ body, html {
   border: 1px black;
   border-radius: 50%;
   margin: 10% 0% 20% 20%;
-  text-align: center;;
+  text-align: center;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
