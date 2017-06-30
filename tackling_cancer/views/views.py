@@ -53,6 +53,7 @@ def jsonstrto(jsonstr):
                 result += 'Other: ' + str(classes[c]['score']) + '\n'
 
     result = result.split('\n')
+    print result
     return result
 
 # parse json object, return type 
@@ -113,7 +114,7 @@ def upload():
                 # classify image and clean result
                 result = watson.classify([filepath])
                 resStats = result
-                result = jsonstrto(result).split('\n')
+                result = [jsonstrto(result)]
 
                 # handling the stats
                 if jsonType(resStats) == 'blood':
@@ -128,6 +129,7 @@ def upload():
             # uploaded file is a zip
             if filename.endswith(".zip"):
                 result = watson.classify([filepath])
+                print result
 
                 jsonstrlist = []
 
@@ -164,6 +166,7 @@ def upload():
 
 
                 result = jsonstrlist
+                print result
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
@@ -236,7 +239,7 @@ def value_error(e):
 
 @app.route('/testing')
 def testing():
-    return app.send_static_file('tester.html')
+    return app.send_static_file('resTester.html')
 
 @app.route('/loading')
 def loading():

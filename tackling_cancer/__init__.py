@@ -1,4 +1,4 @@
 from flask import Flask
-app = Flask('tackling_cancer')
+app = Flask(__name__)
 
 import tackling_cancer.views.views
