@@ -18,76 +18,31 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       
       <!-- Importing Personal Stylesheet -->
-        <link rel="stylesheet" href="static/stylesheets/style1.css">
+        <link rel="stylesheet" href="static/stylesheets/results.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
   </head>
 
-  <style>
-    body {
-        background-color: #ccf2ff;
-    }
-  </style> 
-
   <body>
     
+    <div class="container-fluid">
+    
+      <div class="row animate-bottom">
+          <h1>Results</h1>
+          <div class="col-sm-4 leftCol">
+            <div><img src="static/images/biopsy1.jpg" alt="Sample" style="width:300px; height:300px; padding-bottom: 8%;" class="center-block"></div>
+            <div><canvas id="chartjs-4" class="chartjs" style="display: block; height: 200px; width: 200px;" width: "100px" height="100px"></canvas></div>
+          </div>
+          
+          <div class="col-sm-8">
+                
+                  {% for line in result[0] %}
+                    <p>{{line}}</p>
+                  {% endfor %}
+                    <p>{{ result[0][1] }}</p>
 
-    <!--<div style="text-align:center;" class="animate-bottom">
-      
-      <div class="col-sm-8 col-sm-offset-2">
-        
-        <div class="panel panel-primary">
-      
-            <div class="panel-heading text-center">Resultsss</div>
-        <div id="wrap">
-                  <div id="right_col">
-                    {% for line in result %}
-                      {{ line }}
-                    {% endfor %}
-                  </div>
-                  <div id="left_col">
-                    {{image|safe}}
-                    {{pie|safe}}
-                  </div>
-                  </div>
-      </div>
+          </div>
       </div>
     </div>
-    </div>-->
-    <h1>Results</h1>
-    
-    <div>
-      <canvas id="chartjs-4" class="chartjs" style="display: block; height: 400px; width: 400px;" width: "100px" height="100px"></canvas>
-    </div>
-    
-    <div id="wrap">
-        <div id="left_col">
-          <img src="static/images/biopsy1.jpg" alt="Sample" style="width:300px;height:300px;float:right;padding-top:20px;position:relative;left:9px">
-        </div>
-        <div id="right_col">
-          <!--<h2>Cell Information</h2>-->
-            <div id="thumbwrap">
-              <a class="thumb" href="#"><img src="static/images/biopsy1.jpg" style="width:50px;height:50px;float:right;position:relative;right:150px" alt="">
-              <span>
-                {% for line in result %}
-                  <p>{{line}}</p>
-                {% endfor %}
-                </span></a>
-              <a class="thumb" href="#"><img src="static/images/biopsy1.jpg" style="width:50px;height:50px;float:bottom;position:relative;right:150px" alt="">
-              <span>
-                {% for line in result %}
-                  <p>{{line}}</p>
-                {% endfor %}
-                </span></a>
-              <a class="thumb" href="#"><img src="static/images/biopsy1.jpg" style="width:50px;height:50px;float:bottom;position:relative;right:150px" alt="">
-              <span>
-                {% for line in result %}
-                  <p>{{line}}</p>
-                {% endfor %}
-                </span></a>                                   
-              </div>
-        </div>
-    </div>
-
   </body>
 
   <script>
@@ -103,9 +58,9 @@
               "rgb(255, 205, 86)",
               "rgb(54, 162, 235)",],
             "borderColor":[
-              "rgb(0,0,0)",
-              "rgb(0,0,0)",
-              "rgb(0,0,0)"]
+              "#ccf2ff",
+              "#ccf2ff",
+              "#ccf2ff"]
               }]}});
   </script>
 
