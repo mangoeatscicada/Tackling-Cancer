@@ -3,6 +3,7 @@ import sys, re, os, cv2
 import tempfile
 import zipfile
 import shutil
+from PIL import Image, ImageDraw
 from flask import Flask
 #import matplotlib.pyplot as plt
 
@@ -47,9 +48,9 @@ def main(argv):
     ret, dst = cv2.threshold(src_gray, optimal_threshold, 255, 0)
     _, contours, hierarchy = cv2.findContours(dst, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     
-    cells_found = 0;
+    cells_found = 0
+ 
     for i in range(0,len(contours)):
-        
         if cv2.matchShapes(contours[i], perfect_circle, 1, 0) <= circle_similarity_threshold:
             
             # calculate the minimal bounding box to surround the countour
@@ -68,15 +69,23 @@ def main(argv):
                 # obtain a crop of this contour
                 crop = cells[y: y + h, x: x + w]
                 #crop = src[y: y + h, x: x + w]
-                
+                image = Image.open(argv[0]) 
+                draw = ImageDraw.Draw(image)
+                draw.rectangle(((x,y),(x+w,y+h)), outline ='yellow')
+                draw.text((x,y), str(cells_found), fill='white')
+                image.save('tests/test'+str(cells_found)+'.png')                
                 # write the image to a file
                 cells_found += 1
                 cell_filename = 'temp/' + re.sub('\.[^.]*$', "_cell_" + str(cells_found) + ".jpg", os.path.basename(filename))
                 cv2.imwrite(cell_filename, crop, [cv2.IMWRITE_JPEG_QUALITY, 100])
 
+                
     zipf = zipfile.ZipFile('temp.zip', 'w')
     zipdir(newpath, zipf)
+
+    
     zipf.close()
+    
     
     # Apply the mask to the source image to produce a new image
     #cells = src & drawing
@@ -92,6 +101,7 @@ def main(argv):
     #cv2.waitKey(0)
 
 # provide a single access point to the methods of finding the optimal threshold
+
 def getOptimalThreshold(src_gray):
     
     #optimal_threshold1 = getOptimalThreshold_maximiseCellCount(src_gray)
