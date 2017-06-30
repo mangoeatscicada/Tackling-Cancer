@@ -9,5 +9,5 @@ run:
 
 clean:
 	find . -name '*.pyc' -delete
-	find . -name '*tmp' -delete
-	find . -name '*temp' -delete
+	find . -name 'tmp' -type d -exec rm -r "{}" \;
+	find . -name 'temp' -type d -exec rm -r "{}" \;
