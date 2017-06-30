@@ -38,21 +38,20 @@ def allowed_file(filename):
 
 # parse json dump string into cleaner string
 def jsonstrto(jsonstr):
-    result = ''
+    result = []
     j = json.loads(jsonstr)
     images = j['images']
     for image in range(len(images)):
-        result += "Cell: " + str(images[image]['image']) + '\n'
+        result.append(str(images[image]['image']))
         classes = images[image]['classifiers'][0]['classes']
         for c in range(len(classes)):
             if classes[c]['class'] == 'blood':
-                result += 'Blood: ' + str(classes[c]['score']) + '\n'
+                result.append(classes[c]['score'])
             if classes[c]['class'] == 'cancer':
-                result += 'Cancer: ' + str(classes[c]['score']) + '\n'
+                result.append(classes[c]['score'])
             if classes[c]['class'] == 'other':
-                result += 'Other: ' + str(classes[c]['score']) + '\n'
+                result.append(classes[c]['score'])
 
-    result = result.split('\n')
     print result
     return result
 
@@ -158,11 +157,11 @@ def upload():
                 #pie = plotfunc0(cellStats)
                 typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
             
-                #jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+                #jsonstrlist += 'Classifier_ID: Cancer_939779875'
 
                 print cellStats
 
-                #jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+                #jsonstrlist += 'Classifier_ID: Cancer_939779875'
 
 
                 result = jsonstrlist
@@ -188,14 +187,14 @@ def main_upload():
 
             result = watson.classify(["temp.zip"])
 
-            jsonstrlist = ''
+            jsonstrlist = []
             # result = result.split('$') 
             numBlood = 0
             numCancer = 0
             numOther = 0
 
             for item in result:
-                jsonstrlist += jsonstrto(result[item])
+                jsonstrlist.append(jsonstrto(item))
 
                 # handling the stats
                 # res = result[item]
@@ -213,13 +212,13 @@ def main_upload():
             #pie = plotfunc0(cellStats)
             typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
             
-            #jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+            #jsonstrlist += 'Classifier_ID: Cancer_939779875'
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
             remove("temp.zip")
 
-            return render_template('results/results.html', result = jsonstrlist.split('\n'), typeStats = typeStats)
+            return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats)
 
 @app.errorhandler(500)
 def internal_server_error(e):
