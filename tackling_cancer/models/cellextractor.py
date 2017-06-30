@@ -73,18 +73,21 @@ def main(argv):
                 draw = ImageDraw.Draw(image)
                 draw.rectangle(((x,y),(x+w,y+h)), outline ='yellow')
                 draw.text((x,y), str(cells_found), fill='white')
-                image.save('tests/test'+str(cells_found)+'.png')                
+                image.save('highlights/fullhl'+str(cells_found)+'.png')                
                 # write the image to a file
                 cells_found += 1
                 cell_filename = 'temp/' + re.sub('\.[^.]*$', "_cell_" + str(cells_found) + ".jpg", os.path.basename(filename))
                 cv2.imwrite(cell_filename, crop, [cv2.IMWRITE_JPEG_QUALITY, 100])
+                cv2.imwrite('thumbnails/indiv'+str(cells_found)+".jpg", crop, [cv2.IMWRITE_JPEG_QUALITY, 100])
 
                 
     zipf = zipfile.ZipFile('temp.zip', 'w')
-    zipdir(newpath, zipf)
-
-    
-    zipf.close()
+    zipdir(newpath, zipf)    
+    zipf.close
+    # zipr = zipfile.ZipFile('temp.zip', 'r')
+    # zipr.extractall('tests0')
+    # zipr.close
+ 
     
     
     # Apply the mask to the source image to produce a new image
