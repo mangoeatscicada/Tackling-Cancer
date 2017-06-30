@@ -1,4 +1,4 @@
-# Python Flask Hello World Sample
+# Tackling Cancer
 
 This application is a Python web application based on the [Flask microframework](http://flask.pocoo.org/).
 

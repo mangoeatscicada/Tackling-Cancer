@@ -10,8 +10,10 @@ visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, \
 
 # classify ID
 classifier_id = 'Cancer_1509313240'
-imageList = []
+
 def classifyImage(image_path):
+
+    i = []
 
     # open each image (max size known to be 30x30)
     image = Image.open(image_path)
@@ -22,11 +24,13 @@ def classifyImage(image_path):
             images_file=image_file, \
             threshold=0, \
             classifier_ids=[classifier_id]), indent=2)
-        imageList.append(result)
-        print imageList[0]
-        return imageList[0]
+        i.append(result)
+    print i[0]
+    return i[0]
 
 def classifyZip(zip_path):
+
+    imageList = []
     
     os.makedirs("tmp")
 

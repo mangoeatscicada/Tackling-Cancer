@@ -1,1 +1,1 @@
-web: export FLASK_APP="Tackling Cancer"; python -m flask run
+web: export FLASK_APP="Tackling Cancer"; python run.py

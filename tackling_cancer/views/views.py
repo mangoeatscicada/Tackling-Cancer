@@ -53,6 +53,7 @@ def jsonstrto(jsonstr):
                 result += 'Other: ' + str(classes[c]['score']) + '\n'
 
     result = result.split('\n')
+    print result
     return result
 
 # parse json object, return type 
@@ -128,6 +129,7 @@ def upload():
             # uploaded file is a zip
             if filename.endswith(".zip"):
                 result = watson.classify([filepath])
+                print result
 
                 jsonstrlist = []
 
@@ -164,6 +166,7 @@ def upload():
 
 
                 result = jsonstrlist
+                print result
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
