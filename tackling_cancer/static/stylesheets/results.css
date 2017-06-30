@@ -9,6 +9,7 @@ h1 {
     text-align: center;
     text-transform: uppercase;
     font-size: 4em;
+    border-color: white;
 }
 
 .animate-bottom {
@@ -29,12 +30,7 @@ h1 {
   to{ bottom:0; opacity:1 }
 }
 
-.leftside {
-    background-color: black;
-    height: 100%;
-}
-
-.rightside {
-    background-color: blue;
-    height: 100%;
+.leftCol {
+    position: fixed;
+    background-color: #0099cc;
 }

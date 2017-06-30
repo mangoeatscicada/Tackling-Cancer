@@ -22,21 +22,22 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
   </head>
 
-  <body>
+  <body class="bodyClass">
     
     <div class="container-fluid">
     
       <div class="row animate-bottom">
-          <h1>Results</h1>
+
           <div class="col-sm-4 leftCol">
-            <div><img src="static/images/biopsy1.jpg" alt="Sample" style="width:300px; height:300px; padding-bottom: 8%;" class="center-block"></div>
-            <div><canvas id="chartjs-4" class="chartjs" style="display: block; height: 200px; width: 200px;" width: "100px" height="100px"></canvas></div>
+            <h1>Results</h1>
+            <div><img src="static/images/001_biopsy.jpg" alt="Sample" style="width: 80%; height: 30%; margin-bottom: 8%;" class="center-block img-responsive img-thumbnail"></div>
+            <div><canvas id="chartjs-4" class="chartjs" style="display: block; height: 200px; width: 200px;" width= "150px" height="100px"></canvas></div>
           </div>
           
-          <div class="col-sm-8">
-                
+          <div class="col-sm-8 col-sm-offset-4">
+                  <h2>Watson Confidence Levels</h2>
                   {% for cell in result %}
-                      <canvas id="{{ cell[0] }}" class="chartjs" style="display: block; height: 200px; width: 200px;" width: "100px" height="100px"></canvas>                
+                      <canvas id="{{ cell[0] }}" class="chartjs" style="display: block; height: 10%; width: 10%;" width= "300px" height="100px"></canvas>                
                     {% for line in cell %}
                       <p>{{ line }}</p>
                     {% endfor %}
@@ -45,46 +46,6 @@
           </div>
       </div>
     </div>
-<<<<<<< HEAD
-    </div>-->
-    <h1>Results</h1>
-    
-    <div>
-      <canvas id="chartjs-4" class="chartjs" style="display: block; height: 400px; width: 400px;" width: "100px" height="100px"></canvas>
-    </div>
-    
-    <div id="wrap">
-        <div id="left_col">
-          <img src="static/images/biopsy1.jpg" alt="Sample" style="width:300px;height:300px;float:right;padding-top:20px;position:relative;left:9px">
-        </div>
-        <div id="right_col">
-          <!--<h2>Cell Information</h2>-->
-            <div id="thumbwrap">
-              <a class="thumb" href="#"><img src="static/images/biopsy1.jpg" style="width:50px;height:50px;float:right;position:relative;right:150px" alt="">
-              <span>
-              
-                {% for line in result[0] %}
-                  <p>{{line}}</p>
-                {% endfor %}
-                </span></a>
-              <a class="thumb" href="#"><img src="static/images/biopsy1.jpg" style="width:50px;height:50px;float:bottom;position:relative;right:150px" alt="">
-              <span>
-                {% for line in result[1] %}
-                  <p>{{line}}</p>
-                {% endfor %}
-                </span></a>
-              <a class="thumb" href="#"><img src="static/images/biopsy1.jpg" style="width:50px;height:50px;float:bottom;position:relative;right:150px" alt="">
-              <span>
-                {% for line in result[2] %}
-                  <p>{{line}}</p>
-                {% endfor %}
-                </span></a>                                   
-              </div>
-        </div>
-    </div>
-
-=======
->>>>>>> 1828f158a6345675fed41cfd118033f7d45de5a9
   </body>
 
   <script>
@@ -96,13 +57,13 @@
             "label":"Biopsy Composition",
             "data": {{ typeStats }},
             "backgroundColor":[
-              "rgb(255, 99, 132)",
+              "rgb(255, 0, 0)",
               "rgb(255, 205, 86)",
               "rgb(54, 162, 235)",],
             "borderColor":[
-              "#ccf2ff",
-              "#ccf2ff",
-              "#ccf2ff"]
+              "#ffffff",
+              "#ffffff",
+              "#ffffff"]
               }]}});
   </script>
 
@@ -118,7 +79,7 @@
             "label":"Confidence %",
             "data": [result[i][1],result[i][2],result[i][3]],
             "backgroundColor":[
-              "rgb(255, 99, 132)",
+              "rgb(255, 0, 0)",
               "rgb(255, 205, 86)",
               "rgb(54, 162, 235)",],
             "borderColor":[
@@ -138,6 +99,11 @@
       $("#tooltip").hide();
     }
   );
+  </script>
+
+  <script>
+    var height = $('.bodyClass').height();
+    $('.leftCol').height(height);
   </script>
 
 </html>
