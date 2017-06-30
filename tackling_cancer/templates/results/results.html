@@ -34,14 +34,13 @@
           </div>
           
           <div class="col-sm-8">
-            <!--<h2>Cell Information</h2>-->
                 
                   {% for line in result[0] %}
                     <p>{{line}}</p>
                   {% endfor %}
+                    <p>{{ result[0][1] }}</p>
 
           </div>
-
       </div>
     </div>
   </body>
