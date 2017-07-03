@@ -1,5 +1,5 @@
 body, html, .container {
-    background-color: #ccf2ff;
+    background-color: #0099cc;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     height: 100%;
 }
@@ -33,4 +33,31 @@ h1 {
 .leftCol {
     position: fixed;
     background-color: #0099cc;
+    margin-top: 3%;
+}
+
+.rightCol {
+  margin-top: 0%;
+  margin-bottom: 0%;
+}
+
+#rightHead {
+  margin-top: 4%;
+}
+
+.panel {
+  background-color: #ccf2ff;
+  border-color: lightgray;
+  border-style: double;
+  border-width: 3px;
+}
+
+.panel-header {
+  border-bottom-color: lightgray;
+  border-bottom-style: inset;
+  border-bottom-width: 1px;
+}
+
+.img-thumbnail {
+  background-color: lightgray;
 }

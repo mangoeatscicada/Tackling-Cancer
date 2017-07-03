@@ -29,17 +29,31 @@
       <div class="row animate-bottom">
 
           <div class="col-sm-4 leftCol">
+<<<<<<< HEAD
             <h1>Results</h1>
             <div>
               <img src="static/images/some.jpg" alt="Sample" style="width: 80%; height: 30%; margin-bottom: 8%;" class="center-block img-responsive img-thumbnail"></div>
             <div><canvas id="chartjs-4" class="chartjs" style="display: block; height: 200px; width: 200px;" width= "150px" height="100px"></canvas></div>
+=======
+            <div class="panel">
+              <div class="panel-header"><h1>Results</h1></div>
+              <div class="panel-body">
+                <div><img src="static/images/001_biopsy.jpg" alt="Sample" style="width: 70%; height: 30%; margin-bottom: 5%; margin-top: 3%;" class="center-block img-responsive img-thumbnail"></div>
+                <div><canvas id="chartjs-4" class="chartjs" style="display: block; height: 200px; width: 200px;" width= "150px" height="100px"></canvas></div>
+              </div>
+            </div>
+>>>>>>> 074ba6cf14b27995c2741024f7efdf97522efa72
           </div>
           
-          <div class="col-sm-8 col-sm-offset-4">
-                  <h2>Watson Confidence Levels</h2>
+          <div class="col-sm-8 col-sm-offset-4 rightCol">
+                  <div class="panel" id="rightHead">
+                    <h2>Watson Confidence Levels</h2>
+                  </div>
                   {% for cell in result %}
-                      <canvas id="{{ cell[0] }}" class="chartjs" style="display: block; height: 10%; width: 10%;" width= "500px" height="100px"></canvas>
-                      <p>{{ cell[0] }}</p>
+                      <div class="panel">
+                        <div class="panel-header"><h3>{{ cell [0] }}</h3></div>
+                        <div class="panel-body"><canvas id="{{ cell[0] }}" class="chartjs" style="display: block; height: 10%; width: 10%;" width= "500px" height="100px"></canvas></div>
+                      </div>
                   {% endfor %}
         
           </div>
@@ -51,7 +65,7 @@
       new Chart(document.getElementById("chartjs-4"),{
         "type":"doughnut",
         "data":{
-          "labels":["Blood","Cancer","Other"],
+          "labels":[" % Blood"," % Cancer"," % Other"],
           "datasets":[{
             "label":"Biopsy Composition",
             "data": {{ typeStats }},
@@ -60,9 +74,9 @@
               "rgb(255, 205, 86)",
               "rgb(54, 162, 235)",],
             "borderColor":[
-              "#ffffff",
-              "#ffffff",
-              "#ffffff"]
+              "#ccf2ff",
+              "#ccf2ff",
+              "#ccf2ff"]
               }]}});
   </script>
 
