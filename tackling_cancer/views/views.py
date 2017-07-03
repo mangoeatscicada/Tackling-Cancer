@@ -186,6 +186,7 @@ def main_upload():
             filename = secure_filename(f.filename)
             makedirs("temp")
             filepath = join(app.config['UPLOAD_FOLDER'], filename)
+            print filepath
             f.save(filepath)
             cellextractor.main([filepath])
 
@@ -229,47 +230,44 @@ def main_upload():
 @app.route('/demobiopsy', methods = ['GET', 'POST'])
 def demo():
     if request.method == 'POST':
-        print "test1"
+
         val = request.form["demo"]
+        print val
+        print "test1"
+        cellextractor.main([val])
         print "test2"
-        if "001" in val:
-            print "test3"
-            cellextractor.main([val])
-
-            result = watson.classify(["temp.zip"])
-
-            jsonstrlist = []
-            # result = result.split('$') 
-            numBlood = 0
-            numCancer = 0
-            numOther = 0
-
-            for item in result:
-                jsonstrlist.append(jsonstrto(item))
-
-                # handling the stats
-                # res = result[item]
-                if jsonType(item) == 'blood':
-                    numBlood += 1
-                if jsonType(item) == 'cancer': 
-                    numCancer += 1
-                if jsonType(item) == 'other':
-                    numOther += 1
-            totalCells = numBlood + numCancer + numOther
-            percentB = numBlood/float(totalCells) * 100
-            percentC = numCancer/float(totalCells) * 100
-            percentO = numOther/float(totalCells) * 100
-            cellStats = (percentB, percentC, percentO)
-            #pie = plotfunc0(cellStats)
-            typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
+        result = watson.classify(["temp.zip"])
+        print result
+        print "test3"
+        jsonstrlist = []
             
-            #jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+        numBlood = 0
+        numCancer = 0
+        numOther = 0
 
-            # delete temp dir
-            shutil.rmtree("./temp/", ignore_errors=True)
-            remove("temp.zip")
-
-            return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats)
+        for item in result:
+            jsonstrlist.append(jsonstrto(item))
+            # handling the stats
+            # res = result[item]
+            if jsonType(item) == 'blood':
+                numBlood += 1
+            if jsonType(item) == 'cancer': 
+                numCancer += 1
+            if jsonType(item) == 'other':
+                numOther += 1
+        totalCells = numBlood + numCancer + numOther
+        percentB = numBlood/float(totalCells) * 100
+        percentC = numCancer/float(totalCells) * 100
+        percentO = numOther/float(totalCells) * 100
+        cellStats = (percentB, percentC, percentO)
+        #pie = plotfunc0(cellStats)
+        typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
+        
+        #jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+        # delete temp dir
+        shutil.rmtree("./temp/", ignore_errors=True)
+        remove("temp.zip")
+        return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats)
 
 # @app.errorhandler(500)
 # def internal_server_error(e):
