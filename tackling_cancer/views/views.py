@@ -42,7 +42,7 @@ def jsonstrto(jsonstr):
     j = json.loads(jsonstr)
     images = j['images']
     for image in range(len(images)):
-        result.append(str(images[image]['image']))
+        result.append('Cell #: ' + str(image))
         classes = images[image]['classifiers'][0]['classes']
         for c in range(len(classes)):
             if classes[c]['class'] == 'blood':
