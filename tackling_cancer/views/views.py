@@ -234,6 +234,7 @@ def demo():
         val = request.form["demo"]
         print val
         print "test1"
+        
         cellextractor.main([val])
         print "test2"
         result = watson.classify(["temp.zip"])
@@ -245,8 +246,11 @@ def demo():
         numCancer = 0
         numOther = 0
 
+        counter = 1
         for item in result:
-            jsonstrlist.append(jsonstrto(item))
+            jsonstrlist.append(jsonstrto(item, counter))
+            counter += 1
+
             # handling the stats
             # res = result[item]
             if jsonType(item) == 'blood':
