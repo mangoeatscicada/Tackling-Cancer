@@ -49,6 +49,9 @@ def main(argv):
     _, contours, hierarchy = cv2.findContours(dst, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     
     cells_found = 0
+    image0 = Image.open(argv[0])
+    image0.save('tackling_cancer/static/images/fullpic.jpg')
+    
  
     for i in range(0,len(contours)):
         if cv2.matchShapes(contours[i], perfect_circle, 1, 0) <= circle_similarity_threshold:
@@ -71,9 +74,10 @@ def main(argv):
                 #crop = src[y: y + h, x: x + w]
                 image = Image.open(argv[0]) 
                 draw = ImageDraw.Draw(image)
+
                 draw.rectangle(((x,y),(x+w,y+h)), outline ='yellow')
                 draw.text((x,y), str(cells_found), fill='white')
-                image.save('tackling_cancer/models/highlights/fullhl'+str(cells_found)+'.png')                
+                image.save('tackling_cancer/models/highlights/fullhl'+str(cells_found)+'.jpg')                
                 # write the image to a file
                 cells_found += 1
                 cell_filename = 'temp/' + re.sub('\.[^.]*$', "_cell_" + str(cells_found) + ".jpg", os.path.basename(filename))

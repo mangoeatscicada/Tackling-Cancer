@@ -103,9 +103,9 @@ def upload():
 
         if allowed_file(f.filename):
             filename = secure_filename(f.filename)
-            # makedirs("temp")
-            # fileextension = os.path.splitext(filename)[1]            
-            filepath = join('tackling_cancer/static/images', 'some.jpg')
+            makedirs("temp")
+            fileextension = os.path.splitext(filename)[1]            
+            filepath = join(app.config['UPLOAD_FOLDER'], filename)
             print(filepath)
             f.save(filepath)
             
@@ -115,7 +115,7 @@ def upload():
                 # classify image and clean result
                 result = watson.classify([filepath])
                 resStats = result
-                result = [jsonstrto(result)]
+                result = [jsonstrto(result, 1)]
 
                 # handling the stats
                 if jsonType(resStats) == 'blood':
@@ -172,7 +172,7 @@ def upload():
                 print result
 
             # delete temp dir
-            # shutil.rmtree("./temp/", ignore_errors=True)
+            shutil.rmtree("./temp/", ignore_errors=True)
 
             # return result rendered onto html page
             return render_template('results/results.html', result = result, image=filepath, typeStats = typeStats)
