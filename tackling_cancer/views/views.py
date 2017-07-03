@@ -37,12 +37,12 @@ def allowed_file(filename):
         filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
 
 # parse json dump string into cleaner string
-def jsonstrto(jsonstr):
+def jsonstrto(jsonstr, counter):
     result = []
     j = json.loads(jsonstr)
     images = j['images']
     for image in range(len(images)):
-        result.append('Cell #: ' + str(image))
+        result.append('Cell #' + str(counter))
         classes = images[image]['classifiers'][0]['classes']
         for c in range(len(classes)):
             if classes[c]['class'] == 'blood':
@@ -138,9 +138,11 @@ def upload():
                 numCancer = 0
                 numOther = 0
 
-                for item in result:
-                    jsonstrlist.append(jsonstrto(item))
+                counter = 1
 
+                for item in result:
+                    jsonstrlist.append(jsonstrto(item, counter))
+                    counter += 1
                     # handling the stats
                     # res = result[item]
                     if jsonType(item) == 'blood':
@@ -193,9 +195,11 @@ def main_upload():
             numCancer = 0
             numOther = 0
 
-            for item in result:
-                jsonstrlist.append(jsonstrto(item))
+            counter = 1
 
+            for item in result:
+                jsonstrlist.append(jsonstrto(item, counter))
+                counter += 1
                 # handling the stats
                 # res = result[item]
                 if jsonType(item) == 'blood':
