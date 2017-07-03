@@ -3,13 +3,14 @@ import json, sys, cv2, zipfile, os, shutil, pprint
 from os.path import join, dirname
 from watson_developer_cloud import VisualRecognitionV3
 from PIL import Image
+from pathlib import Path
 
 # authentication
 visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, \
-    api_key = '1f99876aede140f190790ed9c86499e6fe9d525d')
+    api_key = '4e6bfd82f38ac6af1c5d2c8a8dc673dbd97f3f64')
 
 # classify ID
-classifier_id = 'Cancer_1009023861'
+classifier_id = 'Cancer_711062814'
 
 def classifyImage(image_path):
 
@@ -52,16 +53,30 @@ def classifyZip(zip_path):
     # delete tmp dir
     shutil.rmtree("./tmp/", ignore_errors=True)
 
+    with open(zip_path[:-4] + ".txt", 'wb') as archive:
+        archive.write(json.dumps(imageList))
+
     # return image list
     return imageList
+
+def archive(text_file):
+    with open(text_file, 'rb') as tf:
+        source = f.read()
+        data = json.loads(source)
+        return data
 
 def classify(argv):
 
     # read the file
     filename = argv[0]
+    print "hello " + filename
+
+    txtf = Path(filename[:-4] + ".txt")
+    if txtf.is_file():
+        return archive(txtf)
 
     # check it's an image file
-    if filename.endswith(".jpg"):
+    elif filename.endswith(".jpg"):
         return classifyImage(filename)
 
     # check it's a zip file

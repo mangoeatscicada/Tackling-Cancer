@@ -25,6 +25,7 @@ import matplotlib.pyplot as plt, mpld3
 import time
 import StringIO
 from PIL import Image
+from pathlib import Path
 from tackling_cancer import app
 
 UPLOAD_FOLDER = 'temp'
@@ -161,11 +162,11 @@ def upload():
                 #pie = plotfunc0(cellStats)
                 typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
             
-                #jsonstrlist += 'Classifier_ID: Cancer_1009023861'
+                #jsonstrlist += 'Classifier_ID: Cancer_711062814'
 
                 print cellStats
 
-                #jsonstrlist += 'Classifier_ID: Cancer_1009023861'
+                #jsonstrlist += 'Classifier_ID: Cancer_711062814'
 
 
                 result = jsonstrlist
@@ -184,56 +185,67 @@ def main_upload():
 
         if allowed_file(f.filename):
             filename = secure_filename(f.filename)
-            makedirs("temp")
-            filepath = join(app.config['UPLOAD_FOLDER'], filename)
-            print filepath
-            f.save(filepath)
-            cellextractor.main([filepath])
+            txtf = Path(filename[:-4] + ".txt")
+            if txtf.is_file():
+                return "Hello World!"
+            else:
+                makedirs("temp")
+                filepath = join(app.config['UPLOAD_FOLDER'], filename)
+                print filepath
+                f.save(filepath)
+                cellextractor.main([filepath])
 
-            result = watson.classify(["temp.zip"])
+                result = watson.classify(["temp.zip"])
 
-            jsonstrlist = []
-            # result = result.split('$') 
-            numBlood = 0
-            numCancer = 0
-            numOther = 0
+                jsonstrlist = []
+                # result = result.split('$') 
+                numBlood = 0
+                numCancer = 0
+                numOther = 0
 
-            counter = 1
+                counter = 1
 
-            for item in result:
-                jsonstrlist.append(jsonstrto(item, counter))
-                counter += 1
-                # handling the stats
-                # res = result[item]
-                if jsonType(item) == 'blood':
-                    numBlood += 1
-                if jsonType(item) == 'cancer': 
-                    numCancer += 1
-                if jsonType(item) == 'other':
-                    numOther += 1
-            totalCells = numBlood + numCancer + numOther
-            percentB = numBlood/float(totalCells) * 100
-            percentC = numCancer/float(totalCells) * 100
-            percentO = numOther/float(totalCells) * 100
-            cellStats = (percentB, percentC, percentO)
-            #pie = plotfunc0(cellStats)
-            typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
-            
-            #jsonstrlist += 'Classifier_ID: Cancer_1009023861'
+                for item in result:
+                    jsonstrlist.append(jsonstrto(item, counter))
+                    counter += 1
+                    # handling the stats
+                    # res = result[item]
+                    if jsonType(item) == 'blood':
+                        numBlood += 1
+                    if jsonType(item) == 'cancer': 
+                        numCancer += 1
+                    if jsonType(item) == 'other':
+                        numOther += 1
+                totalCells = numBlood + numCancer + numOther
+                percentB = numBlood/float(totalCells) * 100
+                percentC = numCancer/float(totalCells) * 100
+                percentO = numOther/float(totalCells) * 100
+                cellStats = (percentB, percentC, percentO)
+                #pie = plotfunc0(cellStats)
+                typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
+                
+                #jsonstrlist += 'Classifier_ID: Cancer_711062814'
 
-            # delete temp dir
-            shutil.rmtree("./temp/", ignore_errors=True)
-            remove("temp.zip")
+                # delete temp dir
+                shutil.rmtree("./temp/", ignore_errors=True)
+                remove("temp.zip")
 
-            return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats)
+                return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats)
 
 @app.route('/demobiopsy', methods = ['GET', 'POST'])
 def demo():
     if request.method == 'POST':
 
+        w = "temp.zip"
+
         val = request.form["demo"]
         print val
         print "test1"
+
+        txtf = Path(filename[:-4] + ".txt")
+        if txtf.is_file():
+            return "Hello World!"
+        else:
         
         cellextractor.main([val])
         print "test2"
@@ -267,7 +279,7 @@ def demo():
         #pie = plotfunc0(cellStats)
         typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
         
-        #jsonstrlist += 'Classifier_ID: Cancer_1009023861'
+        #jsonstrlist += 'Classifier_ID: Cancer_711062814'
         # delete temp dir
         shutil.rmtree("./temp/", ignore_errors=True)
         remove("temp.zip")
