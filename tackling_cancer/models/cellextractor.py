@@ -50,7 +50,8 @@ def main(argv):
     
     cells_found = 0
     image0 = Image.open(argv[0])
-    image0.save('tackling_cancer/static/images/fullpic.jpg')
+    newFilepath = 'tackling_cancer/static/images/fullpic' + str(hash(argv[0])) + '.jpg' 
+    image0.save(newFilepath)
     
  
     for i in range(0,len(contours)):
