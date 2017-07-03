@@ -157,11 +157,11 @@ def upload():
                 #pie = plotfunc0(cellStats)
                 typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
             
-                #jsonstrlist += 'Classifier_ID: Cancer_939779875'
+                #jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
                 print cellStats
 
-                #jsonstrlist += 'Classifier_ID: Cancer_939779875'
+                #jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
 
                 result = jsonstrlist
@@ -212,7 +212,7 @@ def main_upload():
             #pie = plotfunc0(cellStats)
             typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
             
-            #jsonstrlist += 'Classifier_ID: Cancer_939779875'
+            #jsonstrlist += 'Classifier_ID: Cancer_1509313240'
 
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
@@ -220,21 +220,66 @@ def main_upload():
 
             return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats)
 
-@app.errorhandler(500)
-def internal_server_error(e):
-    return render_template('error/500.html'), 500
+@app.route('/demobiopsy', methods = ['GET', 'POST'])
+def demo():
+    if request.method == 'POST':
+        print "test1"
+        val = request.form["demo"]
+        print "test2"
+        if "001" in val:
+            print "test3"
+            cellextractor.main([val])
 
-@app.errorhandler(IOError)
-def io_error(e):
-    return render_template('error/io_error.html')
+            result = watson.classify(["temp.zip"])
 
-@app.errorhandler(NameError)
-def name_error(e):
-    return render_template('error/io_error.html')
+            jsonstrlist = []
+            # result = result.split('$') 
+            numBlood = 0
+            numCancer = 0
+            numOther = 0
 
-@app.errorhandler(ValueError)
-def value_error(e):
-    return render_template('error/io_error.html')
+            for item in result:
+                jsonstrlist.append(jsonstrto(item))
+
+                # handling the stats
+                # res = result[item]
+                if jsonType(item) == 'blood':
+                    numBlood += 1
+                if jsonType(item) == 'cancer': 
+                    numCancer += 1
+                if jsonType(item) == 'other':
+                    numOther += 1
+            totalCells = numBlood + numCancer + numOther
+            percentB = numBlood/float(totalCells) * 100
+            percentC = numCancer/float(totalCells) * 100
+            percentO = numOther/float(totalCells) * 100
+            cellStats = (percentB, percentC, percentO)
+            #pie = plotfunc0(cellStats)
+            typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
+            
+            #jsonstrlist += 'Classifier_ID: Cancer_1509313240'
+
+            # delete temp dir
+            shutil.rmtree("./temp/", ignore_errors=True)
+            remove("temp.zip")
+
+            return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats)
+
+# @app.errorhandler(500)
+# def internal_server_error(e):
+#     return render_template('error/500.html'), 500
+
+# @app.errorhandler(IOError)
+# def io_error(e):
+#     return render_template('error/io_error.html')
+
+# @app.errorhandler(NameError)
+# def name_error(e):
+#     return render_template('error/io_error.html')
+
+# @app.errorhandler(ValueError)
+# def value_error(e):
+#     return render_template('error/io_error.html')
 
 @app.route('/testing')
 def testing():
