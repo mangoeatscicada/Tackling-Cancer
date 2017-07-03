@@ -195,6 +195,8 @@ def main_upload():
             print filepath
             f.save(filepath)
             cellextractor.main([filepath])
+            originalImagePath = 'static/images/fullpic' + str(hash(filepath)) + '.jpg' 
+
 
             result = watson.classify([w])
 
@@ -228,7 +230,7 @@ def main_upload():
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
             remove("temp.zip")
-            return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats)
+            return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats, filePath = originalImagePath)
 
 @app.route('/demobiopsy', methods = ['GET', 'POST'])
 def demo():
@@ -251,6 +253,8 @@ def demo():
         print result
         print "test3"
         jsonstrlist = []
+
+        originalImagePath = 'static/images/' + basename(val) 
             
         numBlood = 0
         numCancer = 0
@@ -279,7 +283,7 @@ def demo():
         # delete temp dir
         shutil.rmtree("./temp/", ignore_errors=True)
         remove("temp.zip")
-        return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats)
+        return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats, filePath = originalImagePath)
 
 # @app.errorhandler(500)
 # def internal_server_error(e):
