@@ -30,7 +30,8 @@
 
           <div class="col-sm-4 leftCol">
             <h1>Results</h1>
-            <div><img src="static/images/001_biopsy.jpg" alt="Sample" style="width: 80%; height: 30%; margin-bottom: 8%;" class="center-block img-responsive img-thumbnail"></div>
+            <div>
+              <img src="static/images/some.jpg" alt="Sample" style="width: 80%; height: 30%; margin-bottom: 8%;" class="center-block img-responsive img-thumbnail"></div>
             <div><canvas id="chartjs-4" class="chartjs" style="display: block; height: 200px; width: 200px;" width= "150px" height="100px"></canvas></div>
           </div>
           
@@ -86,6 +87,17 @@
               "#ccf2ff"]
               }]}});
     };
+
+    var newImage = new Image();
+    newImage.src = "static/images/some.jpg";
+
+    function updateImage(){
+      if(newImage.complete) {
+        newImage = new Image();
+        newImage.src = "static/images/some.jpg?"
+      }
+    }
+
   </script>
 
   <script>
