@@ -81,11 +81,13 @@ def main(argv):
                 # write the image to a file
                 cells_found += 1
                 cell_filename = 'temp/' + re.sub('\.[^.]*$', "_cell_" + str(cells_found) + ".jpg", os.path.basename(filename))
+                print cell_filename
                 cv2.imwrite(cell_filename, crop, [cv2.IMWRITE_JPEG_QUALITY, 100])
                 cv2.imwrite('thumbnails/indiv'+str(cells_found)+".jpg", crop, [cv2.IMWRITE_JPEG_QUALITY, 100])
 
                 
     zipf = zipfile.ZipFile('temp.zip', 'w')
+    print newpath
     zipdir(newpath, zipf)    
     zipf.close
     # zipr = zipfile.ZipFile('temp.zip', 'r')
