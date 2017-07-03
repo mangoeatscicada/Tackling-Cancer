@@ -90,7 +90,7 @@ def jsonType(jsonstr):
 @app.route('/')
 def Welcome():
     # delete any temp dir if it exists
-    shutil.rmtree("./temp/", ignore_errors=True)
+    # shutil.rmtree("./temp/", ignore_errors=True)
     shutil.rmtree("./tmp/", ignore_errors=True)
 
     return app.send_static_file('index.html')
@@ -103,8 +103,10 @@ def upload():
 
         if allowed_file(f.filename):
             filename = secure_filename(f.filename)
-            makedirs("temp")
-            filepath = join(app.config['UPLOAD_FOLDER'], filename)
+            # makedirs("temp")
+            # fileextension = os.path.splitext(filename)[1]            
+            filepath = join('tackling_cancer/static/images', 'some.jpg')
+            print(filepath)
             f.save(filepath)
             
             # uploaded file is an image
@@ -170,7 +172,7 @@ def upload():
                 print result
 
             # delete temp dir
-            shutil.rmtree("./temp/", ignore_errors=True)
+            # shutil.rmtree("./temp/", ignore_errors=True)
 
             # return result rendered onto html page
             return render_template('results/results.html', result = result, image=filepath, typeStats = typeStats)
