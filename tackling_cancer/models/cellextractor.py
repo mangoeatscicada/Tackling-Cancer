@@ -73,7 +73,7 @@ def main(argv):
                 draw = ImageDraw.Draw(image)
                 draw.rectangle(((x,y),(x+w,y+h)), outline ='yellow')
                 draw.text((x,y), str(cells_found), fill='white')
-                image.save('highlights/fullhl'+str(cells_found)+'.png')                
+                image.save('tackling_cancer/models/highlights/fullhl'+str(cells_found)+'.png')                
                 # write the image to a file
                 cells_found += 1
                 cell_filename = 'temp/' + re.sub('\.[^.]*$', "_cell_" + str(cells_found) + ".jpg", os.path.basename(filename))
