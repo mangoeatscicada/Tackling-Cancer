@@ -8,8 +8,9 @@ h1 {
     color: black;
     text-align: center;
     text-transform: uppercase;
-    font-size: 4em;
+    font-size: 1.5em;
     border-color: white;
+    margin: 0%;
 }
 
 .animate-bottom {
@@ -33,7 +34,8 @@ h1 {
 .leftCol {
     position: fixed;
     background-color: #0099cc;
-    margin-top: 3%;
+    margin-top: 1%;
+    margin-bottom: .5%;
 }
 
 .rightCol {

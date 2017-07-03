@@ -28,19 +28,19 @@
     
       <div class="row animate-bottom">
 
-          <div class="col-sm-4 leftCol">
+          <div class="col-sm-5 col-sm-offset-1 leftCol">
             <div class="panel">
-              <div class="panel-header"><h1>Results</h1></div>
               <div class="panel-body">
-                <div><img src="static/images/001_biopsy.jpg" alt="Sample" style="width: 70%; height: 30%; margin-bottom: 5%; margin-top: 3%;" class="center-block img-responsive img-thumbnail"></div>
+                <div><img src="static/images/001_biopsy.jpg" alt="Sample" style="width: 70%; height: 30%; margin-bottom: 1%; margin-top: .5%;" class="center-block img-responsive img-thumbnail"></div>
+                <div><h1>Cell Composition</h1></div>
                 <div><canvas id="chartjs-4" class="chartjs" style="display: block; height: 200px; width: 200px;" width= "150px" height="100px"></canvas></div>
               </div>
             </div>
           </div>
           
-          <div class="col-sm-8 col-sm-offset-4 rightCol">
+          <div class="col-sm-4 col-sm-offset-6 rightCol">
                   <div class="panel" id="rightHead">
-                    <h2>Watson Confidence Levels</h2>
+                    <h2>Watson Results</h2>
                   </div>
                   {% for cell in result %}
                       <div class="panel">
