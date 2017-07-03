@@ -7,10 +7,10 @@ from pathlib import Path
 
 # authentication
 visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, \
-    api_key = '4e6bfd82f38ac6af1c5d2c8a8dc673dbd97f3f64')
+    api_key = '07e9eaf4bbd732fe9a6d89d676f113620491d17e')
 
 # classify ID
-classifier_id = 'Cancer_1970406009'
+classifier_id = 'Cancer_524812823'
 
 def classifyImage(image_path):
 
