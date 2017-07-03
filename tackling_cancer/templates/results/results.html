@@ -32,7 +32,7 @@
             <div class="panel">
               <div class="panel-body">
                 <div><img src="static/images/fullpic.jpg" alt="Sample" style="width: 70%; height: 30%; margin-bottom: 1%; margin-top: .5%;" class="center-block img-responsive img-thumbnail"></div>
-                <div><h1>Cell Composition</h1></div>
+                <div><h1>Biopsy Composition</h1></div>
                 <div><canvas id="chartjs-4" class="chartjs" style="display: block; height: 200px; width: 200px;" width= "150px" height="100px"></canvas></div>
               </div>
             </div>
@@ -93,8 +93,12 @@
               "#ccf2ff",
               "#ccf2ff"]
             }]
-          },
-              
+        },
+        "options": {
+          "legend": {
+            "display": false,
+          }
+        }
         });
     };
   </script>
