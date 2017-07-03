@@ -253,6 +253,8 @@ def demo():
         print result
         print "test3"
         jsonstrlist = []
+
+        originalImagePath = 'static/images/' + basename(val) 
             
         numBlood = 0
         numCancer = 0
@@ -281,7 +283,7 @@ def demo():
         # delete temp dir
         shutil.rmtree("./temp/", ignore_errors=True)
         remove("temp.zip")
-        return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats)
+        return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats, filePath = originalImagePath)
 
 # @app.errorhandler(500)
 # def internal_server_error(e):
