@@ -15,7 +15,7 @@
 import tackling_cancer.models.watson as watson
 import tackling_cancer.models.cellextractor as cellextractor
 import json, shutil, matplotlib
-from os.path import join, dirname, exists
+from os.path import join, dirname, exists, splitext
 from os import environ, getenv, listdir, remove, makedirs
 from watson_developer_cloud import VisualRecognitionV3  
 from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify, send_file
@@ -104,7 +104,7 @@ def upload():
         if allowed_file(f.filename):
             filename = secure_filename(f.filename)
             makedirs("temp")
-            fileextension = os.path.splitext(filename)[1]            
+            fileextension = splitext(filename)[1]            
             filepath = join(app.config['UPLOAD_FOLDER'], filename)
             print(filepath)
             f.save(filepath)
