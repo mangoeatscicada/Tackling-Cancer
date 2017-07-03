@@ -15,7 +15,7 @@
 import tackling_cancer.models.watson as watson
 import tackling_cancer.models.cellextractor as cellextractor
 import json, shutil, matplotlib
-from os.path import join, dirname, exists, splitext
+from os.path import join, dirname, exists, splitext, basename
 from os import environ, getenv, listdir, remove, makedirs
 from watson_developer_cloud import VisualRecognitionV3  
 from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify, send_file
@@ -186,51 +186,49 @@ def main_upload():
         if allowed_file(f.filename):
             filename = secure_filename(f.filename)
             txtf = Path(filename[:-4] + ".txt")
+            w = "temp.zip"
             if txtf.is_file():
-                return "Hello World!"
-            else:
-                makedirs("temp")
-                filepath = join(app.config['UPLOAD_FOLDER'], filename)
-                print filepath
-                f.save(filepath)
-                cellextractor.main([filepath])
+                w = filename
 
-                result = watson.classify(["temp.zip"])
+            makedirs("temp")
+            filepath = join(app.config['UPLOAD_FOLDER'], filename)
+            print filepath
+            f.save(filepath)
+            cellextractor.main([filepath])
 
-                jsonstrlist = []
-                # result = result.split('$') 
-                numBlood = 0
-                numCancer = 0
-                numOther = 0
+            result = watson.classify([w])
 
-                counter = 1
+            jsonstrlist = []
+            # result = result.split('$') 
+            numBlood = 0
+            numCancer = 0
+            numOther = 0
 
-                for item in result:
-                    jsonstrlist.append(jsonstrto(item, counter))
-                    counter += 1
-                    # handling the stats
-                    # res = result[item]
-                    if jsonType(item) == 'blood':
-                        numBlood += 1
-                    if jsonType(item) == 'cancer': 
-                        numCancer += 1
-                    if jsonType(item) == 'other':
-                        numOther += 1
-                totalCells = numBlood + numCancer + numOther
-                percentB = numBlood/float(totalCells) * 100
-                percentC = numCancer/float(totalCells) * 100
-                percentO = numOther/float(totalCells) * 100
-                cellStats = (percentB, percentC, percentO)
-                #pie = plotfunc0(cellStats)
-                typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
-                
-                #jsonstrlist += 'Classifier_ID: Cancer_1970406009'
-
-                # delete temp dir
-                shutil.rmtree("./temp/", ignore_errors=True)
-                remove("temp.zip")
-
-                return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats)
+            counter = 1
+            for item in result:
+                jsonstrlist.append(jsonstrto(item, counter))
+                counter += 1
+                # handling the stats
+                # res = result[item]
+                if jsonType(item) == 'blood':
+                    numBlood += 1
+                if jsonType(item) == 'cancer': 
+                    numCancer += 1
+                if jsonType(item) == 'other':
+                    numOther += 1
+            totalCells = numBlood + numCancer + numOther
+            percentB = numBlood/float(totalCells) * 100
+            percentC = numCancer/float(totalCells) * 100
+            percentO = numOther/float(totalCells) * 100
+            cellStats = (percentB, percentC, percentO)
+            #pie = plotfunc0(cellStats)
+            typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
+            
+            #jsonstrlist += 'Classifier_ID: Cancer_1970406009'
+            # delete temp dir
+            shutil.rmtree("./temp/", ignore_errors=True)
+            remove("temp.zip")
+            return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats)
 
 @app.route('/demobiopsy', methods = ['GET', 'POST'])
 def demo():
@@ -242,7 +240,7 @@ def demo():
         print val
         print "test1"
 
-        txtf = Path(val[:-4] + ".txt")
+        txtf = Path(basename(val)[:-4] + ".txt")
         if txtf.is_file():
             return "Hello World!"
         else:

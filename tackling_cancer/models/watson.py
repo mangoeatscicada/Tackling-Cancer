@@ -53,7 +53,7 @@ def classifyZip(zip_path):
     # delete tmp dir
     shutil.rmtree("./tmp/", ignore_errors=True)
 
-    with open(zip_path[:-4] + ".txt", 'wb') as archive:
+    with open("015_biopsy_test.txt", 'wb') as archive:
         archive.write(json.dumps(imageList))
 
     # return image list
@@ -61,7 +61,7 @@ def classifyZip(zip_path):
 
 def archive(text_file):
     with open(text_file, 'rb') as tf:
-        source = f.read()
+        source = tf.read()
         data = json.loads(source)
         return data
 
@@ -72,8 +72,9 @@ def classify(argv):
     print "hello " + filename
 
     txtf = Path(filename[:-4] + ".txt")
+    print txtf
     if txtf.is_file():
-        return archive(txtf)
+        return archive(str(txtf))
 
     # check it's an image file
     elif filename.endswith(".jpg"):
