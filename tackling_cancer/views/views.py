@@ -103,9 +103,9 @@ def upload():
 
         if allowed_file(f.filename):
             filename = secure_filename(f.filename)
-            # makedirs("temp")
-            # fileextension = os.path.splitext(filename)[1]            
-            filepath = join('tackling_cancer/static/images', 'some.jpg')
+            makedirs("temp")
+            fileextension = os.path.splitext(filename)[1]            
+            filepath = join(app.config['UPLOAD_FOLDER'], filename)
             print(filepath)
             f.save(filepath)
             
@@ -172,7 +172,7 @@ def upload():
                 print result
 
             # delete temp dir
-            # shutil.rmtree("./temp/", ignore_errors=True)
+            shutil.rmtree("./temp/", ignore_errors=True)
 
             # return result rendered onto html page
             return render_template('results/results.html', result = result, image=filepath, typeStats = typeStats)
@@ -186,6 +186,7 @@ def main_upload():
             filename = secure_filename(f.filename)
             makedirs("temp")
             filepath = join(app.config['UPLOAD_FOLDER'], filename)
+            print filepath
             f.save(filepath)
             cellextractor.main([filepath])
 
@@ -231,11 +232,13 @@ def demo():
     if request.method == 'POST':
 
         val = request.form["demo"]
-
+        print val
+        print "test1"
         cellextractor.main([val])
-
+        print "test2"
         result = watson.classify(["temp.zip"])
-
+        print result
+        print "test3"
         jsonstrlist = []
             
         numBlood = 0
