@@ -53,7 +53,7 @@ def classifyZip(zip_path):
     # delete tmp dir
     shutil.rmtree("./tmp/", ignore_errors=True)
 
-    # with open("001_biopsy.txt", 'wb') as archive:
+    # with open("017_biopsy.txt", 'wb') as archive:
     #     archive.write(json.dumps(imageList))
 
     # return image list
