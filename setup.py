@@ -27,6 +27,7 @@ setup(
         'Werkzeug',
         'matplotlib',
         'mpld3',
+        'pathlib',
         'Pillow',
         'scikit_learn',
     ], 
