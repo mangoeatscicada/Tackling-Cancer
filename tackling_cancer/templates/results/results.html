@@ -28,7 +28,7 @@
     
       <div class="row animate-bottom">
 
-          <div class="col-sm-5 col-sm-offset-1 leftCol">
+          <div class="col-sm-5 col-sm-offset-1 leftCol"> <!-- Right stationary columm: Handles biopsy picture and pie chart --> 
             <div class="panel">
               <div class="panel-body">
                 <div><img src= {{ filePath }} alt="Sample" style="width: 70%; height: 30%; margin-bottom: 1%; margin-top: .5%;" class="center-block img-responsive img-thumbnail"></div>
@@ -38,7 +38,7 @@
             </div>
           </div>
           
-          <div class="col-sm-4 col-sm-offset-6 rightCol">
+          <div class="col-sm-4 col-sm-offset-6 rightCol"> <!-- Left scrolling column: Dynamically handles individual cell information -->
                   <div class="panel" id="rightHead">
                     <h2>Watson Results</h2>
                   </div>
@@ -54,6 +54,7 @@
     </div>
   </body>
 
+  <!--Creation of the doughnut chart -->
   <script>
       new Chart(document.getElementById("chartjs-4"),{
         "type":"doughnut",
@@ -73,6 +74,7 @@
               }]}});
   </script>
 
+  <!--For loop handling cell statistic graph creation-->
   <script>
     var result = {{ result|safe }};
     var resultLength = result.length;
@@ -80,17 +82,13 @@
         new Chart(document.getElementById(result[i][0]),{
         "type":"horizontalBar",
         "data":{
-          "labels":["Blood %","Cancer %","Other %"],
+          "labels":["Cancer %"],
           "datasets":[{
             "label":"Confidence %",
-            "data": [result[i][1] * 100,result[i][2] * 100,result[i][3] * 100],
+            "data": [result[i][2] * 100,
             "backgroundColor":[
-              "rgb(255, 0, 0)",
-              "rgb(255, 205, 86)",
-              "rgb(54, 162, 235)",],
+              "rgb(255, 205, 86)",],
             "borderColor":[
-              "#ccf2ff",
-              "#ccf2ff",
               "#ccf2ff"]
             }]
         },
@@ -111,17 +109,7 @@
     };
   </script>
 
-  <script>
-  $("#testText").hover(
-    function(e){
-      $("#tooltip").show();
-    },
-    function(e){
-      $("#tooltip").hide();
-    }
-  );
-  </script>
-
+  <!--Adjusting Height of Stationary Right Col to Window Height-->
   <script>
     var height = $('.bodyClass').height();
     $('.leftCol').height(height);
