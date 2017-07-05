@@ -75,11 +75,17 @@ def main(argv):
                 #crop = src[y: y + h, x: x + w]
                 image = Image.open(argv[0]) 
                 draw = ImageDraw.Draw(image)
+                draw2 = ImageDraw.Draw(image0)
 
                 draw.rectangle(((x,y),(x+w,y+h)), outline ='yellow')
+                draw2.rectangle(((x,y), (x+w, y+h)), outline ='yellow')
                 draw.text((x,y), str(cells_found), fill='white')
-                image.save('tackling_cancer/models/highlights/fullhl'+str(cells_found)+'.jpg')                
-                # write the image to a file
+                draw2.text((x,y), str(cells_found), fill='white')
+                image0.save('tackling_cancer/models/highlights/fullpic.jpg')      
+                image.save('tackling_cancer/models/highlights/fullhl'+str(cells_found)+'.jpg')
+                          
+                # write the image to a file     
+                
                 cells_found += 1
                 cell_filename = 'temp/' + re.sub('\.[^.]*$', "_cell_" + str(cells_found) + ".jpg", os.path.basename(filename))
                 print cell_filename
