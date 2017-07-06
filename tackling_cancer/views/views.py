@@ -14,19 +14,21 @@
 
 import tackling_cancer.models.watson as watson
 import tackling_cancer.models.cellextractor as cellextractor
-import json, shutil, matplotlib
+import json, shutil, matplotlib, time, StringIO
 from os.path import join, dirname, exists, splitext, basename
 from os import environ, getenv, listdir, remove, makedirs
 from watson_developer_cloud import VisualRecognitionV3  
 from flask import Flask, render_template, request, send_from_directory, redirect, url_for, jsonify, send_file
 from werkzeug import secure_filename
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt, mpld3
-import time
-import StringIO
 from PIL import Image
 from pathlib import Path
+
+# import app
 from tackling_cancer import app
+
+# remove python rocket from dock (mac)
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt, mpld3
 
 UPLOAD_FOLDER = 'temp'
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'zip'])
@@ -70,28 +72,11 @@ def jsonType(jsonstr):
                 topclass = classes[c]['class']
         return topclass
 
-# def plotfunc0(sometuple):
-#     fig = plt.figure(figsize = (5,5))
-#     fig.patch.set_facecolor(color='#ccf2ff')
-#     fig.canvas.set_window_title('Cancer Chart')
-#     blood = sometuple[0]
-#     cancer = sometuple[1]
-#     other = sometuple[2]
-#     slices = [blood,cancer,other]
-#     activities = ['Blood', 'Cancer', 'Other']
-#     cols = ['r', 'm', '#D3D3D3']
-#     plt.pie(slices, colors = cols, startangle=90, autopct='%1.1f%%')
-#     plt.axis('off')
-#     plt.legend(activities)
-#     plt.title('Cancer Chart', color='k', fontsize = 20)
-#     fig.patch.set_facecolor(color='#ccf2ff')    
-#     return mpld3.fig_to_html(fig)        
-
-# home
+# homepage
 @app.route('/')
 def Welcome():
-    # delete any temp dir if it exists
-    # shutil.rmtree("./temp/", ignore_errors=True)
+    # delete any temp dir if it exists on refresh
+    shutil.rmtree("./temp/", ignore_errors=True)
     shutil.rmtree("./tmp/", ignore_errors=True)
 
     return app.send_static_file('index.html')
@@ -285,22 +270,24 @@ def demo():
         remove("temp.zip")
         return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats, filePath = originalImagePath)
 
-# @app.errorhandler(500)
-# def internal_server_error(e):
-#     return render_template('error/500.html'), 500
+# error handlers
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('error/500.html'), 500
 
-# @app.errorhandler(IOError)
-# def io_error(e):
-#     return render_template('error/io_error.html')
+@app.errorhandler(IOError)
+def io_error(e):
+    return render_template('error/io_error.html')
 
-# @app.errorhandler(NameError)
-# def name_error(e):
-#     return render_template('error/io_error.html')
+@app.errorhandler(NameError)
+def name_error(e):
+    return render_template('error/io_error.html')
 
-# @app.errorhandler(ValueError)
-# def value_error(e):
-#     return render_template('error/io_error.html')
+@app.errorhandler(ValueError)
+def value_error(e):
+    return render_template('error/io_error.html')
 
+# test and loading page
 @app.route('/testing')
 def testing():
     return app.send_static_file('resTester.html')

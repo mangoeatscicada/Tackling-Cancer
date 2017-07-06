@@ -30,18 +30,16 @@ def classifyImage(image_path):
     return i[0]
 
 def classifyZip(zip_path):
-
-    imageList = []
     
+    # create temp directory and unzip images into it
     os.makedirs("tmp")
-
     zipFile = zipfile.ZipFile(zip_path)
     zipFile.extractall("tmp")
     zipFile.close()
-
     images = "tmp/"
 
     # read data to classify
+    imageList = []
     for tmpDir in  os.listdir(images):
         if tmpDir in zip_path:
             for image_file in os.listdir(images+tmpDir):
@@ -60,6 +58,8 @@ def classifyZip(zip_path):
     return imageList
 
 def archive(text_file):
+
+    # return saved data for image previously classified
     with open(text_file, 'rb') as tf:
         source = tf.read()
         data = json.loads(source)
@@ -69,10 +69,9 @@ def classify(argv):
 
     # read the file
     filename = argv[0]
-    print "hello " + filename
 
+    # check if file already has saved data
     txtf = Path(filename[:-4] + ".txt")
-    print txtf
     if txtf.is_file():
         return archive(str(txtf))
 
@@ -84,6 +83,7 @@ def classify(argv):
     elif filename.endswith(".zip"):
         return classifyZip(filename)
 
+    # file could not be read as an image or zip file
     else:
         sys.exit(filename + " could not be read as an image or zip file")
 
