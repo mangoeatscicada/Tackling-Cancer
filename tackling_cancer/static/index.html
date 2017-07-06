@@ -2,7 +2,6 @@
 <html>
 
   <head>
-
     <title>Tackling Cancer</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,24 +20,27 @@
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.6.6/jquery.fullPage.css">
        <link rel="stylesheet" href="static/stylesheets/index.css">
        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.7.8/jquery.fullPage.min.js"></script>
-  
   </head>
 
   <body>
-
     <div id="fullpage">
-        <section class="vertical-scrolling">
+
+        <!-- First page slide -->
+        <section class="vertical-scrolling"> 
             <div><img src="static/images/watson-logo.png" alt="IBM's Watson" width="150em"><h2>Tackling Cancer</h2></div>
             <h3>A Watson Visual Recognition Demo</h3>
             <div class="scroll-icon">
             <p>Jump into the fun</p>
             <a href="#demos" class="icon-up-open-big"></a>
             </div>
-        </section>
-        <section class="vertical-scrolling">
+        </section> 
+
+        <!-- Second page slide -->
+        <section class="vertical-scrolling"> 
             <h3>Select a sample biopsy image below for a demonstration</h3>
             <form action="/demobiopsy" method="POST" enctype="multipart/form-data">
                 <div>
+                    <!-- Demo Images/Selection -->
                     <input class="gallery_demo" type="image" id="image_01" src="static/images/001_biopsy.jpg" alt="Biopsy Image #01" width="200em" name="demo" value="tackling_cancer/static/images/001_biopsy.jpg">
                     <input class="gallery_demo" type="image" id="image_13" src="static/images/013_biopsy.jpg" alt="Biopsy Image #13" width="200em" name="demo" value="tackling_cancer/static/images/013_biopsy.jpg">
                     <input class="gallery_demo" type="image" id="image_15" src="static/images/015_biopsy.jpg" alt="Biopsy Image #15" width="200em" name="demo" value="tackling_cancer/static/images/015_biopsy.jpg">
@@ -51,10 +53,12 @@
             <a href="#upload" class="icon-up-open-big"></a>
             </div>
         </section>
-        <section class="vertical-scrolling">
+
+        <!-- Third page slide -->
+        <section class="vertical-scrolling"> 
             <h3 id="selection">Select your own</h3>
             <div>
-                <div class="row">
+                <div class="row"> <!-- Single image or zip file uploader -->
                     <div class="col-sm-4 col-sm-offset-4 text-center">
                         <div class="panel panel-info">
                             <div class="panel-heading">Individual cell or multiple cells</div>
@@ -63,16 +67,17 @@
                                     <div class="input-group image-preview"> <!-- Pic Upload Preview taken from https://bootsnipp.com/snippets/featured/input-file-popover-preview-image -->
                                         <input type="text" placeholder=".jpg or .zip" class="form-control image-preview-filename" disabled="disabled"> 
                                         <span class="input-group-btn">
-                                            <!-- image-preview-clear button -->
+                                            <!-- Clear button -->
                                             <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
                                                 <span class="glyphicon glyphicon-remove"></span> Clear
                                             </button>
-                                            <!-- image-preview-input -->
+                                            <!-- Browse button & file input -->
                                             <div class="btn btn-default image-preview-input">
                                                 <span class="glyphicon glyphicon-folder-open"></span>
                                                 <span class="image-preview-input-title">Browse</span>
                                                 <input type="file" name="file" class="file"/> 
                                             </div>
+                                            <!-- Submit button -->
                                             <button type="submit" class="btn btn-default image-preview-submit" style="display:none;" id="submit"> Submit </button>
                                         </span>
                                     </div>
@@ -82,26 +87,26 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row"> <!-- Full biopsy image uploader -->
                     <div class="col-sm-4 col-sm-offset-4 text-center">
                         <div class="panel panel-info">
                             <div class="panel-heading">Biopsy classifier</div>
                             <div class="panel-body">
                                 <form action="/result" method="POST" enctype="multipart/form-data">
-                                    <!-- full tester case-->
-                                    <div class="input-group image-preview-full"> <!-- Pic Upload Preview taken from https://bootsnipp.com/snippets/featured/input-file-popover-preview-image -->
+                                    <div class="input-group image-preview-full">
                                         <input type="text" placeholder=".jpg" class="form-control image-preview-filename-full" disabled="disabled"> 
                                         <span class="input-group-btn">
-                                            <!-- image-preview-clear button -->
+                                            <!-- Clear button -->
                                             <button type="button" class="btn btn-default image-preview-clear-full" style="display:none;">
                                                 <span class="glyphicon glyphicon-remove"></span> Clear
                                             </button>
-                                            <!-- image-preview-input -->
+                                            <!-- Browse button & file input -->
                                             <div class="btn btn-default image-preview-input-full">
                                                 <span class="glyphicon glyphicon-folder-open"></span>
                                                 <span class="image-preview-input-title-full">Browse</span>
                                                 <input type="file" name="file" class="file"/> 
                                             </div>
+                                            <!-- Submit button -->
                                             <button type="submit" class="btn btn-default image-preview-submit-full" style="display:none;" id="submit"> Submit </button>
                                         </span>
                                     </div>
@@ -112,12 +117,11 @@
                 </div>
             </div>
         </section>
-    </div>
-            
+        
+    </div> 
   </body>
 
   <script>
-
     // fullpage.js customization
     $('#fullpage').fullpage({
     sectionsColor: ['#0099cc', '#ccf2ff', '#ccf2ff'],
