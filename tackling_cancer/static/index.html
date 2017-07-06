@@ -2,6 +2,7 @@
 <html>
 
   <head>
+
     <title>Tackling Cancer</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,21 +19,9 @@
       
     <!-- Importing Personal Stylesheet -->
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.6.6/jquery.fullPage.css">
-       <link rel="stylesheet" href="static/stylesheets/style2.css">
+       <link rel="stylesheet" href="static/stylesheets/index.css">
        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.7.8/jquery.fullPage.min.js"></script>
-       <style> 
-
-        input.gallery_demo {
-            margin: 5px;
-            transition: 0.10s;
-        }
-
-        input.gallery_demo:hover {
-            transform: scale(1.1);
-        }
-
-       </style>
-    
+  
   </head>
 
   <body>
@@ -51,20 +40,11 @@
             <form action="/demobiopsy" method="POST" enctype="multipart/form-data">
                 <div>
                     <input class="gallery_demo" type="image" id="image_01" src="static/images/001_biopsy.jpg" alt="Biopsy Image #01" width="200em" name="demo" value="tackling_cancer/static/images/001_biopsy.jpg">
-
                     <input class="gallery_demo" type="image" id="image_13" src="static/images/013_biopsy.jpg" alt="Biopsy Image #13" width="200em" name="demo" value="tackling_cancer/static/images/013_biopsy.jpg">
-                    
-                    
                     <input class="gallery_demo" type="image" id="image_15" src="static/images/015_biopsy.jpg" alt="Biopsy Image #15" width="200em" name="demo" value="tackling_cancer/static/images/015_biopsy.jpg">
-                    
-                    
                     <input class="gallery_demo" type="image" id="image_17" src="static/images/017_biopsy.jpg" alt="Biopsy Image #17" width="200em" name="demo" value="tackling_cancer/static/images/017_biopsy.jpg">
-                    
-                    
                     <input class="gallery_demo" type="image" id="image_19" src="static/images/019_biopsy.jpg" alt="Biopsy Image #19" width="200em" name="demo" value="tackling_cancer/static/images/019_biopsy.jpg">
-                    
                 </div>
-
             </form>
             <div class="scroll-icon">
             <p>Or upload your own</p>
@@ -76,59 +56,58 @@
             <div>
                 <div class="row">
                     <div class="col-sm-4 col-sm-offset-4 text-center">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Individual cell or multiple cells</div>
-                        <div class="panel-body">
-                        <form action="/results" method="POST" enctype="multipart/form-data">
-                            <!-- @hevin COPY from HERE -->
-                            <div class="input-group image-preview"> <!-- Pic Upload Preview taken from https://bootsnipp.com/snippets/featured/input-file-popover-preview-image -->
-                                <input type="text" placeholder=".jpg or .zip" class="form-control image-preview-filename" disabled="disabled"> 
-                                <span class="input-group-btn">
-                                    <!-- image-preview-clear button -->
-                                    <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
-                                        <span class="glyphicon glyphicon-remove"></span> Clear
-                                    </button>
-                                    <!-- image-preview-input -->
-                                    <div class="btn btn-default image-preview-input">
-                                        <span class="glyphicon glyphicon-folder-open"></span>
-                                        <span class="image-preview-input-title">Browse</span>
-                                        <input type="file" name="file" class="file"/> 
+                        <div class="panel panel-info">
+                            <div class="panel-heading">Individual cell or multiple cells</div>
+                            <div class="panel-body">
+                                <form action="/results" method="POST" enctype="multipart/form-data">
+                                    <div class="input-group image-preview"> <!-- Pic Upload Preview taken from https://bootsnipp.com/snippets/featured/input-file-popover-preview-image -->
+                                        <input type="text" placeholder=".jpg or .zip" class="form-control image-preview-filename" disabled="disabled"> 
+                                        <span class="input-group-btn">
+                                            <!-- image-preview-clear button -->
+                                            <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                                                <span class="glyphicon glyphicon-remove"></span> Clear
+                                            </button>
+                                            <!-- image-preview-input -->
+                                            <div class="btn btn-default image-preview-input">
+                                                <span class="glyphicon glyphicon-folder-open"></span>
+                                                <span class="image-preview-input-title">Browse</span>
+                                                <input type="file" name="file" class="file"/> 
+                                            </div>
+                                            <button type="submit" class="btn btn-default image-preview-submit" style="display:none;" id="submit"> Submit </button>
+                                        </span>
                                     </div>
-                                    <button type="submit" class="btn btn-default image-preview-submit" style="display:none;" id="submit"> Submit </button>
-                                </span>
+                                </form>
                             </div>
-                        </form>
                         </div>
-                    </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-4 col-sm-offset-4 text-center">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Biopsy classifier</div>
-                        <div class="panel-body">
-                        <form action="/result" method="POST" enctype="multipart/form-data">
-                            <!-- full tester case-->
-                            <div class="input-group image-preview-full"> <!-- Pic Upload Preview taken from https://bootsnipp.com/snippets/featured/input-file-popover-preview-image -->
-                                <input type="text" placeholder=".jpg" class="form-control image-preview-filename-full" disabled="disabled"> 
-                                <span class="input-group-btn">
-                                    <!-- image-preview-clear button -->
-                                    <button type="button" class="btn btn-default image-preview-clear-full" style="display:none;">
-                                        <span class="glyphicon glyphicon-remove"></span> Clear
-                                    </button>
-                                    <!-- image-preview-input -->
-                                    <div class="btn btn-default image-preview-input-full">
-                                        <span class="glyphicon glyphicon-folder-open"></span>
-                                        <span class="image-preview-input-title-full">Browse</span>
-                                        <input type="file" name="file" class="file"/> 
+                        <div class="panel panel-info">
+                            <div class="panel-heading">Biopsy classifier</div>
+                            <div class="panel-body">
+                                <form action="/result" method="POST" enctype="multipart/form-data">
+                                    <!-- full tester case-->
+                                    <div class="input-group image-preview-full"> <!-- Pic Upload Preview taken from https://bootsnipp.com/snippets/featured/input-file-popover-preview-image -->
+                                        <input type="text" placeholder=".jpg" class="form-control image-preview-filename-full" disabled="disabled"> 
+                                        <span class="input-group-btn">
+                                            <!-- image-preview-clear button -->
+                                            <button type="button" class="btn btn-default image-preview-clear-full" style="display:none;">
+                                                <span class="glyphicon glyphicon-remove"></span> Clear
+                                            </button>
+                                            <!-- image-preview-input -->
+                                            <div class="btn btn-default image-preview-input-full">
+                                                <span class="glyphicon glyphicon-folder-open"></span>
+                                                <span class="image-preview-input-title-full">Browse</span>
+                                                <input type="file" name="file" class="file"/> 
+                                            </div>
+                                            <button type="submit" class="btn btn-default image-preview-submit-full" style="display:none;" id="submit"> Submit </button>
+                                        </span>
                                     </div>
-                                    <button type="submit" class="btn btn-default image-preview-submit-full" style="display:none;" id="submit"> Submit </button>
-                                </span>
+                                </form>
                             </div>
-                        </form>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -139,20 +118,7 @@
 
   <script>
 
-    // variables
-    var $header_top = $('.header-top');
-    var $nav = $('nav');
-
-
-
-    // toggle menu 
-    $header_top.find('a').on('click', function() {
-    $(this).parent().toggleClass('open-menu');
-    });
-
-
-
-    // fullpage customization
+    // fullpage.js customization
     $('#fullpage').fullpage({
     sectionsColor: ['#0099cc', '#ccf2ff', '#ccf2ff'],
     sectionSelector: '.vertical-scrolling',
@@ -164,12 +130,12 @@
     menu: '#menu',
     }); 
 
-    // handling picture demo inputs
+    // Handling picture demo inputs
     $("input[id='image_001']").click(function() {
         $("input[id='file_1']").click();
     });
 
-    // handling the manual uploads 
+    // Handling the manual uploads 
         $(document).on('click', '#close-preview', function(){ //The #close-preview HERE corresponds to [see below]
         $('.image-preview').popover('hide');
         // Hover befor close the preview
