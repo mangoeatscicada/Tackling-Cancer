@@ -31,7 +31,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt, mpld3
 
 UPLOAD_FOLDER = 'temp'
-ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'zip'])
+ALLOWED_EXTENSIONS = set(['jpg', 'zip'])
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -110,7 +110,6 @@ def upload():
                     cellStats = (0.0, 100.0, 0.0)
                 else: cellStats = (0.0, 0.0, 100.0)
                 print cellStats
-                #pie = plotfunc0(cellStats)
                 typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
 
             # uploaded file is a zip
@@ -144,15 +143,10 @@ def upload():
                 percentC = numCancer/float(totalCells) * 100
                 percentO = numOther/float(totalCells) * 100
                 cellStats = (percentB, percentC, percentO)
-                #pie = plotfunc0(cellStats)
+
                 typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
-            
-                #jsonstrlist += 'Classifier_ID: Cancer_524812823'
 
                 print cellStats
-
-                #jsonstrlist += 'Classifier_ID: Cancer_524812823'
-
 
                 result = jsonstrlist
                 print result
@@ -186,7 +180,7 @@ def main_upload():
             result = watson.classify([w])
 
             jsonstrlist = []
-            # result = result.split('$') 
+
             numBlood = 0
             numCancer = 0
             numOther = 0
@@ -208,13 +202,15 @@ def main_upload():
             percentC = numCancer/float(totalCells) * 100
             percentO = numOther/float(totalCells) * 100
             cellStats = (percentB, percentC, percentO)
-            #pie = plotfunc0(cellStats)
+
             typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
-            
-            #jsonstrlist += 'Classifier_ID: Cancer_524812823'
+
             # delete temp dir
             shutil.rmtree("./temp/", ignore_errors=True)
-            remove("temp.zip")
+            if exists("temp.zip"):
+                remove("temp.zip")
+
+            # return result rendered onto html page
             return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats, filePath = originalImagePath)
 
 @app.route('/demobiopsy', methods = ['GET', 'POST'])
@@ -224,19 +220,17 @@ def demo():
         w = "temp.zip"
 
         val = request.form["demo"]
-        print val
-        print "test1"
-        print Path(basename(val)[:-4] + ".txt")
 
+        # if demo image has previously been classified, change filename from temp.zip to (demo_img_name).zip
         txtf = Path(basename(val)[:-4] + ".txt")
         if txtf.is_file():
             w = basename(val)[:-4] + ".zip"
         
-        cellextractor.main([val])
-        print "test2"
+        else:
+            cellextractor.main([val])
+
         result = watson.classify([w])
-        print result
-        print "test3"
+
         jsonstrlist = []
 
         originalImagePath = 'static/images/' + basename(val) 
@@ -261,31 +255,33 @@ def demo():
         percentC = numCancer/float(totalCells) * 100
         percentO = numOther/float(totalCells) * 100
         cellStats = (percentB, percentC, percentO)
-        #pie = plotfunc0(cellStats)
+
         typeStats = [int(cellStats[0]),int(cellStats[1]),int(cellStats[2])]
         
-        #jsonstrlist += 'Classifier_ID: Cancer_524812823'
         # delete temp dir
         shutil.rmtree("./temp/", ignore_errors=True)
-        remove("temp.zip")
+        if exists("temp.zip"):
+            remove("temp.zip")
+
+        # return result rendered onto html page
         return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats, filePath = originalImagePath)
 
 # error handlers
-@app.errorhandler(500)
-def internal_server_error(e):
-    return render_template('error/500.html'), 500
+# @app.errorhandler(500)
+# def internal_server_error(e):
+#     return render_template('error/500.html'), 500
 
-@app.errorhandler(IOError)
-def io_error(e):
-    return render_template('error/io_error.html')
+# @app.errorhandler(IOError)
+# def io_error(e):
+#     return render_template('error/io_error.html')
 
-@app.errorhandler(NameError)
-def name_error(e):
-    return render_template('error/io_error.html')
+# @app.errorhandler(NameError)
+# def name_error(e):
+#     return render_template('error/io_error.html')
 
-@app.errorhandler(ValueError)
-def value_error(e):
-    return render_template('error/io_error.html')
+# @app.errorhandler(ValueError)
+# def value_error(e):
+#     return render_template('error/io_error.html')
 
 # test and loading page
 @app.route('/testing')
