@@ -7,10 +7,10 @@ from pathlib import Path
 
 # authentication
 visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, \
-    api_key = '07e9eaf4bbd732fe9a6d89d676f113620491d17e')
+    api_key = '4e6bfd82f38ac6af1c5d2c8a8dc673dbd97f3f64')
 
 # classify ID
-classifier_id = 'Cancer_524812823'
+classifier_id = 'Cancer_893830769'
 
 def classifyImage(image_path):
 
@@ -51,7 +51,7 @@ def classifyZip(zip_path):
     # delete tmp dir
     shutil.rmtree("./tmp/", ignore_errors=True)
 
-    # with open("017_biopsy.txt", 'wb') as archive:
+    # with open("019_biopsy.txt", 'wb') as archive:
     #     archive.write(json.dumps(imageList))
 
     # return image list
