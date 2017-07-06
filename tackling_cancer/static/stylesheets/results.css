@@ -1,3 +1,6 @@
+/* RESULTS PAGE STYLING
+–––––––––––––––––––––––––––––––––––––––––––––––––– */ 
+
 body, html, .container {
     background-color: #0099cc;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -12,6 +15,9 @@ h1 {
     border-color: white;
     margin: 0%;
 }
+
+/* Animation Handling 
+–––––––––––––––––––––––––––––––––––––––––––––––––– */ 
 
 .animate-bottom {
   position: relative;
@@ -30,6 +36,9 @@ h1 {
   from{ bottom:-100px; opacity:0 } 
   to{ bottom:0; opacity:1 }
 }
+
+/* General styling 
+–––––––––––––––––––––––––––––––––––––––––––––––––– */ 
 
 .leftCol {
     position: fixed;

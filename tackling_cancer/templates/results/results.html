@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  
     <!-- Importing Bootstrap --> 
       <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -23,16 +22,16 @@
   </head>
 
   <body class="bodyClass">
-    
     <div class="container-fluid">
-    
       <div class="row animate-bottom">
 
           <div class="col-sm-5 col-sm-offset-1 leftCol"> <!-- Right stationary columm: Handles biopsy picture and pie chart --> 
             <div class="panel">
               <div class="panel-body">
+                <!-- {{ filepath }} connects to the uploaded biopsy image -->
                 <div><img src= {{ filePath }} alt="Sample" style="width: 70%; height: 30%; margin-bottom: 1%; margin-top: .5%;" class="center-block img-responsive img-thumbnail"></div>
                 <div><h1>Biopsy Composition</h1></div>
+                <!-- canvas below handles the pychart --> 
                 <div><canvas id="chartjs-4" class="chartjs" style="display: block; height: 200px; width: 200px;" width= "200px" height="100px"></canvas></div>
               </div>
             </div>
@@ -48,34 +47,32 @@
                         <div class="panel-body"><canvas id="{{ cell[0] }}" class="chartjs" style="display: block; height: 10%; width: 10%;" width= "500px" height="100px"></canvas></div>
                       </div>
                   {% endfor %}
-        
           </div>
+
       </div>
     </div>
   </body>
 
-  <!--Creation of the doughnut chart -->
   <script>
-      new Chart(document.getElementById("chartjs-4"),{
-        "type":"doughnut",
-        "data":{
-          "labels":[" % Blood"," % Cancer"," % Other"],
-          "datasets":[{
-            "label":"Biopsy Composition",
-            "data": {{ typeStats }},
-            "backgroundColor":[
-              "rgb(255, 0, 0)",
-              "rgb(255, 205, 86)",
-              "rgb(54, 162, 235)",],
-            "borderColor":[
-              "#ccf2ff",
-              "#ccf2ff",
-              "#ccf2ff"]
-              }]}});
-  </script>
+    // Creation of the doughnut chart
+    new Chart(document.getElementById("chartjs-4"),{
+      "type":"doughnut",
+      "data":{
+        "labels":[" % Blood"," % Cancer"," % Other"],
+        "datasets":[{
+          "label":"Biopsy Composition",
+          "data": {{ typeStats }},
+          "backgroundColor":[
+            "rgb(255, 0, 0)",
+            "rgb(255, 205, 86)",
+            "rgb(54, 162, 235)",],
+          "borderColor":[
+            "#ccf2ff",
+            "#ccf2ff",
+            "#ccf2ff"]
+            }]}});
 
-  <!--For loop handling cell statistic graph creation-->
-  <script>
+    // For loop handling cell statistic graph creation
     var result = {{ result|safe }};
     var resultLength = result.length;
     for (var i = 0; i < resultLength; i++) {
@@ -107,10 +104,8 @@
         }
         });
     };
-  </script>
 
-  <!--Adjusting Height of Stationary Right Col to Window Height-->
-  <script>
+    // Adjusting height of stationary left col to window height
     var height = $('.bodyClass').height();
     $('.leftCol').height(height);
   </script>

@@ -16,16 +16,20 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       
         <!-- Importing Personal Stylesheet -->
-        <link rel="stylesheet" href="static/stylesheets/style1.css">
+        <link rel="stylesheet" href="static/stylesheets/errors.css">
     </head>
 
     <body>
         
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-3 text-center">
-                <h1>Internal Server Error</h1>
-                <p>Something went wrong! Turn on the error handler and run it again.</p>
-                <a href="/">Go back to safety</a>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="col-sm-6 col-sm-offset-3 text-center">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading centering"><h1>Internal Server Error!</h1></div>
+                        <p>Oops! Something went wrong!</p>
+                        <strong><a href="/" class="alert-link">Proceed to last checkpoint.</a></strong>
+                    </div>
+                </div>
             </div>
         </div>
 
