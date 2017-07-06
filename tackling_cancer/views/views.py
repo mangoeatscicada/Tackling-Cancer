@@ -267,21 +267,21 @@ def demo():
         return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats, filePath = originalImagePath)
 
 # error handlers
-# @app.errorhandler(500)
-# def internal_server_error(e):
-#     return render_template('error/500.html'), 500
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('error/500.html'), 500
 
-# @app.errorhandler(IOError)
-# def io_error(e):
-#     return render_template('error/io_error.html')
+@app.errorhandler(IOError)
+def io_error(e):
+    return render_template('error/io_error.html')
 
-# @app.errorhandler(NameError)
-# def name_error(e):
-#     return render_template('error/io_error.html')
+@app.errorhandler(NameError)
+def name_error(e):
+    return render_template('error/io_error.html')
 
-# @app.errorhandler(ValueError)
-# def value_error(e):
-#     return render_template('error/io_error.html')
+@app.errorhandler(ValueError)
+def value_error(e):
+    return render_template('error/io_error.html')
 
 # test and loading page
 @app.route('/testing')

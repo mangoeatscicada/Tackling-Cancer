@@ -49,6 +49,8 @@ def main(argv):
     _, contours, hierarchy = cv2.findContours(dst, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     
     cells_found = 0
+
+    #Saves the image to a file to use in Results page
     image0 = Image.open(argv[0])
     newFilepath = 'tackling_cancer/static/images/fullpic' + str(hash(argv[0])) + '.jpg' 
     image0.save(newFilepath)
@@ -81,7 +83,9 @@ def main(argv):
                 draw2.rectangle(((x,y), (x+w, y+h)), outline ='yellow')
                 draw.text((x,y), str(cells_found), fill='white')
                 draw2.text((x,y), str(cells_found), fill='white')
-                image0.save('tackling_cancer/models/highlights/fullpic.jpg')      
+                #adds all the highlights to one image
+                image0.save('tackling_cancer/models/highlights/fullpic.jpg')   
+                #saves each frame to a different image   
                 image.save('tackling_cancer/models/highlights/fullhl'+str(cells_found)+'.jpg')
                           
                 # write the image to a file     
