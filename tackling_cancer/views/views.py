@@ -267,15 +267,9 @@ def demo():
         return render_template('results/results.html', result = jsonstrlist, typeStats = typeStats, filePath = originalImagePath)
 
 # error handlers
-<<<<<<< HEAD
 @app.errorhandler(500)
 def internal_server_error(e):
     return render_template('error/500.html'), 500
-=======
-# @app.errorhandler(500)
-# def internal_server_error(e):
-#     return render_template('error/500.html'), 500
->>>>>>> dec3f5fc2167473c7a89a32b2973b00cfda776d9
 
 @app.errorhandler(IOError)
 def io_error(e):
