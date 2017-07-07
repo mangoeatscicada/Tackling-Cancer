@@ -1,0 +1,15 @@
+(Conner Russell): (need retrain)
+	api_key: c8be440798e52325714997d9f7f3f0407e38d57d
+	classifier_id: Cancer_939779875
+(Mingu Jeong):  (need retrain)
+	api_key: 3722ed0d4950e9c3c3c187a471043b264b2de23c
+	classifier_id: Cancer_1509313240
+(Mingu Jeong 2):  (need retrain)
+	api_key: 1f99876aede140f190790ed9c86499e6fe9d525d
+	classifier_id: Cancer_1009023861
+Full Cancer (Graham White):
+	api_key: 4e6bfd82f38ac6af1c5d2c8a8dc673dbd97f3f64
+	classifier_id: Cancer_893830769
+Automatic Extract Cancer (Hevin Na):
+	api_key: 07e9eaf4bbd732fe9a6d89d676f113620491d17e
+	classifier_id: Cancer_825696101

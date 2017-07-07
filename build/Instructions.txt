@@ -1,0 +1,31 @@
+001
+
+Each image you see will be different and will contain up to three different types of cell core:
+
+1. The white blood cell core is small, pink and round.
+2. The tissue cell core is long and elongated.
+3. The cancer cell core is bigger than the others and irregular in shape. They will be patchy purple (as in this image) or yellow (shown in later images) or a mixture of both.
+
+It’s the irregular shaped cancer cell cores we are interested in - you can ignore everything else.
+
+All three types of cell are shown in this image. Take a look, can you spot the different types of cell cores?
+
+002...
+
+Let’s take a closer look at a cancer cell core. As you can see, some of these are yellow and some are a patchy purple colour. They are irregular in shape. The red stuff is connective tissue. You can ignore it. We are only interested in cancer cell cores.
+
+The first question you will be asked is if you can see any cancer cell cores in your image. 
+
+If you can’t see any, or if the image is blank, click “none” and we will move you onto the next image.
+
+If you can see some, we will ask you three more questions...
+
+If you spot cancer cell cores we will ask you to:
+
+Give your best guess as to how many you can see in total (whether they are yellow or not), by clicking on one of the options.
+
+Estimate the proportion of yellow (versus purple) cancer cell cores by clicking on one of the options.
+
+Estimate the brightness of the yellow colour by clicking on one of the options.
+
+And that is all it takes to make a classification.
